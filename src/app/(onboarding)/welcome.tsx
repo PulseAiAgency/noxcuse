@@ -316,7 +316,12 @@ const posterStamp = new Keyframe({
 
 function SkipVisual({ active, width }: { active: boolean; width: number }) {
   const reduced = useReducedMotion();
-  const posterWidth = Math.min(width - 2 * spacing.xl, 300) * 0.82;
+  const { height } = useWindowDimensions();
+  // The poster must fit whole above the copy: at most ~36 % of the screen height (9:16), so it
+  // never spills over the title or gets its letters clipped on shorter iPhones.
+  const posterWidth = Math.floor(
+    Math.min((width - 2 * spacing.xl) * 0.82, 300, (height * 0.36 * 9) / 16),
+  );
   useEffect(() => {
     if (active) feedback('skip', { sound: false, haptics: true }).catch(() => undefined);
   }, [active]);
@@ -365,7 +370,7 @@ const styles = StyleSheet.create({
   heroBar: { alignItems: 'center', marginTop: spacing.lg },
   heroTagline: { fontSize: 22, lineHeight: 28 },
   heroCanap: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, alignSelf: 'flex-end' },
-  visual: { alignItems: 'center', justifyContent: 'center', flexShrink: 1 },
+  visual: { alignItems: 'center', justifyContent: 'center' },
   copy: { gap: spacing.sm },
   title: { fontSize: 34, lineHeight: 36, letterSpacing: -1 },
   card: {
