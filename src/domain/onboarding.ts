@@ -35,10 +35,14 @@ export const ONBOARDING_STEPS: readonly {
   { route: '/goal', done: (s) => s.goalConfirmed },
   { route: '/lifter-card', done: (s) => s.hasPseudo },
   { route: '/team-setup', done: (s) => s.teamCount > 0 },
-  { route: '/location', done: (s) => s.locationAsked },
   { route: '/rules', done: (s) => s.rulesAccepted },
+  // Before the paywall: the trial timeline promises a reminder notification.
   { route: '/notifications', done: (s) => s.notificationsAsked },
+  // Right after the team moment (team created or joined, bar seen, rules accepted): nothing
+  // technical in between, every extra screen loses players before the offer.
   { route: '/paywall', done: (s) => s.hasPro },
+  // The heaviest prompt (« Toujours ») comes once the player is committed, in context.
+  { route: '/location', done: (s) => s.locationAsked },
 ];
 
 export const ONBOARDING_TOTAL = ONBOARDING_STEPS.length;

@@ -93,8 +93,11 @@ export default function LocationStep() {
   return (
     <OnboardingScreen
       step={onboardingStepNumber('/location')}
+      label="Dernière étape"
       title="On vérifie juste que t'es à la salle."
-      subtitle={'Ta team voit « venu » ou « pas venu », jamais où t’es.'}
+      subtitle={
+        'Pour que tes séances comptent toutes seules. Ta team voit « venu » ou « pas venu », jamais où t’es.'
+      }
       footer={
         <Button
           label="Activer le pointage auto"

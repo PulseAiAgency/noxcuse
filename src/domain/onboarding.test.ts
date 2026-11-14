@@ -30,10 +30,10 @@ describe('nextOnboardingRoute', () => {
       'goalConfirmed',
       'hasPseudo',
       'teamCount',
-      'locationAsked',
       'rulesAccepted',
       'notificationsAsked',
       'hasPro',
+      'locationAsked',
     ];
     const expected = [
       '/hook',
@@ -42,10 +42,10 @@ describe('nextOnboardingRoute', () => {
       '/goal',
       '/lifter-card',
       '/team-setup',
-      '/location',
       '/rules',
       '/notifications',
       '/paywall',
+      '/location',
     ];
     let state: OnboardingState = { ...fresh };
     order.forEach((key, i) => {
@@ -69,16 +69,18 @@ describe('nextOnboardingRoute', () => {
       goalConfirmed: true,
       hasPseudo: true,
       teamCount: 2,
-      locationAsked: true,
       rulesAccepted: true,
       notificationsAsked: true,
     };
+    // The paywall comes before the location prompt.
     expect(nextOnboardingRoute(done)).toBe('/paywall');
+    expect(nextOnboardingRoute({ ...done, hasPro: true })).toBe('/location');
   });
 
   it('numbers steps for the progress bar', () => {
     expect(onboardingStepNumber('/hook')).toBe(1);
-    expect(onboardingStepNumber('/paywall')).toBe(10);
+    expect(onboardingStepNumber('/paywall')).toBe(9);
+    expect(onboardingStepNumber('/location')).toBe(10);
   });
 });
 
@@ -111,7 +113,7 @@ describe('remainingSteps', () => {
 
   it('counts every following step before sign-in', () => {
     expect(remainingSteps('/hook', null)).toBe(10);
-    expect(remainingSteps('/paywall', null)).toBe(1);
+    expect(remainingSteps('/location', null)).toBe(1);
   });
 
   it('skips steps already done, so a returning player sees a short honest count', () => {
@@ -124,8 +126,8 @@ describe('remainingSteps', () => {
       rulesAccepted: true,
       hasPro: true,
     };
-    expect(remainingSteps('/location', returning)).toBe(2); // location + notifications
-    expect(remainingSteps('/notifications', returning)).toBe(1);
+    expect(remainingSteps('/notifications', returning)).toBe(2); // notifications + location
+    expect(remainingSteps('/location', returning)).toBe(1);
   });
 
   it('labels the count', () => {
