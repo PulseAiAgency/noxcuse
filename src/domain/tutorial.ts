@@ -31,6 +31,20 @@ export const TEAM_TUTORIAL: readonly CoachStep[] = [
   },
 ];
 
+/** The tutorial for this team: alone, there is nobody to spot yet, so step 2 says so. */
+export function teamTutorial(solo: boolean): readonly CoachStep[] {
+  if (!solo) return TEAM_TUTORIAL;
+  return TEAM_TUTORIAL.map((s) =>
+    s.target === 'players'
+      ? {
+          ...s,
+          title: 'Ici, ta team.',
+          body: '« Fait », « À la salle » ou « Pas encore » pour chacun. Invite ton binôme : tu pourras le spotter quand il traîne (3 spots par jour).',
+        }
+      : s,
+  );
+}
+
 export type Rect = { x: number; y: number; width: number; height: number };
 
 /**

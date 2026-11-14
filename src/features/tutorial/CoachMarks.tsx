@@ -58,10 +58,13 @@ export function CoachMarks({
   steps,
   visible,
   onDone,
+  onFocusTarget,
 }: {
   steps: readonly CoachStep[];
   visible: boolean;
   onDone: () => void;
+  /** Called before a step is measured: scroll its element into view. */
+  onFocusTarget?: (target: CoachTargetId) => void;
 }) {
   const targets = useContext(TargetsContext);
   const reduced = useReducedMotion();
@@ -78,7 +81,8 @@ export function CoachMarks({
     if (!visible || !step) return;
     const node = targets?.get(step.target);
     if (!node) return;
-    // Wait a little: the screen may still be laying out (cascade animations).
+    onFocusTarget?.(step.target);
+    // Wait for the scroll and the cascade animations before measuring.
     const t = setTimeout(
       () =>
         node.measureInWindow((x, y, w, h) =>
@@ -90,10 +94,10 @@ export function CoachMarks({
                 : null,
           }),
         ),
-      120,
+      450,
     );
     return () => clearTimeout(t);
-  }, [visible, step, targets]);
+  }, [visible, step, targets, onFocusTarget]);
 
   if (!visible || !step) return null;
   const rect = measured?.target === step.target ? measured.rect : null;

@@ -1,4 +1,4 @@
-import { bubblePlacement, TEAM_TUTORIAL } from './tutorial';
+import { teamTutorial, bubblePlacement, TEAM_TUTORIAL } from './tutorial';
 
 describe('team tutorial', () => {
   it('walks through the bar, the players, the session button and the history', () => {
@@ -21,5 +21,13 @@ describe('team tutorial', () => {
 
   it('centres it when the element cannot be measured', () => {
     expect(bubblePlacement(null, 800, 200)).toEqual({ top: 300, arrow: 'none' });
+  });
+});
+
+describe('solo tutorial', () => {
+  it('does not promise a Spot button when nobody can be spotted yet', () => {
+    const players = teamTutorial(true).find((s) => s.target === 'players');
+    expect(players?.body).toMatch(/Invite ton binôme/);
+    expect(teamTutorial(false).find((s) => s.target === 'players')?.body).toMatch(/Touche Spot/);
   });
 });

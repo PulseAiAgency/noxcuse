@@ -1,6 +1,12 @@
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  RefreshControl,
+  ScrollView,
+  type ScrollViewInstance,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Animated, { FadeInDown, useReducedMotion } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
@@ -35,7 +41,7 @@ import {
 import { useBarState } from '@/features/teams/useBarState';
 import { useMyShop, useTeamSkins } from '@/features/shop/api';
 import { CoachMarks, CoachMarksProvider, useCoachTarget } from '@/features/tutorial/CoachMarks';
-import { TEAM_TUTORIAL } from '@/domain/tutorial';
+import { teamTutorial } from '@/domain/tutorial';
 import { useLocalOnboarding, useUpdateLocalOnboarding } from '@/features/onboarding/localStore';
 import { useLatestClosedWeek } from '@/features/weeks/api';
 import { weekRangeLabel } from '@/domain/weekClose';
@@ -58,6 +64,13 @@ function TeamScreen() {
   const playersTarget = useCoachTarget('players');
   const sessionTarget = useCoachTarget('session');
   const historyTarget = useCoachTarget('history');
+  // The tutorial scrolls each element into view before lighting it up.
+  const scroller = useRef<ScrollViewInstance>(null);
+  const offsets = useRef<Partial<Record<'bar' | 'players', number>>>({});
+  const focusTarget = useCallback((target: string) => {
+    const y = target === 'bar' || target === 'players' ? offsets.current[target] : 0;
+    scroller.current?.scrollTo({ y: Math.max(0, (y ?? 0) - 140), animated: true });
+  }, []);
   const teams = useMyTeams();
   const [teamIndex, setTeamIndex] = useState(0);
   const team = teams.data?.[Math.min(teamIndex, (teams.data?.length ?? 1) - 1)];
@@ -138,6 +151,7 @@ function TeamScreen() {
       <MapBackdrop center={center} />
       <SafeAreaView style={styles.fill} edges={['top']}>
         <ScrollView
+          ref={scroller}
           contentContainerStyle={styles.content}
           refreshControl={
             <RefreshControl
@@ -264,7 +278,14 @@ function TeamScreen() {
                 </View>
               </Animated.View>
 
-              <Animated.View entering={enter(1)} ref={barTarget} collapsable={false}>
+              <Animated.View
+                entering={enter(1)}
+                ref={barTarget}
+                collapsable={false}
+                onLayout={(e) => {
+                  offsets.current.bar = e.nativeEvent.layout.y;
+                }}
+              >
                 <GlassPanel radius={radii.glass} style={styles.barPanel}>
                   {state.pr ? (
                     <View style={styles.prRow}>
@@ -326,7 +347,14 @@ function TeamScreen() {
                 </Animated.View>
               ) : null}
 
-              <Animated.View entering={enter(3)} ref={playersTarget} collapsable={false}>
+              <Animated.View
+                entering={enter(3)}
+                ref={playersTarget}
+                collapsable={false}
+                onLayout={(e) => {
+                  offsets.current.players = e.nativeEvent.layout.y;
+                }}
+              >
                 <GlassPanel radius={radii.glass} style={styles.players}>
                   {state.players.map((p) => {
                     const row = board.data?.find((r) => r.user_id === p.id);
@@ -419,7 +447,8 @@ function TeamScreen() {
         </View>
         {/* First visit: the interactive tutorial, once the bar is on screen. */}
         <CoachMarks
-          steps={TEAM_TUTORIAL}
+          steps={teamTutorial((state?.players.length ?? 0) <= 1)}
+          onFocusTarget={focusTarget}
           visible={local.data?.tutorialSeen === false && Boolean(state)}
           onDone={() => saveLocal.mutate({ tutorialSeen: true })}
         />
