@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { type ComponentRef, useEffect, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
@@ -30,11 +30,14 @@ export default function SkipCardScreen() {
   const countShare = useCountSkipShare();
   const poster = useRef<ComponentRef<typeof View>>(null);
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  // Height actually left for the poster between the header and the footer (measured).
+  const [area, setArea] = useState(0);
   const [sharing, setSharing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // The poster fits the screen above the share button, 9:16.
-  const width = Math.min(screenWidth - spacing.lg * 2, ((screenHeight - 220) * 9) / 16, 420);
+  const room = (area || screenHeight * 0.55) - spacing.lg * 2;
+  const width = Math.floor(Math.min(screenWidth - spacing.lg * 2, (room * 9) / 16, 420));
 
   const loaded = Boolean(card.data);
   useEffect(() => {
@@ -85,7 +88,7 @@ export default function SkipCardScreen() {
         </PressableScale>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <View style={styles.content} onLayout={(e) => setArea(e.nativeEvent.layout.height)}>
         {data ? (
           <StyledPoster
             ref={poster}
@@ -103,7 +106,7 @@ export default function SkipCardScreen() {
           <Skeleton height={(width * 16) / 9} style={{ width }} />
         )}
         <ErrorNote message={card.error ? toUserMessage(card.error) : error} />
-      </ScrollView>
+      </View>
 
       {data ? (
         <View style={styles.footer}>
@@ -152,7 +155,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: { alignItems: 'center', padding: spacing.lg, gap: spacing.md },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: spacing.lg,
+    gap: spacing.md,
+  },
   footer: { paddingHorizontal: spacing.lg, paddingBottom: spacing.md, gap: spacing.sm },
   hint: { textAlign: 'center' },
   shopLink: { minHeight: minTouch, justifyContent: 'center' },
