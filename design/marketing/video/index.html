@@ -128,7 +128,8 @@
 
     // Scene 1–2: lock screen, notifications stack with a buzz.
     if (t < 5.2) {
-      const c1 = 1; // the hook is on screen from frame 0 $('cap1').style.opacity = t < 2.4 ? c1 : 0; $('cap1').style.transform = `translateY(${(1 - easeOut(c1)) * 40}px)`;
+      const c1 = 1; // the hook is on screen from frame 0
+      $('cap1').style.opacity = t < 2.4 ? c1 : 0; $('cap1').style.transform = `translateY(${(1 - easeOut(c1)) * 40}px)`;
       const c2 = seg(t, 2.4, 2.8); $('cap2').style.opacity = c2; $('cap2').style.transform = `translateY(${(1 - easeOut(c2)) * 40}px)`;
       const buzz = shake(t, 0.35) + shake(t, 2.9) + shake(t, 3.5) + shake(t, 4.1);
       $('phone').style.transform = `translateX(${buzz}px) rotate(${buzz * 0.1}deg)`;
