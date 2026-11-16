@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « POV : t'as skip »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .caption { left: 70px; right: 70px; top: 150px; font-family: Wide; font-size: 70px; line-height: 1.08; letter-spacing: -1px; text-transform: uppercase; }
+  .caption .o { color: #FF6A3D; }
+  /* Phone */
+  #phone { left: 190px; top: 470px; width: 700px; height: 1300px; border-radius: 90px; background: #1b1c20; border: 14px solid #2a2b30; box-sizing: border-box;
+    background-image: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(255,106,61,.22), transparent 70%); }
+  #clock { left: 0; right: 0; top: 140px; text-align: center; font-family: Semi; font-size: 170px; letter-spacing: -4px; color: #F5F5F0; }
+  #date { left: 0; right: 0; top: 110px; text-align: center; font-family: Semi; font-size: 36px; color: #C9CACE; }
+  .notif { left: 34px; right: 34px; height: 150px; border-radius: 36px; background: rgba(46,47,53,.96); display: flex; align-items: center; gap: 24px; padding: 0 28px; box-sizing: border-box; }
+  .notif img { width: 84px; height: 84px; border-radius: 20px; }
+  .notif .t { font-family: Semi; font-size: 28px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 33px; color: #F5F5F0; margin-top: 4px; }
+  /* Poster */
+  #poster { inset: 0; background: #ECECE8; color: #0E0E0F; }
+  .sk { left: 70px; font-family: Black; font-size: 560px; line-height: .8; letter-spacing: -30px; }
+  #canapSmug { right: 40px; top: 930px; width: 420px; }
+  #pHead { left: 80px; right: 80px; top: 1330px; font-family: Wide; font-size: 66px; line-height: 1.05; text-transform: uppercase; }
+  #pLine { left: 80px; right: 80px; top: 1510px; font-family: Med; font-size: 42px; color: #333; }
+  #pBrand { right: 80px; top: 90px; font-family: Black; font-size: 48px; letter-spacing: -2px; }
+  #pDate { left: 80px; top: 100px; font-family: Semi; font-size: 30px; letter-spacing: 3px; color: #555; }
+  #sticker { left: 80px; right: 80px; bottom: 120px; background: #111214; color: #F5F5F0; border-radius: 28px; padding: 30px 34px; font-family: Wide; font-size: 44px; line-height: 1.15; }
+  #sticker .o { color: #FF6A3D; }
+  /* Bar */
+  #kg { left: 70px; top: 420px; font-family: Wide; font-size: 230px; letter-spacing: -6px; }
+  #kg small { font-size: 110px; }
+  #barWrap { left: 40px; right: 40px; top: 900px; height: 420px; }
+  #plus { left: 0; right: 0; top: 1360px; text-align: center; font-family: Wide; font-size: 120px; color: #FF6A3D; }
+  #canapCrushed { left: 290px; top: 1000px; width: 500px; }
+  #prTitle { left: 70px; right: 70px; top: 420px; font-family: Black; font-size: 190px; line-height: .88; letter-spacing: -8px; }
+  #prSub { left: 70px; top: 1560px; font-family: Wide; font-size: 54px; color: #C9CACE; }
+  /* End */
+  .word { left: 70px; font-family: Black; font-size: 270px; line-height: .86; letter-spacing: -16px; }
+  .dot { color: #FF6A3D; }
+  #tag { left: 70px; right: 70px; top: 1190px; font-family: Wide; font-size: 62px; line-height: 1.12; }
+  #cta { left: 70px; right: 70px; top: 1520px; height: 150px; border-radius: 34px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 50px; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- 1–2: the notification lands -->
+  <div class="scene" id="s1">
+    <div class="abs caption" id="cap1">Quand t'as skip la salle…</div>
+    <div class="abs caption" id="cap2">…et que <span class="o">toute ta team</span> le sait.</div>
+    <div class="abs" id="phone">
+      <div class="abs" id="date">dimanche 15 novembre</div>
+      <div class="abs" id="clock">20:00</div>
+      <div class="abs notif" id="n1"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">SKIP. Alex a choisi le canap'.</div></div></div>
+      <div class="abs notif" id="n2"><img src="icon.png"><div><div class="t">Les Guerriers · Sam</div><div class="b">t'étais où ???</div></div></div>
+      <div class="abs notif" id="n3"><img src="icon.png"><div><div class="t">Les Guerriers · Lou</div><div class="b">la carte est sortie mdrrr</div></div></div>
+      <div class="abs notif" id="n4"><img src="icon.png"><div><div class="t">Le Canap'</div><div class="b">merci pour ta fidélité.</div></div></div>
+    </div>
+  </div>
+  <!-- 3: the SKIP card -->
+  <div class="scene" id="s3">
+    <div class="abs" id="poster">
+      <div class="abs" id="pDate">9 NOV. → 15 NOV.</div>
+      <div class="abs" id="pBrand">NOXCUSE<span class="dot">.</span></div>
+      <div class="abs sk" id="sk1" style="top:230px">SK</div>
+      <div class="abs sk" id="sk2" style="top:700px">IP</div>
+      <img class="abs" id="canapSmug" src="canap-smug.svg">
+      <div class="abs" id="pHead">Alex a choisi le canap'.</div>
+      <div class="abs" id="pLine">Le Canap' tient à remercier Alex pour sa fidélité.</div>
+      <div class="abs" id="sticker">Ta team reçoit ça.<br><span class="o">Tous les dimanches, 20 h.</span></div>
+    </div>
+  </div>
+  <!-- 4: next week, the bar loads -->
+  <div class="scene" id="s4">
+    <div class="abs caption" id="cap4">La semaine d'après :</div>
+    <div class="abs" id="kg"><span id="kgVal">0</span> <small>kg</small></div>
+    <svg class="abs" id="barWrap" viewBox="0 0 1000 420"></svg>
+    <div class="abs" id="plus">+20 KG.</div>
+  </div>
+  <!-- 5: team PR, the Canap' is crushed -->
+  <div class="scene" id="s5">
+    <div class="abs" id="prTitle">PR DE<br>LA TEAM<span class="dot">.</span></div>
+    <img class="abs" id="canapCrushed" src="canap-crushed.svg">
+    <div class="abs" id="prSub">Le Canap' est écrasé.</div>
+  </div>
+  <!-- 6: end card -->
+  <div class="scene" id="s6">
+    <div class="abs word" id="w1" style="top:430px">NO</div>
+    <div class="abs word" id="w2" style="top:680px">XCUSE<span class="dot">.</span></div>
+    <div class="abs" id="tag">Tes potes comptent sur toi.<br>Le Canap' aussi.</div>
+    <div class="abs" id="cta">Crée ta team · App Store</div>
+  </div>
+  <div class="abs" id="flash"></div>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  // Rubber stamp: big & transparent → slammed in place.
+  const stamp = (t, a) => { const p = seg(t, a, a + 0.28); return { o: clamp(p * 3), s: 1 + (1 - easeOut(p)) * 1.4 }; };
+  const shake = (t, a, d = 0.35, amp = 14) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 40) * amp * (1 - p) : 0; };
+  const show = (id, on) => { $(id).style.opacity = on; };
+
+  // Bar geometry (2 × 10 plates of 20 kg: 5 per side, teammates grey, you orange).
+  const plates = ['#B9BBC0', '#7C7E84', '#FF6A3D', '#D9DADD', '#FF6A3D'];
+  const bar = $('barWrap');
+  bar.innerHTML = '<rect x="0" y="198" width="1000" height="24" rx="12" fill="#8A9099"/>' +
+    '<rect x="420" y="190" width="160" height="40" rx="10" fill="#5E6066"/>' +
+    '<rect x="380" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/><rect x="594" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/>' +
+    plates.map((c, i) => `<rect id="pl${i}" x="${330 - i * 58}" y="60" width="48" height="300" rx="10" fill="${c}"/>` +
+      `<rect id="pr${i}" x="${622 + i * 58}" y="60" width="48" height="300" rx="10" fill="${c}"/>`).join('');
+
+  const SCENES = [['s1', 0, 5.2], ['s3', 5.2, 9.6], ['s4', 9.6, 13.4], ['s5', 13.4, 15.8], ['s6', 15.8, 19.5]];
+  window.DURATION = 19.5;
+
+  window.render = (t) => {
+    for (const [id, a, b] of SCENES) show(id, t >= a && t < b ? 1 : 0);
+    let flash = 0;
+
+    // Scene 1–2: lock screen, notifications stack with a buzz.
+    if (t < 5.2) {
+      const c1 = 1; // the hook is on screen from frame 0 $('cap1').style.opacity = t < 2.4 ? c1 : 0; $('cap1').style.transform = `translateY(${(1 - easeOut(c1)) * 40}px)`;
+      const c2 = seg(t, 2.4, 2.8); $('cap2').style.opacity = c2; $('cap2').style.transform = `translateY(${(1 - easeOut(c2)) * 40}px)`;
+      const buzz = shake(t, 0.35) + shake(t, 2.9) + shake(t, 3.5) + shake(t, 4.1);
+      $('phone').style.transform = `translateX(${buzz}px) rotate(${buzz * 0.1}deg)`;
+      const drops = [['n1', 0.35], ['n2', 2.9], ['n3', 3.5], ['n4', 4.1]];
+      drops.forEach(([id, a], i) => {
+        const p = seg(t, a, a + 0.35);
+        // Each new notif pushes the previous ones down.
+        const below = drops.filter(([, b]) => t >= b && b > a).length;
+        const y = 420 + below * 170;
+        $(id).style.opacity = p;
+        $(id).style.transform = `translateY(${y - (1 - back(p)) * 220}px) scale(${0.9 + 0.1 * easeOut(p)})`;
+      });
+    }
+
+    // Scene 3: the SKIP card stamps in.
+    if (t >= 5.2 && t < 9.6) {
+      const a = stamp(t, 5.35), b = stamp(t, 5.75);
+      $('sk1').style.opacity = a.o; $('sk1').style.transform = `scale(${a.s})`;
+      $('sk2').style.opacity = b.o; $('sk2').style.transform = `scale(${b.s})`;
+      const posterShake = shake(t, 5.6, 0.3, 18) + shake(t, 6.0, 0.3, 18);
+      $('poster').style.transform = `translate(${posterShake}px, ${posterShake * 0.5}px)`;
+      const c = seg(t, 6.1, 6.5);
+      const laugh = Math.abs(Math.sin((t - 6.1) * 9)) * 22 * (t > 6.5 ? 1 : c);
+      $('canapSmug').style.opacity = c;
+      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 300}px) translateY(${-laugh}px) rotate(${Math.sin((t - 6.1) * 9) * 3}deg)`;
+      for (const [id, s] of [['pHead', 6.6], ['pLine', 7.0], ['sticker', 7.7]]) {
+        const p = seg(t, s, s + 0.35);
+        $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - easeOut(p)) * 50}px)`;
+      }
+      $('pDate').style.opacity = $('pBrand').style.opacity = seg(t, 5.25, 5.5);
+    }
+
+    // Scene 4: the bar loads, plate by plate, kilos count up.
+    if (t >= 9.6 && t < 13.4) {
+      const cp = seg(t, 9.65, 10.0); $('cap4').style.opacity = cp;
+      let loaded = 0;
+      plates.forEach((_, i) => {
+        const s = 10.2 + i * 0.5;
+        const p = seg(t, s, s + 0.22);
+        if (t >= s) loaded = i + 1;
+        $('pl' + i).style.opacity = p; $('pr' + i).style.opacity = p;
+        $('pl' + i).setAttribute('transform', `translate(${-(1 - back(p)) * 160} 0)`);
+        $('pr' + i).setAttribute('transform', `translate(${(1 - back(p)) * 160} 0)`);
+        if (t >= s && t < s + 0.08) flash = 0.18;
+      });
+      $('kgVal').textContent = String(loaded * 40);
+      const last = 10.2 + (loaded - 1) * 0.5;
+      const pp = loaded ? seg(t, last, last + 0.15) * (1 - seg(t, last + 0.3, last + 0.45)) : 0;
+      $('plus').style.opacity = pp; $('plus').style.transform = `scale(${0.8 + 0.2 * pp})`;
+      $('barWrap').style.transform = `translateY(${shake(t, last, 0.2, 8)}px)`;
+    }
+
+    // Scene 5: team PR, the Canap' gets crushed.
+    if (t >= 13.4 && t < 15.8) {
+      const a = stamp(t, 13.45); $('prTitle').style.opacity = a.o; $('prTitle').style.transform = `scale(${a.s})`;
+      const c = seg(t, 13.9, 14.35);
+      $('canapCrushed').style.opacity = c;
+      $('canapCrushed').style.transform = `translateY(${(1 - easeOut(c)) * -500}px) scaleY(${1 - 0.25 * Math.sin(seg(t, 14.35, 14.7) * Math.PI)})`;
+      if (t >= 14.35 && t < 14.43) flash = 0.22;
+      const s = seg(t, 14.7, 15.0); $('prSub').style.opacity = s;
+    }
+
+    // Scene 6: end card.
+    if (t >= 15.8) {
+      const a = stamp(t, 15.9), b = stamp(t, 16.25);
+      $('w1').style.opacity = a.o; $('w1').style.transform = `scale(${a.s})`;
+      $('w2').style.opacity = b.o; $('w2').style.transform = `scale(${b.s})`;
+      for (const [id, s] of [['tag', 16.8], ['cta', 17.3]]) {
+        const p = seg(t, s, s + 0.35);
+        $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - easeOut(p)) * 50}px)`;
+      }
+      const pulse = 1 + 0.03 * Math.sin((t - 17.6) * 6) * (t > 17.6 ? 1 : 0);
+      $('cta').style.transform += ` scale(${pulse})`;
+    }
+    $('flash').style.opacity = flash;
+  };
+  window.render(0);
+</script>
+</body>
+</html>
