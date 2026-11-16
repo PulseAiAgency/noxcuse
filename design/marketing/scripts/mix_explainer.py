@@ -4,7 +4,7 @@ import sys
 from sfx import Mix, pop, tick
 
 m = Mix(27, sys.argv[1])
-thud, clang, snicker = (m.file(n) for n in ("thud.wav", "plate-clang.wav", "canap-snicker.wav"))
+thud, clang = (m.file(n) for n in ("thud.wav", "plate-clang.wav"))
 m.at(1.1, thud)                                  # « T'EN AS FAIT 1. » stamp
 m.at(1.6, pop(700))                              # the one session done
 for i in (1, 2, 3):                              # the three skipped ones
@@ -19,7 +19,6 @@ for i in range(5):                               # plates loading
     m.at(15.0 + i * 0.4, clang, 0.8)
 m.notif(17.2)                                    # « Sam vient de charger 20 kg »
 m.at(18.9, thud); m.at(19.3, thud)               # SK / IP
-m.at(19.7, snicker, 0.9)                         # the Canap' laughs
 m.at(22.3, thud); m.at(22.65, thud)              # NO / XCUSE
 m.at(24.2, m.chime, 0.9)                         # CTA
 m.write("sfx-explainer.wav")

@@ -35,13 +35,21 @@ def bell(freq, length, decay):
     return tone * env
 
 
+def marimba(freq, length, decay):
+    """Soft mallet note: fundamental + the 4x partial of a tuned bar, no glassy ring."""
+    t = np.arange(int(SR * length)) / SR
+    env = np.exp(-t * decay) * np.minimum(1, t / 0.002)
+    return (np.sin(2 * np.pi * freq * t) + 0.25 * np.sin(2 * np.pi * freq * 3.93 * t) * np.exp(-t * decay * 3)) * env
+
+
 def notif_chime():
-    out = np.zeros(int(SR * 0.9))
-    for i, f in enumerate([1318.5, 1760.0, 2093.0]):  # E6, A6, C7: quick rising alert
-        start = int(SR * i * 0.085)
-        b = bell(f, 0.9 - i * 0.085, 7.5) * (0.55 if i < 2 else 0.7)
-        out[start:start + len(b)] += b[: len(out) - start]
-    return out * 0.6
+    """Short, soft two-note phone alert (original sound, phone-like feel)."""
+    out = np.zeros(int(SR * 0.5))
+    for start, f, g in ((0.0, 1567.98, 0.55), (0.075, 2093.0, 0.7)):  # G6 then C7, very quick
+        s = int(SR * start)
+        b = marimba(f, 0.5 - start, 11) * g
+        out[s:s + len(b)] += b[: len(out) - s]
+    return out * 0.7
 
 
 def buzz():
