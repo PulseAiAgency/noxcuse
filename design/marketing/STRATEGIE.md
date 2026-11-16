@@ -54,6 +54,13 @@ Légende proposée :
 
 Sources : `video-kit/index.html` (une page, `#accroche`, `#notif`…), sons `python3 scripts/mix_kit.py audio` (depuis `scripts/`).
 
+## Le son des notifs (recherche, nov. 2026)
+- Le son que tout le monde reconnaît : **Tri-tone**, créé en 1999 par Kelly Jacklin pour SoundJam MP (« 158-marimba »). C'est un **marimba**, 3 notes enchaînées vite : la note de base, la quinte, l'octave.
+- Depuis iOS 17, le son par défaut des notifs d'apps est **Rebound** : 2 notes plus douces avec un peu d'écho. Beaucoup l'ont trouvé trop discret, et iOS 17.2 permet de remettre Tri-tone (Réglages → Sons et vibrations → Alertes par défaut). Les vraies notifs NOXCUSE jouent donc Rebound sur la plupart des iPhone récents.
+- Les vidéos utilisent maintenant un son **dans l'esprit de Tri-tone** (marimba, 3 notes rapides montantes, petit écho), synthétisé par nos soins (`audio/notif.wav`, `kit/son-notif.m4a`). Ce n'est pas le fichier d'Apple, qui n'est pas libre de droits. Pour le vrai, prends `noxcuse-pov-skip-sans-notifs.mp4` et le son « iPhone notification » de la bibliothèque CapCut / TikTok.
+
+Sources : 9to5mac.com (iOS 17, Rebound), digitaltrends.com (iOS 17.2), engadget.com et fastcompany.com (histoire de Tri-tone).
+
 ## 10 accroches à tourner ensuite (une par jour, mêmes éléments de l'app)
 1. « POV : ton pote a 0 séance et c'est dimanche 19 h 58. »
 2. « Le message que ta team reçoit quand tu sèches. » (la carte SKIP en gros plan)

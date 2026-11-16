@@ -36,20 +36,34 @@ def bell(freq, length, decay):
 
 
 def marimba(freq, length, decay):
-    """Soft mallet note: fundamental + the 4x partial of a tuned bar, no glassy ring."""
+    """Marimba bar: fundamental, the bar's 3.93x and 9.2x partials (fading fast), mallet click."""
     t = np.arange(int(SR * length)) / SR
-    env = np.exp(-t * decay) * np.minimum(1, t / 0.002)
-    return (np.sin(2 * np.pi * freq * t) + 0.25 * np.sin(2 * np.pi * freq * 3.93 * t) * np.exp(-t * decay * 3)) * env
+    env = np.exp(-t * decay) * np.minimum(1, t / 0.0015)
+    tone = (np.sin(2 * np.pi * freq * t)
+            + 0.30 * np.sin(2 * np.pi * freq * 3.93 * t) * np.exp(-t * decay * 4)
+            + 0.08 * np.sin(2 * np.pi * freq * 9.2 * t) * np.exp(-t * decay * 9))
+    click = np.random.default_rng(1).uniform(-1, 1, len(t)) * np.exp(-t * 900) * 0.15
+    return tone * env + click
+
+
+def room(x, amount=0.18):
+    """Tiny room echo, like a phone speaker in a room."""
+    out = x.copy()
+    for delay, g in ((0.031, 0.5), (0.047, 0.35), (0.071, 0.22), (0.11, 0.12)):
+        d = int(SR * delay)
+        out[d:] += x[:-d] * g * amount / 0.18
+    return out
 
 
 def notif_chime():
-    """Short, soft two-note phone alert (original sound, phone-like feel)."""
-    out = np.zeros(int(SR * 0.5))
-    for start, f, g in ((0.0, 1567.98, 0.55), (0.075, 2093.0, 0.7)):  # G6 then C7, very quick
-        s = int(SR * start)
-        b = marimba(f, 0.5 - start, 11) * g
-        out[s:s + len(b)] += b[: len(out) - s]
-    return out * 0.7
+    """Classic phone text-alert feel: three quick marimba notes, tonic → fifth → octave
+    (a generic pattern, synthesized here; not Apple's sound file)."""
+    out = np.zeros(int(SR * 0.9))
+    for start, f, length, decay in ((0.0, 880.0, 0.5, 9), (0.105, 1318.5, 0.5, 9), (0.21, 1760.0, 0.68, 6)):
+        s0 = int(SR * start)
+        b = marimba(f, length, decay)
+        out[s0:s0 + len(b)] += b[: len(out) - s0]
+    return room(out) * 0.55
 
 
 def buzz():
