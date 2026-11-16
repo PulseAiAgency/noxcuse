@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Le concept »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; background: #111214; visibility: hidden; overflow: hidden; }
+  .o { color: #FF6A3D; }
+  .kicker { left: 70px; top: 150px; font-family: Wide; font-size: 36px; letter-spacing: 5px; color: #FF6A3D; }
+  .big { left: 70px; right: 70px; top: 205px; font-family: Wide; font-size: 96px; line-height: .98; letter-spacing: -2px; text-transform: uppercase; }
+  .sub { left: 70px; right: 70px; font-family: Semi; font-size: 46px; line-height: 1.22; color: #C9CACE; }
+  .stepNum { right: 50px; top: 90px; font-family: Black; font-size: 300px; line-height: 1; color: #1F2024; }
+  /* S1 excuses */
+  #s1 .title { left: 70px; top: 200px; font-family: Wide; font-size: 64px; letter-spacing: -1px; }
+  .excuse { left: 70px; font-family: Black; font-size: 108px; line-height: 1; letter-spacing: -6px; text-transform: uppercase; transform-origin: left center; white-space: nowrap; }
+  .strike { position: absolute; left: -10px; top: 50%; height: 26px; background: #FF6A3D; border-radius: 13px; transform: rotate(-4deg); width: 0; }
+  #noBg { inset: 0; background: #FF6A3D; opacity: 0; }
+  .stampWord { left: 70px; font-family: Black; font-size: 236px; line-height: .86; letter-spacing: -14px; color: #0E0E0F; transform-origin: left center; }
+  /* S2 */
+  .slam { left: 70px; font-family: Wide; font-size: 92px; letter-spacing: -3px; text-transform: uppercase; transform-origin: left center; white-space: nowrap; }
+  .av { width: 170px; height: 170px; }
+  /* S3 phone card */
+  .card { left: 70px; right: 70px; background: #1D1E22; border-radius: 44px; padding: 40px 44px; box-sizing: border-box; }
+  .card .label { font-family: Wide; font-size: 26px; letter-spacing: 4px; color: #FF6A3D; }
+  .card .name { font-family: Wide; font-size: 62px; margin: 8px 0 22px; }
+  .code { display: inline-block; background: #111214; border: 3px dashed #FF6A3D; border-radius: 22px; padding: 18px 30px; font-family: Wide; font-size: 58px; letter-spacing: 6px; }
+  .row { display: flex; align-items: center; gap: 26px; height: 130px; border-top: 2px solid #2A2B30; }
+  .row svg { width: 90px; height: 90px; flex: none; }
+  .row .who { flex: 1; font-family: Wide; font-size: 40px; }
+  .row .tag { font-family: Semi; font-size: 32px; color: #A3A4A9; }
+  /* S4 map */
+  #map { inset: 0; }
+  #gymRing { left: 340px; top: 820px; width: 400px; height: 400px; border-radius: 50%; border: 5px solid rgba(255,106,61,.75); box-sizing: border-box; }
+  #gymDot { left: 516px; top: 996px; width: 48px; height: 48px; border-radius: 50%; background: #FF6A3D; }
+  #me { left: 500px; top: 1500px; width: 80px; height: 80px; }
+  .glass { background: rgba(30,31,35,.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,.13); border-radius: 48px; }
+  #chronoPanel { left: 70px; right: 70px; top: 1330px; height: 360px; }
+  #chrono { left: 0; right: 0; top: 50px; text-align: center; font-family: Wide; font-size: 150px; letter-spacing: -4px; }
+  #chronoLbl { left: 0; right: 0; top: 230px; text-align: center; font-family: Wide; font-size: 30px; letter-spacing: 4px; color: #A3A4A9; }
+  #okStamp { left: 0; right: 0; top: 215px; text-align: center; font-family: Wide; font-size: 50px; color: #FF6A3D; }
+  /* S5 bar */
+  #kg { left: 70px; top: 470px; font-family: Wide; font-size: 230px; letter-spacing: -6px; }
+  #kg small { font-size: 110px; }
+  #barWrap { left: 40px; right: 40px; top: 820px; height: 420px; }
+  .notif { left: 50px; right: 50px; height: 160px; border-radius: 40px; background: #2E2F35; display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; }
+  .notif img { width: 92px; height: 92px; border-radius: 22px; }
+  .notif .t { font-family: Semi; font-size: 30px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 37px; color: #F5F5F0; margin-top: 4px; }
+  /* S6 spot */
+  #spotRow { left: 70px; right: 70px; top: 760px; height: 220px; background: #1D1E22; border-radius: 44px; display: flex; align-items: center; gap: 30px; padding: 0 40px; box-sizing: border-box; }
+  #spotRow svg { width: 120px; height: 120px; flex: none; }
+  #spotBtn { width: 230px; height: 110px; border-radius: 26px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 40px; }
+  #tap { width: 140px; height: 140px; border-radius: 50%; border: 8px solid #F5F5F0; box-sizing: border-box; }
+  #finger { width: 70px; height: 70px; border-radius: 50%; background: rgba(245,245,240,.9); }
+  /* S7 poster */
+  #poster { inset: 0; background: #ECECE8; color: #0E0E0F; }
+  .sk { left: 70px; font-family: Black; font-size: 560px; line-height: .8; letter-spacing: -30px; }
+  #canapSmug { right: 40px; top: 930px; width: 420px; transform-origin: 50% 100%; }
+  #pHead { left: 80px; right: 80px; top: 1330px; font-family: Wide; font-size: 66px; line-height: 1.05; text-transform: uppercase; }
+  #sticker { left: 80px; right: 80px; bottom: 130px; background: #111214; color: #F5F5F0; border-radius: 28px; padding: 30px 34px; font-family: Wide; font-size: 44px; line-height: 1.15; }
+  #pTop { left: 80px; top: 100px; font-family: Wide; font-size: 50px; text-transform: uppercase; }
+  /* S8 PR */
+  #prTitle { left: 70px; right: 70px; top: 420px; font-family: Black; font-size: 190px; line-height: .88; letter-spacing: -8px; transform-origin: left top; }
+  #canapCrushed { left: 290px; top: 1050px; width: 500px; }
+  /* S9 end */
+  .word { left: 70px; font-family: Black; font-size: 270px; line-height: .86; letter-spacing: -16px; transform-origin: left center; }
+  #tag { left: 70px; right: 70px; top: 1090px; font-family: Wide; font-size: 64px; line-height: 1.1; text-transform: uppercase; }
+  #gift { left: 70px; right: 70px; top: 1390px; font-family: Semi; font-size: 44px; color: #C9CACE; }
+  #cta { left: 70px; right: 70px; top: 1540px; height: 156px; border-radius: 34px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 52px; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; pointer-events: none; }
+  #white { inset: 0; background: #F5F5F0; opacity: 0; pointer-events: none; }
+
+  .chip { width: 200px; height: 200px; border-radius: 40px; background: #1D1E22; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 96px; color: #A3A4A9; }
+  .chip.on { background: #FF6A3D; color: #0E0E0F; }
+  .bubble { max-width: 800px; border-radius: 40px 40px 40px 12px; background: #2E2F35; padding: 24px 34px; font-family: Semi; font-size: 44px; }
+  .bubble .who { font-family: Wide; font-size: 28px; margin-bottom: 6px; }
+  .bubble.mine { background: #FF6A3D; color: #0E0E0F; border-radius: 40px 40px 12px 40px; }
+  .perk { left: 70px; right: 70px; height: 260px; background: #1D1E22; border-radius: 44px; display: flex; align-items: center; gap: 40px; padding: 0 50px; box-sizing: border-box; }
+  .perk .v { font-family: Wide; font-size: 96px; color: #FF6A3D; min-width: 190px; }
+  .perk .l { font-family: Wide; font-size: 44px; line-height: 1.1; text-transform: uppercase; }
+  .perk .l small { display: block; font-family: Semi; font-size: 32px; color: #A3A4A9; text-transform: none; margin-top: 8px; }
+  #counter { left: 70px; top: 760px; font-family: Black; font-size: 420px; line-height: 1; letter-spacing: -20px; color: #FF6A3D; }
+  #jokerCard { left: 70px; right: 70px; top: 700px; height: 560px; border-radius: 50px; background: #ECECE8; color: #0E0E0F; padding: 60px; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam">
+  <div class="scene" id="s1">
+    <div class="abs slam" id="q1" style="top:300px;font-size:84px">« Lundi,<br>je reprends. »</div>
+    <div class="abs sub" id="q2" style="top:600px;font-size:56px">Combien de fois t'as dit ça ?</div>
+    <div class="abs" id="counter">0</div>
+    <div class="abs" id="noBg"></div>
+    <div class="abs stampWord" id="no1" style="top:620px">NO</div>
+    <div class="abs stampWord" id="no2" style="top:830px">XCUSE.</div>
+  </div>
+  <div class="scene" id="s2">
+    <div class="abs kicker">LE CONCEPT</div>
+    <div class="abs slam" id="c1" style="top:430px">Tes potes.</div>
+    <div class="abs slam" id="c2" style="top:600px">Une barre.</div>
+    <div class="abs slam o" id="c3" style="top:770px;font-size:80px">Un canap' qui<br>te guette.</div>
+    <img class="abs" id="peek" src="canap-smug.svg" style="left:300px;top:1300px;width:480px">
+  </div>
+  <div class="scene" id="s3">
+    <div class="abs kicker">1 · LA TEAM</div>
+    <div class="abs big">Monte ta team.</div>
+    <div class="abs sub" style="top:440px">2 à 4 potes, un code d'invitation, c'est parti.</div>
+    <div class="abs card" id="teamCard" style="top:640px">
+      <div class="label">TA TEAM</div>
+      <div class="name">Les Guerriers</div>
+      <div class="code" id="code">&nbsp;</div>
+      <div id="rows" style="margin-top:30px"></div>
+    </div>
+  </div>
+  <div class="scene" id="s4">
+    <div class="abs kicker">2 · L'OBJECTIF</div>
+    <div class="abs big">Choisis ton rythme.</div>
+    <div class="abs sub" style="top:440px">Séances par semaine. Chacun le sien.</div>
+    <div class="abs" id="chips" style="left:70px;right:70px;top:800px;display:flex;justify-content:space-between"></div>
+    <div class="abs" id="goalTxt" style="left:70px;right:70px;top:1120px;font-family:Wide;font-size:64px;text-transform:uppercase">3 séances / semaine<span class="o">.</span></div>
+    <div class="abs" id="tap"></div>
+    <div class="abs" id="finger"></div>
+  </div>
+  <div class="scene" id="s5">
+    <svg class="abs" id="map" viewBox="0 0 1080 1920"></svg>
+    <div class="abs" id="gymRing"></div>
+    <div class="abs" id="gymDot"></div>
+    <svg class="abs" id="me" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="#111214" stroke="#FF6A3D" stroke-width="6"/><circle cx="40" cy="32" r="11" fill="#FF6A3D"/><path d="M20 62 C22 49 31 46 40 46 C49 46 58 49 60 62 Z" fill="#FF6A3D"/></svg>
+    <div class="abs kicker">3 · LA SALLE</div>
+    <div class="abs big">Va à la salle.</div>
+    <div class="abs sub" style="top:440px">40 min sur place = séance validée. L'app le voit toute seule.</div>
+    <div class="abs glass" id="chronoPanel">
+      <div class="abs" id="chrono">00:00</div>
+      <div class="abs" id="chronoLbl">SÉANCE EN COURS</div>
+      <div class="abs" id="okStamp">✓ SÉANCE VALIDÉE</div>
+    </div>
+    <div class="abs" id="privacy" style="left:70px;right:70px;top:1730px;font-family:Wide;font-size:36px;text-align:center">Ta team voit « venu ». <span class="o">Jamais où t'es.</span></div>
+  </div>
+  <div class="scene" id="s6">
+    <div class="abs kicker">4 · LA BARRE</div>
+    <div class="abs big">1 séance =<br>1 disque.</div>
+    <div class="abs" id="kg"><span id="kgVal">0</span> <small>kg</small></div>
+    <svg class="abs" id="barWrap" viewBox="0 0 1000 420"></svg>
+    <div class="abs sub" style="top:1320px">Toute la team charge la même barre. Toi en orange.</div>
+    <div class="abs notif" id="n6" style="top:1560px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Sam vient de charger 20 kg 💪</div></div></div>
+  </div>
+  <div class="scene" id="s7">
+    <div class="abs kicker">5 · LE CHAT</div>
+    <div class="abs big">Motivez-vous.</div>
+    <div class="abs sub" style="top:440px">Un chat rien que pour ta team.</div>
+    <div class="abs bubble" id="b1" style="left:70px;top:720px"><div class="who" style="color:#B9BBC0">SAM</div>on y va ce soir ?</div>
+    <div class="abs bubble mine" id="b2" style="right:70px;top:940px">18 h, je suis chaud 🔥</div>
+    <div class="abs bubble" id="b3" style="left:70px;top:1130px"><div class="who" style="color:#F5F5F0">ALEX</div>le Canap' me regarde 👀</div>
+  </div>
+  <div class="scene" id="s8">
+    <div class="abs kicker">6 · LA PRESSION</div>
+    <div class="abs big">La barre tremble.</div>
+    <div class="abs sub" style="top:440px">Alex : plus que 2 jours pour 2 séances.</div>
+    <div class="abs" id="spotRow"></div>
+    <div class="abs" id="tap2" style="width:140px;height:140px;border-radius:50%;border:8px solid #F5F5F0;box-sizing:border-box"></div>
+    <div class="abs" id="finger2" style="width:70px;height:70px;border-radius:50%;background:rgba(245,245,240,.9)"></div>
+    <div class="abs notif" id="n8" style="top:1250px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Sam te spot : bouge à la salle !</div></div></div>
+  </div>
+  <div class="scene" id="s9">
+    <div class="abs" id="poster">
+      <div class="abs" id="pTop">Dimanche, 20 h.<br>Objectif raté ?</div>
+      <div class="abs sk" id="sk1" style="top:230px">SK</div>
+      <div class="abs sk" id="sk2" style="top:700px">IP</div>
+      <img class="abs" id="canapSmug" src="canap-smug.svg">
+      <div class="abs" id="pHead">Alex a choisi le canap'.</div>
+      <div class="abs" id="sticker">Toute la team reçoit <span class="o">ta carte SKIP</span>.<br>Tu peux même la partager.</div>
+    </div>
+  </div>
+  <div class="scene" id="s10">
+    <div class="abs kicker">VRAIMENT BLESSÉ·E ?</div>
+    <div class="abs big">Joker.</div>
+    <div class="abs" id="jokerCard">
+      <div style="font-family:Wide;font-size:30px;letter-spacing:4px;color:#FF6A3D">JOKER BLESSURE</div>
+      <div style="font-family:Black;font-size:150px;line-height:.95;letter-spacing:-6px;margin-top:20px">1 PAR<br>MOIS.</div>
+      <div style="font-family:Semi;font-size:44px;margin-top:40px;color:#333">Pas de carte SKIP, ta série est gardée.</div>
+    </div>
+  </div>
+  <div class="scene" id="s11">
+    <div class="abs kicker" id="k11">TOUT LE MONDE A TENU ?</div>
+    <div class="abs" id="prTitle">PR DE<br>LA TEAM<span class="o">.</span></div>
+    <img class="abs" id="canapCrushed" src="canap-crushed.svg">
+  </div>
+  <div class="scene" id="s12">
+    <div class="abs kicker">ET SEMAINE APRÈS SEMAINE</div>
+    <div class="abs big">Tu progresses.</div>
+    <div class="abs perk" id="p1" style="top:600px"><div class="v">6</div><div class="l">semaines de série<small>Ta série ne casse pas tant que tu tiens.</small></div></div>
+    <div class="abs perk" id="p2" style="top:900px"><div class="v">100</div><div class="l">kg : niveau Machine<small>Ta barre perso grossit à chaque séance.</small></div></div>
+    <div class="abs perk" id="p3" style="top:1200px"><div class="v">🥇</div><div class="l">La Ceinture du mois<small>Au plus régulier de la team.</small></div></div>
+  </div>
+  <div class="scene" id="s13">
+    <div class="abs word" id="z1" style="top:380px">NO</div>
+    <div class="abs word" id="z2" style="top:630px">XCUSE<span class="o">.</span></div>
+    <div class="abs" id="tag">La muscu<br>entre potes<span class="o">.</span></div>
+    <div class="abs" id="gift">Un pote paie, toute la team joue.</div>
+    <div class="abs" id="cta">Télécharge · App Store</div>
+  </div>
+  <div class="abs" id="flash"></div>
+  <div class="abs" id="white"></div>
+</div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a, d = 0.22) => { const p = seg(t, a, a + d); return { o: clamp(p * 4), s: 1 + (1 - easeOut(p)) * 1.6 }; };
+  const shake = (t, a, d = 0.3, amp = 16) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 46) * amp * (1 - p) : 0; };
+  const pop = (el, t, a) => { const p = seg(t, a, a + 0.28); el.style.opacity = clamp(p * 3); el.style.transform = `scale(${Math.max(0.001, back(p))})`; };
+  const rise = (el, t, a, d = 70) => { const p = seg(t, a, a + 0.3); el.style.opacity = p; el.style.transform = `translateY(${(1 - easeOut(p)) * d}px)`; };
+  const slamIn = (el, t, a) => { const s = stamp(t, a); el.style.opacity = s.o; el.style.transform = `scale(${s.s})`; };
+  const fingerTap = (fid, rid, t, a, x, y) => {
+    const f = easeOut(seg(t, a - 0.45, a - 0.05));
+    $(fid).style.left = `${x + (1 - f) * 220 - 35}px`; $(fid).style.top = `${y + (1 - f) * 380 - 35}px`;
+    $(fid).style.opacity = seg(t, a - 0.5, a - 0.35) * (1 - seg(t, a + 0.5, a + 0.7));
+    $(fid).style.transform = `scale(${t > a - 0.05 && t < a + 0.1 ? 0.8 : 1})`;
+    const r = seg(t, a, a + 0.4);
+    $(rid).style.left = `${x - 70}px`; $(rid).style.top = `${y - 70}px`;
+    $(rid).style.opacity = r > 0 ? 1 - r : 0; $(rid).style.transform = `scale(${0.3 + r * 1.4})`;
+  };
+
+  const person = (c) => `<svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="48" fill="#2A2B30"/><circle cx="48" cy="38" r="17" fill="${c}"/><path d="M18 84 C20 62 34 56 48 56 C62 56 76 62 78 84 Z" fill="${c}"/></svg>`;
+  const crew = [['ALEX', '#F5F5F0'], ['SAM', '#B9BBC0'], ['LOU', '#7C7E84']];
+  $('rows').innerHTML = crew.map(([n, c], i) => `<div class="row" id="r${i}">${person(c)}<div class="who">${n[0] + n.slice(1).toLowerCase()}</div><div class="tag">a rejoint ✓</div></div>`).join('');
+  $('chips').innerHTML = [2, 3, 4, 5].map((n) => `<div class="chip" id="ch${n}">${n}</div>`).join('');
+  $('spotRow').innerHTML = `${person('#F5F5F0')}<div style="flex:1"><div style="font-family:Wide;font-size:46px">Alex</div><div style="font-family:Semi;font-size:34px;color:#FF6A3D">Risque le skip</div></div><div id="spotBtn">SPOT</div>`;
+  $('spotRow').style.cssText += 'left:70px;right:70px;top:760px;height:220px;background:#1D1E22;border-radius:44px;display:flex;align-items:center;gap:30px;padding:0 40px;box-sizing:border-box;';
+
+  let streets = '';
+  const lines = [[0, 300, 1080, 420], [0, 760, 1080, 640], [0, 1180, 1080, 1290], [0, 1600, 1080, 1520], [180, 0, 260, 1920], [600, 0, 520, 1920], [900, 0, 980, 1920], [0, 980, 1080, 900]];
+  for (const [x1, y1, x2, y2] of lines) streets += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#0B0B0D" stroke-width="34"/>`;
+  $('map').innerHTML = `<rect width="1080" height="1920" fill="#16171A"/>${streets}`;
+
+  const plates = ['#FF6A3D', '#F5F5F0', '#B9BBC0', '#FF6A3D'];
+  $('barWrap').innerHTML = '<rect x="0" y="198" width="1000" height="24" rx="12" fill="#8A9099"/><rect x="420" y="190" width="160" height="40" rx="10" fill="#5E6066"/>' +
+    '<rect x="380" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/><rect x="594" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/>' +
+    plates.map((c, i) => `<rect id="pl${i}" x="${330 - i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/><rect id="pr${i}" x="${618 + i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/>`).join('');
+
+  const SCENES = [['s1', 0, 3.4], ['s2', 3.4, 6.0], ['s3', 6.0, 9.0], ['s4', 9.0, 12.0], ['s5', 12.0, 16.4], ['s6', 16.4, 19.6], ['s7', 19.6, 22.4], ['s8', 22.4, 26.0], ['s9', 26.0, 29.6], ['s10', 29.6, 31.8], ['s11', 31.8, 34.4], ['s12', 34.4, 37.6], ['s13', 37.6, 42.0]];
+  window.DURATION = 42;
+  window.SCENES = SCENES;
+  const BEATS = [0.1, 2.6, 2.85, 3.45, 3.95, 4.45, 10.5, 15.0, 16.8, 17.15, 17.5, 17.85, 26.15, 26.45, 29.9, 32.35, 32.9, 34.9, 35.3, 35.7, 37.7, 38.0];
+  window.render = (t) => {
+    let flash = 0, white = 0;
+    SCENES.forEach(([id, a, b], i) => {
+      const el = $(id);
+      el.style.visibility = t >= a && t < b + 0.2 ? 'visible' : 'hidden';
+      el.style.zIndex = String(i + 1);
+      if (i > 0) { const p = seg(t, a, a + 0.2); el.style.transform = `translateX(${(1 - easeOut(p)) * 1100}px) skewX(${(1 - p) * -10}deg)`; }
+    });
+    let punch = 0;
+    for (const b of BEATS) { const p = seg(t, b, b + 0.18); if (p > 0 && p < 1) punch += 0.045 * (1 - p); }
+    const sh = BEATS.reduce((s, b) => s + shake(t, b, 0.22, 9), 0);
+    $('cam').style.transform = `scale(${1 + punch}) translate(${sh}px, ${sh * 0.4}px)`;
+
+    if (t < 3.6) {
+      slamIn($('q1'), t, 0.1); rise($('q2'), t, 0.8);
+      const c = seg(t, 1.1, 2.3);
+      $('counter').textContent = String(Math.round(Math.pow(c, 0.7) * 47)) + (c >= 1 ? ' fois' : '');
+      $('counter').style.fontSize = c >= 1 ? '230px' : '420px';
+      $('counter').style.opacity = t > 1.05 ? 1 : 0;
+      $('noBg').style.opacity = seg(t, 2.55, 2.6);
+      slamIn($('no1'), t, 2.6); slamIn($('no2'), t, 2.85);
+      if (t >= 2.55 && t < 2.6) white = 0.5;
+    }
+    if (t >= 3.4 && t < 6.2) {
+      slamIn($('c1'), t, 3.45); slamIn($('c2'), t, 3.95); slamIn($('c3'), t, 4.45);
+      const pk = easeOut(seg(t, 4.9, 5.3));
+      $('peek').style.transform = `translateY(${(1 - pk) * 700}px) rotate(${Math.sin((t - 4.9) * 5) * 3}deg)`;
+    }
+    if (t >= 6.0 && t < 9.2) {
+      const full = 'ABCD-2345', n = Math.floor(seg(t, 6.45, 7.1) * full.length);
+      $('code').innerHTML = n ? full.slice(0, n) + (n < full.length ? '<span class="o">|</span>' : '') : '&nbsp;';
+      [0, 1, 2].forEach((i) => pop($('r' + i), t, 7.3 + i * 0.4));
+      rise($('teamCard'), t, 6.1, 120);
+    }
+    if (t >= 9.0 && t < 12.2) {
+      [2, 3, 4, 5].forEach((n, i) => pop($('ch' + n), t, 9.3 + i * 0.1));
+      fingerTap('finger', 'tap', t, 10.5, 70 + 280 + 100, 900);
+      $('ch3').className = t >= 10.5 ? 'chip on' : 'chip';
+      if (t >= 10.5) $('ch3').style.transform += ` scale(${1 + 0.12 * (1 - seg(t, 10.5, 10.8))})`;
+      rise($('goalTxt'), t, 10.65);
+    }
+    if (t >= 12.0 && t < 16.6) {
+      const pulse = ((t - 12.0) % 1.2) / 1.2;
+      $('gymRing').style.opacity = 1 - pulse; $('gymRing').style.transform = `scale(${0.15 + pulse * 0.85})`;
+      const walk = easeOut(seg(t, 12.25, 13.2));
+      $('me').style.transform = `translateY(${-walk * 480}px)`;
+      rise($('chronoPanel'), t, 13.1, 200);
+      const run = seg(t, 13.3, 14.95), mins = Math.pow(run, 1.6) * 40;
+      $('chrono').textContent = `${String(Math.floor(mins)).padStart(2, '0')}:${String(Math.floor((mins % 1) * 60)).padStart(2, '0')}`;
+      $('chronoLbl').style.opacity = t < 15.0 ? 1 : 0;
+      const ok = stamp(t, 15.0); $('okStamp').style.opacity = ok.o; $('okStamp').style.transform = `scale(${ok.s})`;
+      if (t >= 15.0 && t < 15.06) flash = 0.25;
+      rise($('privacy'), t, 15.5, 40);
+    }
+    if (t >= 16.4 && t < 19.8) {
+      let loaded = 0;
+      plates.forEach((_, i) => {
+        const s = 16.8 + i * 0.35, p = seg(t, s, s + 0.18);
+        if (t >= s) loaded = i + 1;
+        for (const side of ['pl', 'pr']) { $(side + i).style.opacity = p; $(side + i).setAttribute('transform', `translate(${(side === 'pl' ? -1 : 1) * (1 - back(p)) * 180} 0)`); }
+        if (t >= s && t < s + 0.06) flash = 0.16;
+      });
+      $('kgVal').textContent = String(loaded * 20);
+      const nn = seg(t, 18.5, 18.8); $('n6').style.opacity = nn; $('n6').style.transform = `translateY(${(1 - back(nn)) * 260}px)`;
+    }
+    if (t >= 19.6 && t < 22.6) { pop($('b1'), t, 20.0); pop($('b2'), t, 20.7); pop($('b3'), t, 21.4); }
+    if (t >= 22.4 && t < 26.2) {
+      const wob = t > 22.6 && t < 24.0 ? Math.sin((t - 22.6) * 30) * 6 : 0;
+      $('spotRow').style.opacity = seg(t, 22.5, 22.8);
+      $('spotRow').style.transform = `rotate(${wob * 0.2}deg) translateX(${wob}px)`;
+      fingerTap('finger2', 'tap2', t, 24.3, 855, 870);
+      const btn = $('spotBtn'), done = t >= 24.35;
+      btn.textContent = done ? 'SPOTTÉ ✓' : 'SPOT'; btn.style.background = done ? '#2A2B30' : '#FF6A3D'; btn.style.color = done ? '#FF6A3D' : '#0E0E0F'; btn.style.fontSize = done ? '32px' : '40px';
+      const nn = seg(t, 24.7, 25.0); $('n8').style.opacity = nn; $('n8').style.transform = `translateY(${(1 - back(nn)) * -300}px)`;
+    }
+    if (t >= 26.0 && t < 29.8) {
+      $('pTop').style.opacity = seg(t, 26.05, 26.2);
+      slamIn($('sk1'), t, 26.15); slamIn($('sk2'), t, 26.45);
+      const c = seg(t, 26.7, 27.0);
+      const bite = t > 26.9 && t < 28.5 ? Math.max(0, Math.sin(((t - 26.9) / 0.3) * Math.PI)) : 0;
+      $('canapSmug').style.opacity = c;
+      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 320}px) scale(${1 + bite * 0.03}, ${1 - bite * 0.06})`;
+      rise($('pHead'), t, 27.1); rise($('sticker'), t, 27.5);
+    }
+    if (t >= 29.6 && t < 32.0) {
+      const s = stamp(t, 29.9); $('jokerCard').style.opacity = s.o; $('jokerCard').style.transform = `scale(${s.s}) rotate(${(1 - seg(t, 29.9, 30.2)) * -6}deg)`;
+    }
+    if (t >= 31.8 && t < 34.6) {
+      rise($('k11'), t, 31.85, 40);
+      const a = stamp(t, 32.35); $('prTitle').style.opacity = a.o; $('prTitle').style.transform = `scale(${a.s})`;
+      const c = seg(t, 32.65, 32.9);
+      $('canapCrushed').style.opacity = c;
+      $('canapCrushed').style.transform = `translateY(${(1 - easeOut(c)) * -600}px) scaleY(${1 - 0.28 * Math.sin(seg(t, 32.9, 33.25) * Math.PI)})`;
+      if (t >= 32.9 && t < 32.97) white = 0.35;
+    }
+    if (t >= 34.4 && t < 37.8) { pop($('p1'), t, 34.9); pop($('p2'), t, 35.3); pop($('p3'), t, 35.7); }
+    if (t >= 37.6) {
+      slamIn($('z1'), t, 37.7); slamIn($('z2'), t, 38.0);
+      rise($('tag'), t, 38.5); rise($('gift'), t, 39.0); rise($('cta'), t, 39.5);
+      if (t > 39.9) $('cta').style.transform += ` scale(${1 + 0.035 * Math.sin((t - 39.9) * 7)})`;
+    }
+    $('flash').style.opacity = flash; $('white').style.opacity = white;
+  };
+  window.render(0);
+</script>
+</body>
+</html>

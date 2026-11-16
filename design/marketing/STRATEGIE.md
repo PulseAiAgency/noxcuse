@@ -49,6 +49,27 @@ Légende proposée :
 
 Sources : `video-fun/index.html`, sons `python3 scripts/mix_fun.py audio` (depuis `scripts/`).
 
+## Vidéo 5 — « Le concept » (`noxcuse-le-concept.mp4`, 42 s, le concept en détail)
+Même style que « Zéro excuse » (transitions balayées, tampons, bruitages seulement), mais tout le jeu y passe :
+1. 0–3,4 s : « Lundi, je reprends. » « Combien de fois t'as dit ça ? » Le compteur file jusqu'à « 47 fois », puis « NO / XCUSE. ».
+2. 3,4–6 s : LE CONCEPT : « Tes potes. Une barre. Un canap' qui te guette. » (le Canap' apparaît).
+3. 1 · La team : code d'invitation, 2 à 4 potes qui rejoignent.
+4. 2 · L'objectif : choix 2 / 3 / 4 / 5 séances par semaine, chacun le sien.
+5. 3 · La salle : 40 min sur place = séance validée toute seule ; « Ta team voit « venu ». Jamais où t'es. »
+6. 4 · La barre : 1 séance = 1 disque, la barre commune se charge, notif.
+7. 5 · Le chat : « on y va ce soir ? », « 18 h, je suis chaud 🔥 », « le Canap' me regarde 👀 ».
+8. 6 · La pression : la barre tremble (« plus que 2 jours pour 2 séances »), un doigt spotte Alex.
+9. Dimanche 20 h : la carte SKIP tombe, le Canap' croque ses chips, « tu peux même la partager ».
+10. Joker blessure : 1 par mois, pas de carte, série gardée.
+11. PR de la team : le Canap' écrasé.
+12. Progression : série de semaines, niveau perso (Machine), Ceinture du mois.
+13. Fin : « NO / XCUSE. », « La muscu entre potes. », « Un pote paie, toute la team joue. », « Télécharge · App Store ».
+
+Légende proposée :
+> Le concept en 40 secondes 👇 Ta team, ton objectif, une barre à charger ensemble… et une carte SKIP pour celui qui sèche. Lien en bio. #muscu #salledesport #gymtok #motivation #potes
+
+Sources : `video-concept/index.html`, sons `python3 scripts/mix_concept.py audio` (depuis `scripts/`).
+
 ## Vidéo 3 — avec de vraies personnes (kit à monter dans CapCut, dossier `kit/`)
 Je ne peux ni filmer ni fabriquer de vraies personnes : tu tournes 4 plans avec tes potes (téléphone en vertical, 2 à 4 s chacun), et le kit fournit tout le reste, avec les sons.
 - `0-maquette-du-montage.mp4` : le montage complet avec des cases « ta vidéo filmée ici » pour voir le rythme (21 s).
