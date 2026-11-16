@@ -56,6 +56,15 @@ async function recentFix(): Promise<Fix | null> {
   }
 }
 
+/**
+ * A refusal from the database (it carries a Postgres error code: already validated today, gym no
+ * longer chosen…) will not change on retry, unlike a network failure (no code).
+ */
+function isDefinitiveRefusal(err: unknown): boolean {
+  const code = (err as { code?: unknown } | null)?.code;
+  return typeof code === 'string' && code.length > 0;
+}
+
 async function openOnServer(visit: Visit): Promise<Visit> {
   const { error } = await db().rpc('start_session', {
     p_gym_id: visit.gymId,
@@ -81,7 +90,12 @@ export async function arrive(gymId: string, now: number, source: CheckinSource):
   if (visit.serverOpened) return visit;
   try {
     return await openOnServer(visit);
-  } catch {
+  } catch (err) {
+    // Refused for good (e.g. already validated today): no visit, no endless chrono.
+    if (isDefinitiveRefusal(err)) {
+      await clearVisit();
+      throw err;
+    }
     // Offline: kept locally, retried on the next resume.
     return visit;
   }
@@ -166,7 +180,8 @@ export async function resume(
   if (!visit.serverOpened) {
     try {
       visit = await openOnServer(visit);
-    } catch {
+    } catch (err) {
+      if (isDefinitiveRefusal(err)) await clearVisit();
       return null;
     }
   }

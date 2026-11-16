@@ -65,6 +65,26 @@ describe('check-in engine', () => {
     expect((await readVisit())?.serverOpened).toBe(true);
   });
 
+  it('drops the visit when the server refuses it for good (already validated today)', async () => {
+    const refusal = { code: 'P0001', message: 'already_validated_today' };
+    mockRpc.mockResolvedValueOnce({ data: null, error: refusal });
+    await expect(arrive('gym-1', T0, 'geofence')).rejects.toBe(refusal);
+    expect(await readVisit()).toBeNull();
+  });
+
+  it('clears a stuck local visit on resume when the server refuses to open it', async () => {
+    mockRpc.mockResolvedValueOnce({ data: null, error: new Error('Network request failed') });
+    await arrive('gym-1', T0, 'geofence');
+    mockRpc.mockResolvedValueOnce({
+      data: null,
+      error: { code: 'P0001', message: 'already_validated_today' },
+    });
+    await resume([gym], T0 + 90 * MIN, () =>
+      Promise.resolve({ lat: 50.63, lng: 3.06, accuracy: 10 }),
+    );
+    expect(await readVisit()).toBeNull();
+  });
+
   it('validates on exit after 40 min and sends no coordinates', async () => {
     await arrive('gym-1', T0, 'geofence');
     const result = await leave('gym-1', T0 + 47 * MIN);
