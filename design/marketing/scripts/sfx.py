@@ -128,3 +128,26 @@ def munch(m, t, bites=4, gap=0.32, gain=1.0):
     """The Canap' eating chips: a few bites in a row."""
     for i in range(bites):
         m.at(t + i * gap, crunch(i), gain)
+
+
+def whoosh(length=0.28):
+    """Fast swipe between scenes: band of noise sweeping up then fading."""
+    n = int(SR * length)
+    t = np.arange(n) / SR
+    rng = np.random.default_rng(3)
+    noise = rng.uniform(-1, 1, n)
+    # Crude moving band-pass: difference of two smoothed versions with a sweeping window.
+    out = np.zeros(n)
+    acc = 0.0
+    for i in range(n):
+        k = 0.02 + 0.5 * (i / n)
+        acc += k * (noise[i] - acc)
+        out[i] = acc
+    env = np.sin(np.pi * np.clip(t / length, 0, 1)) ** 2
+    return np.diff(np.concatenate([[0], out])) * env * 2.2
+
+
+def click():
+    """Finger tap on glass."""
+    t = np.arange(int(SR * 0.04)) / SR
+    return np.sin(2 * np.pi * 2400 * t) * np.exp(-t * 260) * 0.45

@@ -32,6 +32,23 @@ Légende proposée :
 
 Sources : `video-explainer/index.html`, sons `python3 scripts/mix_explainer.py audio` (depuis `scripts/`).
 
+## Vidéo 4 — « Zéro excuse » (`noxcuse-zero-excuse.mp4`, 28,5 s, la plus dynamique)
+Rythme rapide (une idée toutes les 2-3 s), transitions balayées avec « whoosh », coups de caméra sur chaque tampon, bruitages seulement.
+1. 0–3,8 s : « Tes excuses : » « IL PLEUT. » « J'SUIS CREVÉ·E. » « DEMAIN, PROMIS. » barrées en orange une à une, puis « NO / XCUSE. » en tampon sur fond orange.
+2. 3,8–6 s : « TA TEAM. TON OBJECTIF. ZÉRO EXCUSE. » + Toi, Alex, Sam, Lou.
+3. 6–9,6 s : ÉTAPE 1 « Crée ta team. » Le code d'invitation s'écrit, les potes rejoignent.
+4. 9,6–13,4 s : ÉTAPE 2 « Va à la salle. » Ton avatar entre dans la zone, le chrono s'emballe jusqu'à 45:00, « Séance validée · +20 kg » + notif.
+5. 13,4–16,6 s : ÉTAPE 3 « Charge la barre. » 4 disques (clang), 160 kg, notif « Sam vient de charger 20 kg 💪 ».
+6. 16,6–19 s : « Ton pote traîne ? » Un doigt touche SPOT, notif « Sam te spot : bouge à la salle ! ».
+7. 19–22,2 s : « Et si tu skip ? » La carte SKIP tombe, le Canap' croque ses chips.
+8. 22,2–24,4 s : « Tout le monde a tenu ? » « PR DE LA TEAM. » Le Canap' est écrasé.
+9. 24,4–28,5 s : « NO / XCUSE. » « La muscu entre potes. » « Un pote paie, toute la team joue. » « Télécharge · App Store ».
+
+Légende proposée :
+> Il pleut. T'es crevé·e. Demain promis… Ta team n'y croit pas 😏 Crée ta team, charge la barre, évite la carte SKIP. Lien en bio. #muscu #salledesport #gymtok #motivation #potes
+
+Sources : `video-fun/index.html`, sons `python3 scripts/mix_fun.py audio` (depuis `scripts/`).
+
 ## Vidéo 3 — avec de vraies personnes (kit à monter dans CapCut, dossier `kit/`)
 Je ne peux ni filmer ni fabriquer de vraies personnes : tu tournes 4 plans avec tes potes (téléphone en vertical, 2 à 4 s chacun), et le kit fournit tout le reste, avec les sons.
 - `0-maquette-du-montage.mp4` : le montage complet avec des cases « ta vidéo filmée ici » pour voir le rythme (21 s).

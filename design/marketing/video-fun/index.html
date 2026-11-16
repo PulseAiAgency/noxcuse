@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Zéro excuse »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 50%; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; background: #111214; visibility: hidden; overflow: hidden; }
+  .o { color: #FF6A3D; }
+  .kicker { left: 70px; top: 150px; font-family: Wide; font-size: 36px; letter-spacing: 5px; color: #FF6A3D; }
+  .big { left: 70px; right: 70px; top: 205px; font-family: Wide; font-size: 96px; line-height: .98; letter-spacing: -2px; text-transform: uppercase; }
+  .sub { left: 70px; right: 70px; font-family: Semi; font-size: 46px; line-height: 1.22; color: #C9CACE; }
+  .stepNum { right: 50px; top: 90px; font-family: Black; font-size: 300px; line-height: 1; color: #1F2024; }
+  /* S1 excuses */
+  #s1 .title { left: 70px; top: 200px; font-family: Wide; font-size: 64px; letter-spacing: -1px; }
+  .excuse { left: 70px; font-family: Black; font-size: 108px; line-height: 1; letter-spacing: -6px; text-transform: uppercase; transform-origin: left center; white-space: nowrap; }
+  .strike { position: absolute; left: -10px; top: 50%; height: 26px; background: #FF6A3D; border-radius: 13px; transform: rotate(-4deg); width: 0; }
+  #noBg { inset: 0; background: #FF6A3D; opacity: 0; }
+  .stampWord { left: 70px; font-family: Black; font-size: 236px; line-height: .86; letter-spacing: -14px; color: #0E0E0F; transform-origin: left center; }
+  /* S2 */
+  .slam { left: 70px; font-family: Wide; font-size: 92px; letter-spacing: -3px; text-transform: uppercase; transform-origin: left center; white-space: nowrap; }
+  .av { width: 170px; height: 170px; }
+  /* S3 phone card */
+  .card { left: 70px; right: 70px; background: #1D1E22; border-radius: 44px; padding: 40px 44px; box-sizing: border-box; }
+  .card .label { font-family: Wide; font-size: 26px; letter-spacing: 4px; color: #FF6A3D; }
+  .card .name { font-family: Wide; font-size: 62px; margin: 8px 0 22px; }
+  .code { display: inline-block; background: #111214; border: 3px dashed #FF6A3D; border-radius: 22px; padding: 18px 30px; font-family: Wide; font-size: 58px; letter-spacing: 6px; }
+  .row { display: flex; align-items: center; gap: 26px; height: 130px; border-top: 2px solid #2A2B30; }
+  .row svg { width: 90px; height: 90px; flex: none; }
+  .row .who { flex: 1; font-family: Wide; font-size: 40px; }
+  .row .tag { font-family: Semi; font-size: 32px; color: #A3A4A9; }
+  /* S4 map */
+  #map { inset: 0; }
+  #gymRing { left: 340px; top: 820px; width: 400px; height: 400px; border-radius: 50%; border: 5px solid rgba(255,106,61,.75); box-sizing: border-box; }
+  #gymDot { left: 516px; top: 996px; width: 48px; height: 48px; border-radius: 50%; background: #FF6A3D; }
+  #me { left: 500px; top: 1500px; width: 80px; height: 80px; }
+  .glass { background: rgba(30,31,35,.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,.13); border-radius: 48px; }
+  #chronoPanel { left: 70px; right: 70px; top: 1330px; height: 360px; }
+  #chrono { left: 0; right: 0; top: 50px; text-align: center; font-family: Wide; font-size: 150px; letter-spacing: -4px; }
+  #chronoLbl { left: 0; right: 0; top: 230px; text-align: center; font-family: Wide; font-size: 30px; letter-spacing: 4px; color: #A3A4A9; }
+  #okStamp { left: 0; right: 0; top: 215px; text-align: center; font-family: Wide; font-size: 50px; color: #FF6A3D; }
+  /* S5 bar */
+  #kg { left: 70px; top: 470px; font-family: Wide; font-size: 230px; letter-spacing: -6px; }
+  #kg small { font-size: 110px; }
+  #barWrap { left: 40px; right: 40px; top: 820px; height: 420px; }
+  .notif { left: 50px; right: 50px; height: 160px; border-radius: 40px; background: #2E2F35; display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; }
+  .notif img { width: 92px; height: 92px; border-radius: 22px; }
+  .notif .t { font-family: Semi; font-size: 30px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 37px; color: #F5F5F0; margin-top: 4px; }
+  /* S6 spot */
+  #spotRow { left: 70px; right: 70px; top: 760px; height: 220px; background: #1D1E22; border-radius: 44px; display: flex; align-items: center; gap: 30px; padding: 0 40px; box-sizing: border-box; }
+  #spotRow svg { width: 120px; height: 120px; flex: none; }
+  #spotBtn { width: 230px; height: 110px; border-radius: 26px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 40px; }
+  #tap { width: 140px; height: 140px; border-radius: 50%; border: 8px solid #F5F5F0; box-sizing: border-box; }
+  #finger { width: 70px; height: 70px; border-radius: 50%; background: rgba(245,245,240,.9); }
+  /* S7 poster */
+  #poster { inset: 0; background: #ECECE8; color: #0E0E0F; }
+  .sk { left: 70px; font-family: Black; font-size: 560px; line-height: .8; letter-spacing: -30px; }
+  #canapSmug { right: 40px; top: 930px; width: 420px; transform-origin: 50% 100%; }
+  #pHead { left: 80px; right: 80px; top: 1330px; font-family: Wide; font-size: 66px; line-height: 1.05; text-transform: uppercase; }
+  #sticker { left: 80px; right: 80px; bottom: 130px; background: #111214; color: #F5F5F0; border-radius: 28px; padding: 30px 34px; font-family: Wide; font-size: 44px; line-height: 1.15; }
+  #pTop { left: 80px; top: 100px; font-family: Wide; font-size: 50px; text-transform: uppercase; }
+  /* S8 PR */
+  #prTitle { left: 70px; right: 70px; top: 420px; font-family: Black; font-size: 190px; line-height: .88; letter-spacing: -8px; transform-origin: left top; }
+  #canapCrushed { left: 290px; top: 1050px; width: 500px; }
+  /* S9 end */
+  .word { left: 70px; font-family: Black; font-size: 270px; line-height: .86; letter-spacing: -16px; transform-origin: left center; }
+  #tag { left: 70px; right: 70px; top: 1090px; font-family: Wide; font-size: 64px; line-height: 1.1; text-transform: uppercase; }
+  #gift { left: 70px; right: 70px; top: 1390px; font-family: Semi; font-size: 44px; color: #C9CACE; }
+  #cta { left: 70px; right: 70px; top: 1540px; height: 156px; border-radius: 34px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 52px; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; pointer-events: none; }
+  #white { inset: 0; background: #F5F5F0; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam">
+  <!-- S1: your excuses, crossed out -->
+  <div class="scene" id="s1">
+    <div class="abs title" style="visibility:visible">Tes excuses :</div>
+    <div class="abs excuse" id="e0" style="top:420px">Il pleut.<div class="strike" id="x0"></div></div>
+    <div class="abs excuse" id="e1" style="top:640px">J'suis crevé·e.<div class="strike" id="x1"></div></div>
+    <div class="abs excuse" id="e2" style="top:860px">Demain, promis.<div class="strike" id="x2"></div></div>
+    <div class="abs" id="noBg"></div>
+    <div class="abs stampWord" id="no1" style="top:620px">NO</div>
+    <div class="abs stampWord" id="no2" style="top:830px">XCUSE.</div>
+  </div>
+  <!-- S2: the promise -->
+  <div class="scene" id="s2">
+    <div class="abs slam" id="w1" style="top:560px">Ta team.</div>
+    <div class="abs slam" id="w2" style="top:760px">Ton objectif.</div>
+    <div class="abs slam o" id="w3" style="top:960px">Zéro excuse.</div>
+    <div class="abs" id="avs" style="left:70px;right:70px;top:1300px;display:flex;justify-content:space-between"></div>
+  </div>
+  <!-- S3: step 1 -->
+  <div class="scene" id="s3">
+        <div class="abs kicker">ÉTAPE 1</div>
+    <div class="abs big">Crée ta team.</div>
+    <div class="abs sub" style="top:440px">Invite 1 à 3 potes avec ton code.</div>
+    <div class="abs card" id="teamCard" style="top:640px">
+      <div class="label">TA TEAM</div>
+      <div class="name">Les Guerriers</div>
+      <div class="code" id="code">&nbsp;</div>
+      <div id="rows" style="margin-top:30px"></div>
+    </div>
+  </div>
+  <!-- S4: step 2 -->
+  <div class="scene" id="s4">
+    <svg class="abs" id="map" viewBox="0 0 1080 1920"></svg>
+    <div class="abs" id="gymRing"></div>
+    <div class="abs" id="gymDot"></div>
+    <svg class="abs" id="me" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="#111214" stroke="#FF6A3D" stroke-width="6"/><circle cx="40" cy="32" r="11" fill="#FF6A3D"/><path d="M20 62 C22 49 31 46 40 46 C49 46 58 49 60 62 Z" fill="#FF6A3D"/></svg>
+    <div class="abs kicker">ÉTAPE 2</div>
+    <div class="abs big">Va à la salle.</div>
+    <div class="abs sub" style="top:440px">Rien à lancer : l'app le voit toute seule.</div>
+    <div class="abs glass" id="chronoPanel">
+      <div class="abs" id="chrono">00:00</div>
+      <div class="abs" id="chronoLbl">SÉANCE EN COURS</div>
+      <div class="abs" id="okStamp">✓ SÉANCE VALIDÉE · +20 KG</div>
+    </div>
+  </div>
+  <!-- S5: step 3 -->
+  <div class="scene" id="s5">
+        <div class="abs kicker">ÉTAPE 3</div>
+    <div class="abs big">Charge la barre.</div>
+    <div class="abs" id="kg"><span id="kgVal">0</span> <small>kg</small></div>
+    <svg class="abs" id="barWrap" viewBox="0 0 1000 420"></svg>
+    <div class="abs sub" style="top:1300px">Chaque séance = un disque sur la barre de ta team.</div>
+    <div class="abs notif" id="n5" style="top:1560px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Sam vient de charger 20 kg 💪</div></div></div>
+  </div>
+  <!-- S6: spot -->
+  <div class="scene" id="s6">
+    <div class="abs kicker">BONUS</div>
+    <div class="abs big">Ton pote traîne ?</div>
+    <div class="abs sub" style="top:440px">Spotte-le : il reçoit une notif.</div>
+    <div class="abs" id="spotRow"></div>
+    <div class="abs" id="tap"></div>
+    <div class="abs" id="finger"></div>
+    <div class="abs notif" id="n6" style="top:1250px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Sam te spot : bouge à la salle !</div></div></div>
+  </div>
+  <!-- S7: skip card -->
+  <div class="scene" id="s7">
+    <div class="abs" id="poster">
+      <div class="abs" id="pTop">Et si tu skip ?</div>
+      <div class="abs sk" id="sk1" style="top:230px">SK</div>
+      <div class="abs sk" id="sk2" style="top:700px">IP</div>
+      <img class="abs" id="canapSmug" src="canap-smug.svg">
+      <div class="abs" id="pHead">Alex a choisi le canap'.</div>
+      <div class="abs" id="sticker">Dimanche, 20 h : toute ta team<br>reçoit <span class="o">ta carte SKIP</span>.</div>
+    </div>
+  </div>
+  <!-- S8: team PR -->
+  <div class="scene" id="s8">
+    <div class="abs kicker" id="k8">TOUT LE MONDE A TENU ?</div>
+    <div class="abs" id="prTitle">PR DE<br>LA TEAM<span class="o">.</span></div>
+    <img class="abs" id="canapCrushed" src="canap-crushed.svg">
+  </div>
+  <!-- S9: end -->
+  <div class="scene" id="s9">
+    <div class="abs word" id="z1" style="top:380px">NO</div>
+    <div class="abs word" id="z2" style="top:630px">XCUSE<span class="o">.</span></div>
+    <div class="abs" id="tag">La muscu<br>entre potes<span class="o">.</span></div>
+    <div class="abs" id="gift">Un pote paie, toute la team joue.</div>
+    <div class="abs" id="cta">Télécharge · App Store</div>
+  </div>
+  <div class="abs" id="flash"></div>
+  <div class="abs" id="white"></div>
+</div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a, d = 0.22) => { const p = seg(t, a, a + d); return { o: clamp(p * 4), s: 1 + (1 - easeOut(p)) * 1.6 }; };
+  const shake = (t, a, d = 0.3, amp = 16) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 46) * amp * (1 - p) : 0; };
+  const pop = (el, t, a) => { const p = seg(t, a, a + 0.28); el.style.opacity = clamp(p * 3); el.style.transform = `scale(${Math.max(0.001, back(p))})`; };
+  const rise = (el, t, a, d = 70) => { const p = seg(t, a, a + 0.3); el.style.opacity = p; el.style.transform = `translateY(${(1 - easeOut(p)) * d}px)`; };
+  const slamIn = (el, t, a) => { const s = stamp(t, a); el.style.opacity = s.o; el.style.transform = `scale(${s.s})`; };
+
+  const person = (c) => `<svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="48" fill="#2A2B30"/><circle cx="48" cy="38" r="17" fill="${c}"/><path d="M18 84 C20 62 34 56 48 56 C62 56 76 62 78 84 Z" fill="${c}"/></svg>`;
+  const crew = [['TOI', '#FF6A3D'], ['ALEX', '#F5F5F0'], ['SAM', '#B9BBC0'], ['LOU', '#7C7E84']];
+  $('avs').innerHTML = crew.map(([n, c], i) => `<div id="av${i}" style="text-align:center;font-family:Wide;font-size:30px;color:${c}"><div class="av">${person(c)}</div>${n}</div>`).join('');
+  $('rows').innerHTML = crew.slice(1).map(([n, c], i) => `<div class="row" id="r${i}">${person(c)}<div class="who">${n[0] + n.slice(1).toLowerCase()}</div><div class="tag">a rejoint ✓</div></div>`).join('');
+  $('spotRow').innerHTML = `${person('#F5F5F0')}<div style="flex:1"><div style="font-family:Wide;font-size:46px">Alex</div><div style="font-family:Semi;font-size:34px;color:#A3A4A9">1/3 · Pas encore</div></div><div id="spotBtn">SPOT</div>`;
+
+  let streets = '';
+  const lines = [[0, 300, 1080, 420], [0, 760, 1080, 640], [0, 1180, 1080, 1290], [0, 1600, 1080, 1520], [180, 0, 260, 1920], [600, 0, 520, 1920], [900, 0, 980, 1920], [0, 980, 1080, 900]];
+  for (const [x1, y1, x2, y2] of lines) streets += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#0B0B0D" stroke-width="34"/>`;
+  $('map').innerHTML = `<rect width="1080" height="1920" fill="#16171A"/>${streets}`;
+
+  const plates = ['#FF6A3D', '#F5F5F0', '#B9BBC0', '#FF6A3D'];
+  $('barWrap').innerHTML = '<rect x="0" y="198" width="1000" height="24" rx="12" fill="#8A9099"/><rect x="420" y="190" width="160" height="40" rx="10" fill="#5E6066"/>' +
+    '<rect x="380" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/><rect x="594" y="160" width="26" height="100" rx="8" fill="#B9BBC0"/>' +
+    plates.map((c, i) => `<rect id="pl${i}" x="${330 - i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/><rect id="pr${i}" x="${618 + i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/>`).join('');
+
+  const SCENES = [['s1', 0, 3.8], ['s2', 3.8, 6.0], ['s3', 6.0, 9.6], ['s4', 9.6, 13.4], ['s5', 13.4, 16.6], ['s6', 16.6, 19.0], ['s7', 19.0, 22.2], ['s8', 22.2, 24.4], ['s9', 24.4, 28.5]];
+  window.DURATION = 28.5;
+  // Beats that punch the camera (slams, stamps, clangs).
+  const BEATS = [0.35, 0.95, 1.55, 2.55, 2.8, 3.85, 4.35, 4.85, 12.6, 13.8, 14.15, 14.5, 14.85, 19.15, 19.45, 22.8, 23.35, 24.5, 24.8];
+  const WHIPS = SCENES.slice(1).map(([, a]) => a);
+
+  window.render = (t) => {
+    let flash = 0, white = 0;
+    SCENES.forEach(([id, a, b], i) => {
+      const el = $(id);
+      const on = t >= a && t < b + 0.2;
+      el.style.visibility = on ? 'visible' : 'hidden';
+      el.style.zIndex = String(i + 1);
+      if (i > 0) { // whip in from the right
+        const p = seg(t, a, a + 0.2);
+        el.style.transform = `translateX(${(1 - easeOut(p)) * 1100}px) skewX(${(1 - p) * -10}deg)`;
+      }
+    });
+    let punch = 0;
+    for (const b of BEATS) { const p = seg(t, b, b + 0.18); if (p > 0 && p < 1) punch += 0.045 * (1 - p); }
+    const sh = BEATS.reduce((s, b) => s + shake(t, b, 0.22, 9), 0);
+    $('cam').style.transform = `scale(${1 + punch}) translate(${sh}px, ${sh * 0.4}px)`;
+
+    if (t < 4.0) {
+      [0.35, 0.95, 1.55].forEach((s, i) => {
+        slamIn($('e' + i), t, s);
+        $('x' + i).style.width = `${easeOut(seg(t, s + 0.3, s + 0.45)) * 105}%`;
+      });
+      const nb = seg(t, 2.5, 2.56); $('noBg').style.opacity = nb;
+      slamIn($('no1'), t, 2.55); slamIn($('no2'), t, 2.8);
+      if (t >= 2.5 && t < 2.56) white = 0.5;
+    }
+    if (t >= 3.8 && t < 6.2) {
+      slamIn($('w1'), t, 3.85); slamIn($('w2'), t, 4.35); slamIn($('w3'), t, 4.85);
+      [0, 1, 2, 3].forEach((i) => pop($('av' + i), t, 5.15 + i * 0.12));
+    }
+    if (t >= 6.0 && t < 9.8) {
+      const full = 'ABCD-2345', n = Math.floor(seg(t, 6.5, 7.2) * full.length);
+      $('code').innerHTML = n ? full.slice(0, n) + (n < full.length ? '<span class="o">|</span>' : '') : '&nbsp;';
+      [0, 1, 2].forEach((i) => pop($('r' + i), t, 7.5 + i * 0.4));
+      rise($('teamCard'), t, 6.15, 120);
+    }
+    if (t >= 9.6 && t < 13.6) {
+      const pulse = ((t - 9.6) % 1.2) / 1.2;
+      $('gymRing').style.opacity = 1 - pulse; $('gymRing').style.transform = `scale(${0.15 + pulse * 0.85})`;
+      const walk = easeOut(seg(t, 9.85, 10.9));
+      $('me').style.transform = `translate(${walk * 0}px, ${-walk * 480}px)`;
+      rise($('chronoPanel'), t, 10.8, 200);
+      const run = seg(t, 11.0, 12.55);
+      const mins = Math.pow(run, 1.6) * 45;
+      $('chrono').textContent = `${String(Math.floor(mins)).padStart(2, '0')}:${String(Math.floor((mins % 1) * 60)).padStart(2, '0')}`;
+      $('chronoLbl').style.opacity = t < 12.6 ? 1 : 0;
+      const ok = stamp(t, 12.6); $('okStamp').style.opacity = ok.o; $('okStamp').style.transform = `scale(${ok.s})`;
+      if (t >= 12.6 && t < 12.66) flash = 0.25;
+    }
+    if (t >= 13.4 && t < 16.8) {
+      let loaded = 0;
+      plates.forEach((_, i) => {
+        const s = 13.8 + i * 0.35, p = seg(t, s, s + 0.18);
+        if (t >= s) loaded = i + 1;
+        for (const side of ['pl', 'pr']) {
+          $(side + i).style.opacity = p;
+          $(side + i).setAttribute('transform', `translate(${(side === 'pl' ? -1 : 1) * (1 - back(p)) * 180} 0)`);
+        }
+        if (t >= s && t < s + 0.06) flash = 0.16;
+      });
+      $('kgVal').textContent = String(loaded * 40);
+      const nn = seg(t, 15.5, 15.8); $('n5').style.opacity = nn; $('n5').style.transform = `translateY(${(1 - back(nn)) * 260}px)`;
+    }
+    if (t >= 16.6 && t < 19.2) {
+      rise($('spotRow'), t, 16.7, 100);
+      // Finger comes in, taps SPOT at 17.5.
+      const f = easeOut(seg(t, 17.0, 17.45));
+      const fx = 1060 - f * 205, fy = 1250 - f * 380;
+      $('finger').style.left = `${fx - 35}px`; $('finger').style.top = `${fy - 35}px`;
+      $('finger').style.opacity = seg(t, 16.95, 17.1) * (1 - seg(t, 18.0, 18.2));
+      $('finger').style.transform = `scale(${t > 17.45 && t < 17.6 ? 0.8 : 1})`;
+      const r = seg(t, 17.5, 17.9);
+      $("tap").style.left = `${855 - 70}px`; $("tap").style.top = `${870 - 70}px`;
+      $('tap').style.opacity = r > 0 ? 1 - r : 0; $('tap').style.transform = `scale(${0.3 + r * 1.4})`;
+      const btn = $('spotBtn');
+      if (btn) { const done = t >= 17.55; btn.textContent = done ? 'SPOTTÉ ✓' : 'SPOT'; btn.style.background = done ? '#2A2B30' : '#FF6A3D'; btn.style.color = done ? '#FF6A3D' : '#0E0E0F'; btn.style.fontSize = done ? '32px' : '40px'; }
+      const nn = seg(t, 17.85, 18.15); $('n6').style.opacity = nn; $('n6').style.transform = `translateY(${(1 - back(nn)) * -300}px)`;
+    }
+    if (t >= 19.0 && t < 22.4) {
+      $('pTop').style.opacity = seg(t, 19.05, 19.2);
+      slamIn($('sk1'), t, 19.15); slamIn($('sk2'), t, 19.45);
+      const c = seg(t, 19.7, 20.0);
+      const bite = t > 19.9 && t < 21.5 ? Math.max(0, Math.sin(((t - 19.9) / 0.3) * Math.PI)) : 0;
+      $('canapSmug').style.opacity = c;
+      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 320}px) scale(${1 + bite * 0.03}, ${1 - bite * 0.06})`;
+      rise($('pHead'), t, 20.1); rise($('sticker'), t, 20.5);
+    }
+    if (t >= 22.2 && t < 24.6) {
+      rise($('k8'), t, 22.25, 40);
+      const a = stamp(t, 22.8); $('prTitle').style.opacity = a.o; $('prTitle').style.transform = `scale(${a.s})`;
+      const c = seg(t, 23.1, 23.35);
+      $('canapCrushed').style.opacity = c;
+      $('canapCrushed').style.transform = `translateY(${(1 - easeOut(c)) * -600}px) scaleY(${1 - 0.28 * Math.sin(seg(t, 23.35, 23.7) * Math.PI)})`;
+      if (t >= 23.35 && t < 23.42) white = 0.35;
+    }
+    if (t >= 24.4) {
+      slamIn($('z1'), t, 24.5); slamIn($('z2'), t, 24.8);
+      rise($('tag'), t, 25.3); rise($('gift'), t, 25.8); rise($('cta'), t, 26.3);
+      if (t > 26.7) $('cta').style.transform += ` scale(${1 + 0.035 * Math.sin((t - 26.7) * 7)})`;
+    }
+    $('flash').style.opacity = flash; $('white').style.opacity = white;
+  };
+  window.render(0);
+</script>
+</body>
+</html>
