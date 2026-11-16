@@ -15,7 +15,7 @@ import { Canap } from '@/components/Canap';
 import { GiftBanner } from '@/components/GiftBanner';
 import { CountUp } from '@/components/CountUp';
 import { ArrowUpRight } from '@/components/icons/ArrowUpRight';
-import { HistoryIcon, InviteIcon, TimerIcon } from '@/components/icons/GameIcons';
+import { ChatIcon, HistoryIcon, InviteIcon, TimerIcon } from '@/components/icons/GameIcons';
 import { MapBackdrop } from '@/components/MapBackdrop';
 import { PlayerRow } from '@/components/PlayerRow';
 import { TeamBar } from '@/components/TeamBar';
@@ -190,14 +190,24 @@ function TeamScreen() {
                 ) : null}
               </GlassPanel>
             </PressableScale>
-            <RoundGlassButton
-              onPress={() =>
-                team && router.push({ pathname: '/team-manage/[id]', params: { id: team.id } })
-              }
-              accessibilityLabel="Inviter un pote"
-            >
-              <InviteIcon color={colors.offWhite} />
-            </RoundGlassButton>
+            <View style={styles.headButtons}>
+              <RoundGlassButton
+                onPress={() =>
+                  team && router.push({ pathname: '/team-chat/[id]', params: { id: team.id } })
+                }
+                accessibilityLabel="Chat de la team"
+              >
+                <ChatIcon color={colors.offWhite} />
+              </RoundGlassButton>
+              <RoundGlassButton
+                onPress={() =>
+                  team && router.push({ pathname: '/team-manage/[id]', params: { id: team.id } })
+                }
+                accessibilityLabel="Inviter un pote"
+              >
+                <InviteIcon color={colors.offWhite} />
+              </RoundGlassButton>
+            </View>
           </View>
 
           <GiftBanner />
@@ -462,6 +472,7 @@ const styles = StyleSheet.create({
   flex: { flex: 1, gap: 2 },
   content: { padding: spacing.lg, gap: spacing.md, paddingBottom: 220 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  headButtons: { flexDirection: 'row', gap: spacing.sm },
   teamChip: {
     flexDirection: 'row',
     alignItems: 'center',

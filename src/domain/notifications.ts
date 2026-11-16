@@ -4,7 +4,15 @@
  */
 
 export type NotificationPrefKey =
-  'plate_loaded' | 'spot' | 'shaky_bar' | 'skip' | 'recap' | 'team_pr' | 'gym_change' | 'offers';
+  | 'plate_loaded'
+  | 'spot'
+  | 'shaky_bar'
+  | 'skip'
+  | 'recap'
+  | 'team_pr'
+  | 'gym_change'
+  | 'chat'
+  | 'offers';
 
 /** Marketing pushes need an explicit opt-in (Apple 4.5.4): off until the player turns them on. */
 const OFF_BY_DEFAULT: readonly NotificationPrefKey[] = ['offers'];
@@ -33,6 +41,11 @@ export const NOTIFICATION_PREFS: readonly {
     key: 'gym_change',
     label: 'Changement de salle',
     detail: 'Quand un pote change de salle principale (jamais laquelle).',
+  },
+  {
+    key: 'chat',
+    label: 'Messages de la team',
+    detail: 'Quand un pote écrit dans le chat de la team.',
   },
   {
     key: 'offers',
@@ -67,7 +80,8 @@ export type NotificationRoute =
   | { pathname: '/lifter/[id]'; params: { id: string } }
   | { pathname: '/lifter' }
   | { pathname: '/team' }
-  | { pathname: '/boutique' };
+  | { pathname: '/boutique' }
+  | { pathname: '/team-chat/[id]'; params: { id: string } };
 
 const str = (v: unknown): string | null => (typeof v === 'string' && v.length > 0 ? v : null);
 
@@ -107,6 +121,10 @@ export function routeForNotification(
       return { pathname: '/team' };
     case 'offer':
       return { pathname: '/boutique' };
+    case 'chat': {
+      const team = str(d.team_id);
+      return team ? { pathname: '/team-chat/[id]', params: { id: team } } : { pathname: '/team' };
+    }
     default:
       return null;
   }

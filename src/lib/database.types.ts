@@ -168,6 +168,7 @@ export type Database = {
           reported_id: string;
           reason: string;
           created_at: string;
+          message_id: string | null;
         };
         Insert: {
           id?: string;
@@ -176,6 +177,7 @@ export type Database = {
           reported_id: string;
           reason: string;
           created_at?: string;
+          message_id?: string | null;
         };
         Update: {
           id?: string;
@@ -184,8 +186,16 @@ export type Database = {
           reported_id?: string;
           reason?: string;
           created_at?: string;
+          message_id?: string | null;
         };
         Relationships: [
+          {
+            foreignKeyName: 'member_reports_message_id_fkey';
+            columns: ['message_id'];
+            isOneToOne: false;
+            referencedRelation: 'team_messages';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'member_reports_reported_id_fkey';
             columns: ['reported_id'];
@@ -658,6 +668,48 @@ export type Database = {
           },
         ];
       };
+      team_messages: {
+        Row: {
+          id: string;
+          team_id: string;
+          user_id: string;
+          body: string;
+          created_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          team_id: string;
+          user_id: string;
+          body: string;
+          created_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          team_id?: string;
+          user_id?: string;
+          body?: string;
+          created_at?: string;
+          deleted_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'team_messages_team_id_fkey';
+            columns: ['team_id'];
+            isOneToOne: false;
+            referencedRelation: 'teams';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'team_messages_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       team_subscriptions: {
         Row: {
           team_id: string;
@@ -944,6 +996,12 @@ export type Database = {
         };
         Returns: undefined;
       };
+      delete_team_message: {
+        Args: {
+          p_message: string;
+        };
+        Returns: undefined;
+      };
       equip_plate_skin: {
         Args: {
           p_skin: string;
@@ -1063,6 +1121,20 @@ export type Database = {
         };
         Returns: Database['public']['Tables']['teams']['Row'];
         SetofOptions: { from: '*'; to: 'teams'; isOneToOne: true; isSetofReturn: false };
+      };
+      report_team_message: {
+        Args: {
+          p_message: string;
+          p_reason: string;
+        };
+        Returns: undefined;
+      };
+      send_team_message: {
+        Args: {
+          p_team: string;
+          p_body: string;
+        };
+        Returns: string;
       };
       set_weekly_goal: {
         Args: {

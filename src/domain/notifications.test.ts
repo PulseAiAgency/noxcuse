@@ -61,6 +61,11 @@ describe('preferences', () => {
     expect(isPrefOn({}, 'offers')).toBe(false);
     expect(isPrefOn({ offers: true }, 'offers')).toBe(true);
     expect(routeForNotification({ type: 'offer' }, null)).toEqual({ pathname: '/boutique' });
+    expect(routeForNotification({ type: 'chat', team_id: 't1' }, null)).toEqual({
+      pathname: '/team-chat/[id]',
+      params: { id: 't1' },
+    });
+    expect(routeForNotification({ type: 'chat' }, null)).toEqual({ pathname: '/team' });
   });
 
   it('toggles one key and keeps the others', () => {
@@ -75,6 +80,7 @@ describe('preferences', () => {
   it('lists every type the server sends', () => {
     expect(NOTIFICATION_PREFS.map((p) => p.key).sort()).toEqual(
       [
+        'chat',
         'gym_change',
         'offers',
         'plate_loaded',

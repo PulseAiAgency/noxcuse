@@ -57,6 +57,8 @@ const MESSAGES: Record<string, string> = {
   skin_not_owned:
     'Ce skin n’est pas encore à toi. Si tu viens de l’acheter, patiente quelques secondes.',
   invalid_skin: 'Ce skin n’existe pas.',
+  invalid_message: 'Message vide ou trop long (500 caractères max).',
+  too_many_messages: 'Doucement : trop de messages d’un coup. Réessaie dans une minute.',
   poster_not_owned:
     'Cette carte n’est pas encore à toi. Si tu viens de l’acheter, patiente quelques secondes.',
   invalid_poster_style: 'Cette carte n’existe pas.',

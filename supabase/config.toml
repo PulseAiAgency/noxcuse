@@ -471,6 +471,10 @@ verify_jwt = false
 [functions.send-offer]
 enabled = true
 verify_jwt = false
+
+[functions.notify-chat]
+enabled = true
+verify_jwt = false
 import_map = "./functions/deno.json"
 
 # Called by RevenueCat: no JWT, guarded by the REVENUECAT_WEBHOOK_AUTH secret.
