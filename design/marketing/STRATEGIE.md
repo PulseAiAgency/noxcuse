@@ -24,13 +24,35 @@ But : qu'on comprenne l'app en une vidéo et qu'on ait envie de la télécharger
 3. 6–10 s : ÉTAPE 1 « Crée ta team. » 2 à 4 potes, chacun son objectif (3 / sem., 4 / sem.…).
 4. 10–15 s : ÉTAPE 2 « Va à la salle. » Carte sombre, point de la salle qui pulse, chrono qui file jusqu'à 45:00, « +20 KG » et « Séance validée » + notif. « L'app le voit toute seule. Ta team voit « venu », jamais où t'es. »
 5. 15–19 s : ÉTAPE 3 « Charge la barre. » Les disques se chargent (clang), 100 kg, notif « Sam vient de charger 20 kg 💪 ».
-6. 19–22 s : « Et si tu skip ? » La carte SKIP tombe, le Canap' sourit (sans bruit). « Toute ta team reçoit ta carte. Dimanche, 20 h. »
+6. 19–22 s : « Et si tu skip ? » La carte SKIP tombe, le Canap' croque ses chips (bruit de chips). « Toute ta team reçoit ta carte. Dimanche, 20 h. »
 7. 22–27 s : « NO / XCUSE. » « La muscu entre potes. Sans excuse. » « Un pote paie, toute la team joue. » « Télécharge · App Store ».
 
 Légende proposée :
 > Tu vas plus à la salle quand tes potes comptent sur toi. Crée ta team, charge la barre, et évite la carte SKIP 🛋️ Lien en bio. #muscu #salledesport #gymtok #motivation #potes
 
 Sources : `video-explainer/index.html`, sons `python3 scripts/mix_explainer.py audio` (depuis `scripts/`).
+
+## Vidéo 3 — avec de vraies personnes (kit à monter dans CapCut, dossier `kit/`)
+Je ne peux ni filmer ni fabriquer de vraies personnes : tu tournes 4 plans avec tes potes (téléphone en vertical, 2 à 4 s chacun), et le kit fournit tout le reste, avec les sons.
+- `0-maquette-du-montage.mp4` : le montage complet avec des cases « ta vidéo filmée ici » pour voir le rythme (21 s).
+- `1-accroche-fond-vert.mp4`, `2-notif-fond-vert.mp4`, `3-messages-fond-vert.mp4`, `5-plus20-fond-vert.mp4` : à poser **par-dessus** tes plans. CapCut : Superposition → Incrustation (chroma key) → pipette sur le vert.
+- `4-carte.mp4`, `6-fin.mp4` : plein écran, entre tes plans.
+
+| # | Ce que tu filmes | Ce que tu poses dessus |
+|---|---|---|
+| 1 | Toi affalé sur le canap', téléphone en main, un paquet de chips (dimanche soir, lumière tamisée). | « DIMANCHE, 19 H 58. / IL ME MANQUE 1 SÉANCE. » |
+| 2 | Gros plan sur ta tête quand le téléphone vibre : tu lis, tu te décomposes. | La notif « SKIP. Alex a choisi le canap'. » (vibration + tintement). Pour le vrai son iPhone, mets le son « iPhone notification » de la bibliothèque CapCut à la place. |
+| 3 | Tes potes (chez eux ou ensemble) qui éclatent de rire en regardant leur téléphone. | Les messages « la carte est sortie 😭 », « t'étais où ??? », « le Canap' te remercie 🛋️ ». |
+| 4 | — | La carte SKIP plein écran (tampons + chips croquées). |
+| 5 | Le lendemain : toi qui pousses la porte de la salle, puis qui charges une barre, déterminé. | « LUNDI, 7 H. », la barre qui se charge, « +20 KG. ». |
+| 6 | — | La fin : « NO / XCUSE. », « Un pote paie, toute la team joue. », « Télécharge · App Store ». |
+
+Conseils de tournage : visages et réactions exagérés, pas de musique de fond pendant le tournage (les bruitages du kit suffisent), chacun d'accord pour être filmé et publié. Le prénom sur la notif et la carte est « Alex » : donne-moi un autre pseudo et je régénère le kit.
+
+Légende proposée :
+> Dimanche 19 h 58, il me manquait 1 séance. Mes potes ont reçu ça 💀 #muscu #salledesport #gymtok #potes
+
+Sources : `video-kit/index.html` (une page, `#accroche`, `#notif`…), sons `python3 scripts/mix_kit.py audio` (depuis `scripts/`).
 
 ## 10 accroches à tourner ensuite (une par jour, mêmes éléments de l'app)
 1. « POV : ton pote a 0 séance et c'est dimanche 19 h 58. »

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · kit vidéo avec de vraies personnes</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  /* Green-screen clips: pure chroma green, solid shapes only (clean keying in CapCut). */
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #00B140; font-family: Med, sans-serif; color: #F5F5F0; }
+  #stage.solid { background: #111214; }
+  .abs { position: absolute; }
+  .clip { display: none; position: absolute; inset: 0; }
+  .o { color: #FF6A3D; }
+  .box { background: #111214; border-radius: 28px; padding: 22px 34px; font-family: Wide; font-size: 54px; line-height: 1.1; text-transform: uppercase; display: inline-block; white-space: nowrap; }
+  .notif { left: 50px; right: 50px; top: 120px; height: 170px; border-radius: 40px; background: #2E2F35; display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; }
+  .notif img { width: 96px; height: 96px; border-radius: 22px; }
+  .notif .t { font-family: Semi; font-size: 30px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 38px; color: #F5F5F0; margin-top: 4px; }
+  .bubble { left: 60px; max-width: 820px; background: #2E2F35; border-radius: 40px 40px 40px 12px; padding: 24px 34px; font-family: Semi; font-size: 42px; }
+  .bubble .who { font-family: Wide; font-size: 28px; margin-bottom: 6px; }
+  #poster { inset: 0; background: #ECECE8; color: #0E0E0F; }
+  .sk { left: 70px; font-family: Black; font-size: 560px; line-height: .8; letter-spacing: -30px; }
+  #canapSmug { right: 40px; top: 930px; width: 420px; transform-origin: 50% 100%; }
+  #pHead { left: 80px; right: 80px; top: 1330px; font-family: Wide; font-size: 66px; line-height: 1.05; text-transform: uppercase; }
+  #pLine { left: 80px; right: 80px; top: 1510px; font-family: Med; font-size: 42px; color: #333; }
+  #pBrand { right: 80px; top: 90px; font-family: Black; font-size: 48px; letter-spacing: -2px; }
+  #plus { left: 0; right: 0; top: 1180px; text-align: center; }
+  #plus .box { font-size: 150px; color: #FF6A3D; padding: 20px 50px; }
+  #barBox { left: 60px; right: 60px; top: 1460px; height: 300px; background: #111214; border-radius: 40px; }
+  .word { left: 70px; font-family: Black; font-size: 270px; line-height: .86; letter-spacing: -16px; }
+  #tag { left: 70px; right: 70px; top: 1110px; font-family: Wide; font-size: 62px; line-height: 1.12; text-transform: uppercase; }
+  #gift { left: 70px; right: 70px; top: 1380px; font-family: Semi; font-size: 42px; color: #C9CACE; }
+  #cta { left: 70px; right: 70px; top: 1540px; height: 150px; border-radius: 34px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; font-family: Wide; font-size: 50px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="clip" id="accroche">
+    <div class="abs" id="a1" style="left:60px;top:170px"><span class="box">Dimanche, 19 h 58.</span></div>
+    <div class="abs" id="a2" style="left:60px;top:300px"><span class="box">Il me manque <span class="o">1 séance</span>.</span></div>
+  </div>
+  <div class="clip" id="notif">
+    <div class="abs notif" id="n1"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">SKIP. Alex a choisi le canap'.</div></div></div>
+  </div>
+  <div class="clip" id="messages">
+    <div class="abs bubble" id="m1" style="top:1080px"><div class="who" style="color:#B9BBC0">SAM</div>la carte est sortie 😭</div>
+    <div class="abs bubble" id="m2" style="top:1300px"><div class="who" style="color:#F5F5F0">LOU</div>t'étais où ???</div>
+    <div class="abs bubble" id="m3" style="top:1520px"><div class="who" style="color:#B9BBC0">SAM</div>le Canap' te remercie 🛋️</div>
+  </div>
+  <div class="clip" id="carte">
+    <div class="abs" id="poster">
+      <div class="abs" id="pBrand">NOXCUSE<span class="o">.</span></div>
+      <div class="abs sk" id="sk1" style="top:230px">SK</div>
+      <div class="abs sk" id="sk2" style="top:700px">IP</div>
+      <img class="abs" id="canapSmug" src="canap-smug.svg">
+      <div class="abs" id="pHead">Alex a choisi le canap'.</div>
+      <div class="abs" id="pLine">Toute la team l'a reçue. Dimanche, 20 h.</div>
+    </div>
+  </div>
+  <div class="clip" id="plus20">
+    <div class="abs" id="lundi" style="left:60px;top:170px"><span class="box">Lundi, 7 h.</span></div>
+    <div class="abs" id="plus"><span class="box">+20 KG.</span></div>
+    <svg class="abs" id="barBox" viewBox="0 0 960 300"></svg>
+  </div>
+  <div class="clip" id="fin">
+    <div class="abs word" id="w1" style="top:400px">NO</div>
+    <div class="abs word" id="w2" style="top:650px">XCUSE<span class="o">.</span></div>
+    <div class="abs" id="tag">La muscu entre potes.<br><span class="o">Sans excuse.</span></div>
+    <div class="abs" id="gift">Un pote paie, toute la team joue.</div>
+    <div class="abs" id="cta">Télécharge · App Store</div>
+  </div>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a) => { const p = seg(t, a, a + 0.28); return { o: clamp(p * 3), s: 1 + (1 - easeOut(p)) * 1.4 }; };
+  const shake = (t, a, d = 0.35, amp = 14) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 40) * amp * (1 - p) : 0; };
+  // Green clips: opacity fades would tint the key, so elements slide/scale in fully opaque.
+  const slide = (id, t, a, dist = 60) => { const p = seg(t, a, a + 0.3); $(id).style.visibility = p > 0 ? 'visible' : 'hidden'; $(id).style.transform = `translateY(${(1 - back(p)) * dist}px)`; };
+  const pop = (id, t, a) => { const p = seg(t, a, a + 0.3); $(id).style.visibility = p > 0 ? 'visible' : 'hidden'; $(id).style.transform = `scale(${Math.max(0.001, back(p))})`; };
+
+  const plates = ['#FF6A3D', '#F5F5F0', '#B9BBC0', '#FF6A3D'];
+  $('barBox').innerHTML = '<rect x="40" y="140" width="880" height="20" rx="10" fill="#8A9099"/>' +
+    '<rect x="400" y="134" width="160" height="32" rx="8" fill="#5E6066"/>' +
+    plates.map((c, i) => `<rect id="pl${i}" x="${330 - i * 50}" y="50" width="40" height="200" rx="8" fill="${c}"/><rect id="pr${i}" x="${590 + i * 50}" y="50" width="40" height="200" rx="8" fill="${c}"/>`).join('');
+
+  const CLIPS = {
+    accroche: { d: 3, solid: false, r: (t) => { slide('a1', t, 0.1); slide('a2', t, 0.9); } },
+    notif: { d: 3, solid: false, r: (t) => {
+      const p = seg(t, 0.3, 0.65);
+      $('n1').style.visibility = p > 0 ? 'visible' : 'hidden';
+      $('n1').style.transform = `translateY(${(1 - back(p)) * -320}px) translateX(${shake(t, 0.3, 0.45, 10)}px)`;
+    } },
+    messages: { d: 4, solid: false, r: (t) => { pop('m1', t, 0.3); pop('m2', t, 1.1); pop('m3', t, 1.9); } },
+    carte: { d: 4, solid: true, r: (t) => {
+      const a = stamp(t, 0.15), b = stamp(t, 0.55);
+      $('sk1').style.opacity = a.o; $('sk1').style.transform = `scale(${a.s})`;
+      $('sk2').style.opacity = b.o; $('sk2').style.transform = `scale(${b.s})`;
+      const ps = shake(t, 0.4, 0.3, 18) + shake(t, 0.8, 0.3, 18);
+      $('poster').style.transform = `translate(${ps}px, ${ps * 0.5}px)`;
+      const c = seg(t, 0.9, 1.3);
+      const bite = t > 1.3 && t < 2.9 ? Math.max(0, Math.sin(((t - 1.3) / 0.32) * Math.PI)) : 0;
+      $('canapSmug').style.opacity = c;
+      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 300}px) scale(${1 + bite * 0.03}, ${1 - bite * 0.05})`;
+      for (const [id, s] of [['pHead', 1.4], ['pLine', 1.8]]) { const p = seg(t, s, s + 0.35); $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - easeOut(p)) * 50}px)`; }
+      $('pBrand').style.opacity = seg(t, 0.05, 0.3);
+    } },
+    plus20: { d: 3, solid: false, r: (t) => {
+      slide('lundi', t, 0.05);
+      const s = stamp(t, 1.5); $('plus').style.visibility = s.o > 0 ? 'visible' : 'hidden'; $('plus').style.transform = `scale(${s.s})`;
+      slide('barBox', t, 0.2, 400);
+      plates.forEach((_, i) => {
+        const st = 0.6 + i * 0.25, p = seg(t, st, st + 0.18);
+        for (const side of ['pl', 'pr']) { $(side + i).style.visibility = p > 0 ? 'visible' : 'hidden'; $(side + i).setAttribute('transform', `translate(${(side === 'pl' ? -1 : 1) * (1 - back(p)) * 120} 0)`); }
+      });
+    } },
+    fin: { d: 4, solid: true, r: (t) => {
+      const a = stamp(t, 0.1), b = stamp(t, 0.45);
+      $('w1').style.opacity = a.o; $('w1').style.transform = `scale(${a.s})`;
+      $('w2').style.opacity = b.o; $('w2').style.transform = `scale(${b.s})`;
+      for (const [id, s] of [['tag', 1.0], ['gift', 1.5], ['cta', 2.0]]) { const p = seg(t, s, s + 0.35); $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - easeOut(p)) * 50}px)`; }
+      if (t > 2.4) $('cta').style.transform += ` scale(${1 + 0.03 * Math.sin((t - 2.4) * 6)})`;
+    } },
+  };
+  const name = location.hash.slice(1) || 'accroche';
+  const clip = CLIPS[name];
+  $(name).style.display = 'block';
+  $('stage').className = clip.solid ? 'solid' : '';
+  window.DURATION = clip.d;
+  window.render = (t) => clip.r(t);
+  window.render(0);
+</script>
+</body>
+</html>

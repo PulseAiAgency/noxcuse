@@ -1,7 +1,7 @@
 """Soundtrack of « Comment ça marche » (noxcuse-comment-ca-marche.mp4). Usage: python3 mix_explainer.py <audio_dir>"""
 import sys
 
-from sfx import Mix, pop, tick
+from sfx import Mix, munch, pop, tick
 
 m = Mix(27, sys.argv[1])
 thud, clang = (m.file(n) for n in ("thud.wav", "plate-clang.wav"))
@@ -19,6 +19,7 @@ for i in range(5):                               # plates loading
     m.at(15.0 + i * 0.4, clang, 0.8)
 m.notif(17.2)                                    # « Sam vient de charger 20 kg »
 m.at(18.9, thud); m.at(19.3, thud)               # SK / IP
+munch(m, 19.75, bites=5)                         # the Canap' munches its chips
 m.at(22.3, thud); m.at(22.65, thud)              # NO / XCUSE
 m.at(24.2, m.chime, 0.9)                         # CTA
 m.write("sfx-explainer.wav")

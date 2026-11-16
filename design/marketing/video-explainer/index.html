@@ -268,9 +268,11 @@
       const ps = shake(t, 19.15, 0.3, 18) + shake(t, 19.55, 0.3, 18);
       $('poster').style.transform = `translate(${ps}px, ${ps * 0.5}px)`;
       const c = seg(t, 19.7, 20.1);
-      const laugh = Math.abs(Math.sin((t - 19.7) * 9)) * 22 * (t > 20.1 ? 1 : c);
+      // Munching chips: a small squash on each bite (0.32 s apart, matching the crunch sounds).
+      const bite = t > 19.75 && t < 21.4 ? Math.max(0, Math.sin(((t - 19.75) / 0.32) * Math.PI)) : 0;
       $('canapSmug').style.opacity = c;
-      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 300}px) translateY(${-laugh}px) rotate(${Math.sin((t - 19.7) * 9) * 3}deg)`;
+      $('canapSmug').style.transformOrigin = '50% 100%';
+      $('canapSmug').style.transform = `translateX(${(1 - easeOut(c)) * 300}px) scale(${1 + bite * 0.03}, ${1 - bite * 0.05})`;
       rise('pHead', t, 20.1); rise('sticker', t, 20.6);
     }
 

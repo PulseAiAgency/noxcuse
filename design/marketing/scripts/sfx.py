@@ -94,3 +94,23 @@ class Mix:
     def write(self, name, peak_target=0.89):
         peak = float(np.max(np.abs(self.data)))
         save(self.dir / name, self.data / peak * peak_target)
+
+
+def crunch(seed=0):
+    """One crisp bite: a cluster of short bright noise cracks."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * 0.22))
+    for _ in range(9):
+        s = int(rng.uniform(0, 0.14) * SR)
+        n = int(SR * rng.uniform(0.006, 0.02))
+        t = np.arange(n) / SR
+        crack = rng.uniform(-1, 1, n) * np.exp(-t * rng.uniform(150, 300))
+        crack = np.diff(np.concatenate([[0], crack]))  # high-pass: brittle, not hissy
+        out[s:s + n] += crack[: len(out) - s] * rng.uniform(0.4, 1.0)
+    return out * 0.9
+
+
+def munch(m, t, bites=4, gap=0.32, gain=1.0):
+    """The Canap' eating chips: a few bites in a row."""
+    for i in range(bites):
+        m.at(t + i * gap, crunch(i), gain)
