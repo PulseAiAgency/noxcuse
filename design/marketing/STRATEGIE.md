@@ -49,8 +49,8 @@ Légende proposée :
 
 Sources : `video-fun/index.html`, sons `python3 scripts/mix_fun.py audio` (depuis `scripts/`).
 
-## Vidéo 5 — « Le concept » (`noxcuse-le-concept.mp4`, 42 s, le concept en détail)
-Même style que « Zéro excuse » (transitions balayées, tampons, bruitages seulement), mais tout le jeu y passe :
+## Vidéo 5 — « Le concept » (`noxcuse-le-concept.mp4`, 55 s, le concept en détail)
+Même style que « Zéro excuse » (transitions balayées, tampons, bruitages seulement), ralentie de 1,3× pour laisser le temps de lire (repères ci-dessous avant ralentissement), et tout le jeu y passe :
 1. 0–3,4 s : « Lundi, je reprends. » « Combien de fois t'as dit ça ? » Le compteur file jusqu'à « 47 fois », puis « NO / XCUSE. ».
 2. 3,4–6 s : LE CONCEPT : « Tes potes. Une barre. Un canap' qui te guette. » (le Canap' apparaît).
 3. 1 · La team : code d'invitation, 2 à 4 potes qui rejoignent.

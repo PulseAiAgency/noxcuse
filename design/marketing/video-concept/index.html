@@ -248,10 +248,12 @@
     plates.map((c, i) => `<rect id="pl${i}" x="${330 - i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/><rect id="pr${i}" x="${618 + i * 62}" y="60" width="52" height="300" rx="10" fill="${c}"/>`).join('');
 
   const SCENES = [['s1', 0, 3.4], ['s2', 3.4, 6.0], ['s3', 6.0, 9.0], ['s4', 9.0, 12.0], ['s5', 12.0, 16.4], ['s6', 16.4, 19.6], ['s7', 19.6, 22.4], ['s8', 22.4, 26.0], ['s9', 26.0, 29.6], ['s10', 29.6, 31.8], ['s11', 31.8, 34.4], ['s12', 34.4, 37.6], ['s13', 37.6, 42.0]];
-  window.DURATION = 42;
+  // Everything plays 1.3× slower than the timings below (more time to read each screen).
+  const SLOW = 1.3;
+  window.DURATION = 42 * SLOW;
   window.SCENES = SCENES;
   const BEATS = [0.1, 2.6, 2.85, 3.45, 3.95, 4.45, 10.5, 15.0, 16.8, 17.15, 17.5, 17.85, 26.15, 26.45, 29.9, 32.35, 32.9, 34.9, 35.3, 35.7, 37.7, 38.0];
-  window.render = (t) => {
+  const renderAt = (t) => {
     let flash = 0, white = 0;
     SCENES.forEach(([id, a, b], i) => {
       const el = $(id);
@@ -354,6 +356,7 @@
     }
     $('flash').style.opacity = flash; $('white').style.opacity = white;
   };
+  window.render = (t) => renderAt(t / SLOW);
   window.render(0);
 </script>
 </body>

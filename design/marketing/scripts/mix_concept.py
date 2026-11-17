@@ -3,7 +3,10 @@ import sys
 
 from sfx import Mix, click, munch, pop, tick, whoosh
 
-m = Mix(42, sys.argv[1])
+SLOW = 1.3  # same factor as video-concept/index.html: every cue below is in unslowed seconds
+m = Mix(42 * SLOW, sys.argv[1])
+_at = m.at
+m.at = lambda t, clip, gain=1.0: _at(t * SLOW, clip, gain)
 thud, clang, clap = (m.file(n) for n in ("thud.wav", "plate-clang.wav", "chalk-clap.wav"))
 
 m.at(0.1, thud, 0.8)                                  # « Lundi, je reprends. »
