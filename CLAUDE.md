@@ -533,6 +533,12 @@ Commence maintenant par la phase 1. Avant d'écrire du code, résume-moi en 10 l
 - Serveur : migration `…002100_team_chat.sql` (appliquée en 3 morceaux `team_chat_1_table`, `_2_rpcs`, `_3_push_and_realtime`) : `team_messages` (lecture seule pour les membres, écriture uniquement par `send_team_message` : 1 à 500 caractères, 20 messages / minute max), `delete_team_message`, `report_team_message`. Notification : seulement pour le 1er message d'une rafale de 2 min (fonction **`notify-chat`** déployée, secret partagé, titre = nom de la team, « Sam : on y va ce soir ? », préférence « Messages de la team », toucher = ouvre le chat). 12 tests SQL, 3 tests Deno, tests du domaine.
 - Nouveau build nécessaire pour l'avoir sur le téléphone (nouvel écran + nouvelle préférence).
 
+### Soumission App Store (18/11/2026)
+- Build 9 (chat de team + correction du chrono qui ne s'arrêtait pas : une visite refusée pour de bon par le serveur, ex. « déjà validée aujourd'hui », est supprimée du téléphone) envoyé sur TestFlight (groupe interne + groupe externe « Potes » soumis à la vérification bêta).
+- **Version 1.0 soumise à Apple** : 26 éléments (app build 9, 3 abonnements, groupe NOXCUSE Pro, 21 achats de la boutique). Publication **manuelle** après accord.
+- Fiche : 6 captures (`design/marketing/store-screens/`, 1206 × 2622 dans `jpg-1206/`, page dev `/dev-store?screen=team|session|chat`), description et texte promotionnel (« Seul, on lâche. Avec ses potes, on y va. »), mots-clés, URLs, copyright « 2026 PulseAi Agency », catégorie Forme et santé, classification par âge (chat entre utilisateurs), confidentialité publiée (e-mail, activité physique, localisation approximative, photos, autre contenu, identifiants utilisateur et appareil, achats ; tout en « fonctionnalités de l'app », associé à l'identité, pas de suivi), prix de l'app gratuit, DAC7 (pas de services personnels), pas de dispositif médical. Chine continentale : non distribuée (documents chinois non fournis).
+- À faire après l'accord : publier, puis activer la promotion des achats intégrés (images `design/qa/promo-images/`), image d'en-tête et aperçus vidéo facultatifs.
+
 ### Reste à faire de ton côté
 1. **Expo / EAS** : ✅ projet `@noskip-app/noskip` créé (id dans `app.config.ts`) ; recopier les variables de `.env` dans les environnements EAS ; premier `eas build --profile development`.
 2. **Apple** : ✅ compte Developer actif, Team ID `6PFWK3G845`, identifiant d'app `com.noskipapp.app`, clé APNs créée par EAS (13/11/2026), premier build envoyé sur TestFlight.
