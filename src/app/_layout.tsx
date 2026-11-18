@@ -87,6 +87,7 @@ function RootStack() {
       <Stack.Screen name="dev-shop" />
       <Stack.Screen name="dev-posters" />
       <Stack.Screen name="dev-promo" />
+      <Stack.Screen name="dev-store" />
       <Stack.Protected guard={loading || session !== null}>
         <Stack.Screen name="(app)" options={{ animation: 'fade' }} />
         <Stack.Screen name="session" options={{ animation: 'fade' }} />
