@@ -24,7 +24,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     name: 'NOXCUSE',
     owner: 'noskip-app',
     slug: 'noskip',
-    version: '1.0.0',
+    version: '1.0.1',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     scheme: 'noxcuse',
@@ -36,7 +36,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       usesAppleSignIn: true,
       // HTTPS only: exempt from export compliance (no questionnaire on each TestFlight upload).
       config: { usesNonExemptEncryption: false },
-      infoPlist: { CFBundleDisplayName: 'NOXCUSE' },
+      infoPlist: {
+        CFBundleDisplayName: 'NOXCUSE',
+        // The app is French-only: the App Store lists the languages the binary declares.
+        CFBundleDevelopmentRegion: 'fr',
+        CFBundleLocalizations: ['fr'],
+      },
       ...(inviteHost ? { associatedDomains: [`applinks:${inviteHost}`] } : {}),
     },
     android: {
