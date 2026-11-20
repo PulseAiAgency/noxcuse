@@ -10,7 +10,7 @@ import {
   privacySections,
   termsSections,
 } from '../content/legal.ts';
-import { APP_STORE_URL, SITE_PAGES } from '../content/publisher.ts';
+import { APP_STORE_URL, SITE_PAGES, TESTFLIGHT_URL } from '../content/publisher.ts';
 
 const OUT = new URL('../docs/', import.meta.url);
 const check = Deno.args.includes('--check');
@@ -181,6 +181,7 @@ function joinPage(): string {
 <p class="lead bad" id="bad">Lien incomplet : demande le code à ton pote, ou un nouveau lien.</p>
 <a class="btn primary" href="${APP_STORE_URL}">1 · Installer ${esc(APP_NAME)}</a>
 <a class="btn secondary" id="open" href="${APP_SCHEME}://">2 · J’ai l’app : ouvrir l’invitation</a>
+<p class="note">L’app n’est pas encore sur l’App Store en France ? Installe la version bêta : d’abord l’app TestFlight d’Apple, puis <a href="${TESTFLIGHT_URL}" style="color:var(--accent)">ce lien</a>.</p>
 <ol>
   <li>Installe l’app (iPhone ; Android arrive bientôt).</li>
   <li>Reviens ici et touche « ouvrir l’invitation » : tu rejoins la team en créant ton compte.</li>
