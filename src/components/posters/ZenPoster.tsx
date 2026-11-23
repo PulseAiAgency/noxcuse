@@ -49,11 +49,20 @@ export function ZenPoster({ ref, ...p }: PosterProps) {
       accessibilityLabel={`Carte SKIP, zen. Inspire, expire, skip. ${p.pseudo} a trouvé la paix intérieure sur le Canap'. ${p.line}`}
     >
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}
+        >
           {`MÉDITATION · ${p.weekLabel.toUpperCase()}`}
         </Text>
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: SAGE }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: SAGE }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -83,6 +92,7 @@ export function ZenPoster({ ref, ...p }: PosterProps) {
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, { fontSize: 19 * u, lineHeight: 23 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -90,16 +100,25 @@ export function ZenPoster({ ref, ...p }: PosterProps) {
         {`${p.pseudo.toUpperCase()} A TROUVÉ LA PAIX. SUR LE CANAP'.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 6 * u }]}
         numberOfLines={3}
       >
         {p.line}
       </Text>
       <View style={{ flex: 1 }} />
-      <Text style={[styles.small, { fontSize: 10 * u, letterSpacing: 1 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.small, { fontSize: 10 * u, letterSpacing: 1 * u }]}
+        numberOfLines={1}
+      >
         {`${p.teamName.toUpperCase()} ${formatKg(p.teamKg)} KG · CANAP' ${p.skips} · NAMASTÉ`}
       </Text>
-      <Text style={[styles.small, { fontSize: 10 * u, marginTop: 6 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.small, { fontSize: 10 * u, marginTop: 6 * u }]}
+        numberOfLines={1}
+      >
         {p.inviteLabel}
       </Text>
     </View>

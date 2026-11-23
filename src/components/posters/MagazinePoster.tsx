@@ -32,11 +32,20 @@ export function MagazinePoster({ ref, ...p }: PosterProps) {
       accessibilityLabel={`Carte SKIP, couverture de magazine. Exclu : ${p.pseudo} dit non à la salle. ${p.line}`}
     >
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 1.6 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 9 * u, letterSpacing: 1.6 * u }]}
+        >
           {`N° ${p.weekLabel.toUpperCase()} · ÉDITION SKIP`}
         </Text>
-        <Text style={[styles.brand, { fontSize: 12 * u, letterSpacing: -0.5 * u }]}>
-          NOXCUSE<Text style={{ color: PINK }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 12 * u, letterSpacing: -0.5 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: PINK }}>
+            .
+          </Text>
         </Text>
       </View>
       <FitLine
@@ -53,18 +62,30 @@ export function MagazinePoster({ ref, ...p }: PosterProps) {
           <Canap mood="wink" size={270 * u} accessible={false} />
         </View>
         <View style={{ width: 170 * u, gap: 4 * u, marginTop: 6 * u }}>
-          <Text style={[styles.kicker, { fontSize: 11 * u, letterSpacing: 2 * u }]}>EXCLU</Text>
           <Text
+            allowFontScaling={false}
+            style={[styles.kicker, { fontSize: 11 * u, letterSpacing: 2 * u }]}
+          >
+            EXCLU
+          </Text>
+          <Text
+            allowFontScaling={false}
             style={[styles.coverline, { fontSize: 21 * u, lineHeight: 23 * u }]}
             numberOfLines={4}
             adjustsFontSizeToFit
           >
             {`${p.pseudo.toUpperCase()} DIT NON À LA SALLE`}
           </Text>
-          <Text style={[styles.minor, { fontSize: 11 * u, lineHeight: 14 * u, marginTop: 8 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.minor, { fontSize: 11 * u, lineHeight: 14 * u, marginTop: 8 * u }]}
+          >
             Le look plaid de la saison
           </Text>
-          <Text style={[styles.minor, { fontSize: 11 * u, lineHeight: 14 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.minor, { fontSize: 11 * u, lineHeight: 14 * u }]}
+          >
             Dips ou chips ?
           </Text>
         </View>
@@ -82,14 +103,23 @@ export function MagazinePoster({ ref, ...p }: PosterProps) {
             },
           ]}
         >
-          <Text style={[styles.stickerBig, { fontSize: 20 * u, lineHeight: 21 * u }]}>100 %</Text>
-          <Text style={[styles.stickerSmall, { fontSize: 11 * u, letterSpacing: 1 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.stickerBig, { fontSize: 20 * u, lineHeight: 21 * u }]}
+          >
+            100 %
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.stickerSmall, { fontSize: 11 * u, letterSpacing: 1 * u }]}
+          >
             SKIP
           </Text>
         </Animated.View>
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 8 * u }]}
         numberOfLines={3}
       >
@@ -103,10 +133,18 @@ export function MagazinePoster({ ref, ...p }: PosterProps) {
           ))}
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={[styles.small, { fontSize: 10 * u }]} numberOfLines={1}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.small, { fontSize: 10 * u }]}
+            numberOfLines={1}
+          >
             {`${p.teamName} ${formatKg(p.teamKg)} kg · Canap' ${p.skips}`}
           </Text>
-          <Text style={[styles.small, { fontSize: 10 * u }]} numberOfLines={1}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.small, { fontSize: 10 * u }]}
+            numberOfLines={1}
+          >
             {p.inviteLabel}
           </Text>
         </View>

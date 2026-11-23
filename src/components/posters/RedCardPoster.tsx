@@ -47,11 +47,20 @@ export function RedCardPoster({ ref, ...p }: PosterProps) {
       ))}
 
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 10 * u, letterSpacing: 1.6 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 10 * u, letterSpacing: 1.6 * u }]}
+        >
           {`90'+3 · ${p.weekLabel.toUpperCase()}`}
         </Text>
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: INK }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: INK }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -88,6 +97,7 @@ export function RedCardPoster({ ref, ...p }: PosterProps) {
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, { fontSize: 24 * u, lineHeight: 26 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -95,6 +105,7 @@ export function RedCardPoster({ ref, ...p }: PosterProps) {
         {`${p.pseudo.toUpperCase()} QUITTE LE TERRAIN.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 6 * u }]}
         numberOfLines={3}
       >
@@ -103,15 +114,25 @@ export function RedCardPoster({ ref, ...p }: PosterProps) {
 
       <View style={{ flex: 1 }} />
       <View style={[styles.board, { borderRadius: 8 * u, padding: 10 * u, gap: 8 * u }]}>
-        <Text style={[styles.boardTeam, { fontSize: 10 * u }]} numberOfLines={2}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.boardTeam, { fontSize: 10 * u }]}
+          numberOfLines={2}
+        >
           {p.teamName.toUpperCase()}
         </Text>
-        <Text style={[styles.boardScore, { fontSize: 22 * u }]}>
+        <Text allowFontScaling={false} style={[styles.boardScore, { fontSize: 22 * u }]}>
           {`${formatKg(p.teamKg)} kg  –  ${p.skips}`}
         </Text>
-        <Text style={[styles.boardTeam, { fontSize: 11 * u }]}>{"LE CANAP'"}</Text>
+        <Text allowFontScaling={false} style={[styles.boardTeam, { fontSize: 11 * u }]}>
+          {"LE CANAP'"}
+        </Text>
       </View>
-      <Text style={[styles.small, { fontSize: 10 * u, marginTop: 10 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.small, { fontSize: 10 * u, marginTop: 10 * u }]}
+        numberOfLines={1}
+      >
         {p.inviteLabel}
       </Text>
     </View>

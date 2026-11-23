@@ -22,6 +22,7 @@ export function Wordmark({
 }: Props) {
   return (
     <Text
+      allowFontScaling={false}
       accessibilityRole="header"
       accessibilityLabel={APP_NAME}
       maxFontSizeMultiplier={1}
@@ -39,7 +40,9 @@ export function Wordmark({
       ]}
     >
       {APP_WORDMARK}
-      <Text style={{ color: dotColor }}>.</Text>
+      <Text allowFontScaling={false} style={{ color: dotColor }}>
+        .
+      </Text>
     </Text>
   );
 }

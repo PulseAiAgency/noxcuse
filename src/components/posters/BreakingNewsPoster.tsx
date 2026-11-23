@@ -60,12 +60,21 @@ export function BreakingNewsPoster({ ref, ...p }: PosterProps) {
           ]}
         >
           <View style={[styles.dot, { width: 7 * u, height: 7 * u, borderRadius: 4 * u }]} />
-          <Text style={[styles.liveText, { fontSize: 11 * u, letterSpacing: 1.5 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.liveText, { fontSize: 11 * u, letterSpacing: 1.5 * u }]}
+          >
             EN DIRECT
           </Text>
         </View>
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: ORANGE }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: ORANGE }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -76,6 +85,7 @@ export function BreakingNewsPoster({ ref, ...p }: PosterProps) {
           <Canap mood="wink" size={190 * u} accessible={false} />
         </View>
         <Text
+          allowFontScaling={false}
           style={[
             styles.guest,
             { fontSize: 10 * u, letterSpacing: 1.5 * u, left: 20 * u, top: 16 * u },
@@ -89,12 +99,16 @@ export function BreakingNewsPoster({ ref, ...p }: PosterProps) {
         entering={slide}
         style={[styles.banner, { paddingVertical: 8 * u, paddingHorizontal: 20 * u }]}
       >
-        <Text style={[styles.bannerText, { fontSize: 16 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.bannerText, { fontSize: 16 * u, letterSpacing: 2 * u }]}
+        >
           ALERTE INFO
         </Text>
       </Animated.View>
       <View style={[styles.headlineBox, { padding: 20 * u, paddingTop: 14 * u }]}>
         <Text
+          allowFontScaling={false}
           style={[
             styles.headline,
             { fontSize: 34 * u, lineHeight: 36 * u, letterSpacing: -0.8 * u },
@@ -105,12 +119,17 @@ export function BreakingNewsPoster({ ref, ...p }: PosterProps) {
           {`${p.pseudo.toUpperCase()} SÈCHE LA SALLE.`}
         </Text>
         <Text
+          allowFontScaling={false}
           style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 8 * u }]}
           numberOfLines={3}
         >
           {p.line}
         </Text>
-        <Text style={[styles.meta, { fontSize: 10 * u, marginTop: 10 * u }]} numberOfLines={1}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.meta, { fontSize: 10 * u, marginTop: 10 * u }]}
+          numberOfLines={1}
+        >
           {`${p.weekLabel} · ${p.inviteLabel}`}
         </Text>
       </View>
@@ -118,10 +137,13 @@ export function BreakingNewsPoster({ ref, ...p }: PosterProps) {
       <View style={{ flex: 1 }} />
       <View style={[styles.ticker, { height: 30 * u }]}>
         <View style={[styles.tickerTag, { paddingHorizontal: 10 * u }]}>
-          <Text style={[styles.tickerTagText, { fontSize: 11 * u }]}>FLASH</Text>
+          <Text allowFontScaling={false} style={[styles.tickerTagText, { fontSize: 11 * u }]}>
+            FLASH
+          </Text>
         </View>
         <View style={styles.tickerTrack}>
           <Animated.Text
+            allowFontScaling={false}
             numberOfLines={1}
             style={[styles.tickerText, { fontSize: 12 * u, width: 1200 * u }, tickerStyle]}
           >

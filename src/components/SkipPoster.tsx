@@ -56,7 +56,9 @@ export function SkipPoster({
   const reduced = useReducedMotion();
   const height = Math.round((width * 16) / 9);
   const u = width / 360; // design unit: the poster is drawn for a 360-wide canvas
-  const letters = { fontSize: 192 * u, lineHeight: 158 * u, letterSpacing: -10 * u };
+  // iOS draws these glyphs taller than the web export: keep ~10 % of the height spare so the
+  // invite line at the bottom is never pushed out of the poster.
+  const letters = { fontSize: 176 * u, lineHeight: 145 * u, letterSpacing: -9 * u };
   const enter = (delay: number) =>
     !animated ? undefined : reduced ? FadeIn.duration(200) : stamp(delay);
 
@@ -70,6 +72,7 @@ export function SkipPoster({
     >
       <View style={styles.top}>
         <Text
+          allowFontScaling={false}
           numberOfLines={1}
           adjustsFontSizeToFit
           style={[styles.week, { fontSize: 10 * u, letterSpacing: 0.8 * u }]}
@@ -80,21 +83,30 @@ export function SkipPoster({
       </View>
 
       <View style={[styles.letters, { marginTop: 6 * u }]}>
-        <Animated.Text entering={enter(80)} style={[styles.letter, letters]}>
+        <Animated.Text
+          allowFontScaling={false}
+          entering={enter(80)}
+          style={[styles.letter, letters]}
+        >
           SK
         </Animated.Text>
-        <Animated.Text entering={enter(420)} style={[styles.letter, letters]}>
+        <Animated.Text
+          allowFontScaling={false}
+          entering={enter(420)}
+          style={[styles.letter, letters]}
+        >
           IP
         </Animated.Text>
       </View>
 
-      <View style={[styles.canap, { right: 0, top: 268 * u }]}>
-        <Canap mood="smug" size={116 * u} accessible={false} />
+      <View style={[styles.canap, { right: 0, top: 244 * u }]}>
+        <Canap mood="smug" size={110 * u} accessible={false} />
       </View>
 
       <View style={styles.flex} />
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, { fontSize: 24 * u, lineHeight: 26 * u, letterSpacing: -0.4 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -102,31 +114,54 @@ export function SkipPoster({
         {`${pseudo.toUpperCase()} A CHOISI LE CANAP'.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 15 * u, lineHeight: 20 * u, marginTop: 8 * u }]}
-        numberOfLines={3}
+        numberOfLines={2}
+        adjustsFontSizeToFit
       >
         {line}
       </Text>
 
-      <View style={[styles.score, { marginTop: 18 * u, paddingTop: 12 * u }]}>
+      <View style={[styles.score, { marginTop: 14 * u, paddingTop: 10 * u }]}>
         <View style={styles.flex}>
-          <Text style={[styles.scoreLabel, { fontSize: 11 * u }]} numberOfLines={1}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.scoreLabel, { fontSize: 11 * u }]}
+            numberOfLines={1}
+          >
             {teamName}
           </Text>
-          <Text style={[styles.scoreValue, { fontSize: 26 * u, lineHeight: 30 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.scoreValue, { fontSize: 26 * u, lineHeight: 30 * u }]}
+          >
             {`${formatKg(teamKg)} kg`}
           </Text>
         </View>
-        <Text style={[styles.slash, { fontSize: 26 * u, lineHeight: 30 * u }]}>/</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.slash, { fontSize: 26 * u, lineHeight: 30 * u }]}
+        >
+          /
+        </Text>
         <View style={[styles.flex, styles.right]}>
-          <Text style={[styles.scoreLabel, { fontSize: 11 * u }]}>{"Le Canap'"}</Text>
-          <Text style={[styles.scoreValue, { fontSize: 26 * u, lineHeight: 30 * u }]}>
+          <Text allowFontScaling={false} style={[styles.scoreLabel, { fontSize: 11 * u }]}>
+            {"Le Canap'"}
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.scoreValue, { fontSize: 26 * u, lineHeight: 30 * u }]}
+          >
             {String(skips)}
           </Text>
         </View>
       </View>
 
-      <Text style={[styles.invite, { fontSize: 11 * u, marginTop: 14 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.invite, { fontSize: 11 * u, marginTop: 10 * u }]}
+        numberOfLines={1}
+      >
         {inviteLabel}
       </Text>
     </View>

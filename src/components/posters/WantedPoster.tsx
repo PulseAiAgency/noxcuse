@@ -59,15 +59,27 @@ export function WantedPoster({ ref, ...p }: PosterProps) {
       ))}
 
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}
+        >
           {p.weekLabel.toUpperCase()}
         </Text>
-        <Text style={[styles.brand, { fontSize: 12 * u, letterSpacing: -0.5 * u }]}>
-          NOXCUSE<Text style={{ color: STAMP }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 12 * u, letterSpacing: -0.5 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: STAMP }}>
+            .
+          </Text>
         </Text>
       </View>
 
-      <Text style={[styles.sub, { fontSize: 13 * u, letterSpacing: 4 * u, marginTop: 10 * u }]}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.sub, { fontSize: 13 * u, letterSpacing: 4 * u, marginTop: 10 * u }]}
+      >
         AVIS DE
       </Text>
       <FitLine
@@ -75,12 +87,20 @@ export function WantedPoster({ ref, ...p }: PosterProps) {
       >
         RECHERCHE
       </FitLine>
-      <Text style={[styles.sub, { fontSize: 13 * u, letterSpacing: 4 * u, marginTop: 8 * u }]}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.sub, { fontSize: 13 * u, letterSpacing: 4 * u, marginTop: 8 * u }]}
+      >
         POUR SÉANCE MANQUÉE
       </Text>
 
       <View style={[styles.portrait, { height: 206 * u, marginTop: 12 * u, borderWidth: 3 * u }]}>
-        <Text style={[styles.initial, { fontSize: 150 * u, lineHeight: 160 * u }]}>{initial}</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.initial, { fontSize: 150 * u, lineHeight: 160 * u }]}
+        >
+          {initial}
+        </Text>
         <View style={[styles.canap, { right: 6 * u, bottom: 4 * u }]}>
           <Canap mood="sleepy" size={92 * u} accessible={false} />
         </View>
@@ -98,11 +118,17 @@ export function WantedPoster({ ref, ...p }: PosterProps) {
             },
           ]}
         >
-          <Text style={[styles.stampText, { fontSize: 44 * u, letterSpacing: 2 * u }]}>SKIP</Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.stampText, { fontSize: 44 * u, letterSpacing: 2 * u }]}
+          >
+            SKIP
+          </Text>
         </Animated.View>
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.name, { fontSize: 34 * u, lineHeight: 38 * u, marginTop: 12 * u }]}
         numberOfLines={1}
         adjustsFontSizeToFit
@@ -110,6 +136,7 @@ export function WantedPoster({ ref, ...p }: PosterProps) {
         {p.pseudo.toUpperCase()}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 4 * u }]}
         numberOfLines={3}
       >
@@ -123,12 +150,18 @@ export function WantedPoster({ ref, ...p }: PosterProps) {
           { paddingVertical: 8 * u, borderTopWidth: 2 * u, borderBottomWidth: 2 * u },
         ]}
       >
-        <Text style={[styles.rewardLabel, { fontSize: 11 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.rewardLabel, { fontSize: 11 * u, letterSpacing: 2 * u }]}
+        >
           RÉCOMPENSE
         </Text>
-        <Text style={[styles.rewardValue, { fontSize: 22 * u }]}>UNE SÉANCE</Text>
+        <Text allowFontScaling={false} style={[styles.rewardValue, { fontSize: 22 * u }]}>
+          UNE SÉANCE
+        </Text>
       </View>
       <Text
+        allowFontScaling={false}
         style={[styles.small, { fontSize: 10 * u, marginTop: 10 * u, textAlign: 'center' }]}
         numberOfLines={2}
       >

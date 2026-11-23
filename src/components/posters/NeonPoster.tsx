@@ -63,11 +63,20 @@ export function NeonPoster({ ref, ...p }: PosterProps) {
       accessibilityLabel={`Carte SKIP, néon. Ce soir, ${p.pseudo} reste au Canap'. ${p.line}`}
     >
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}
+        >
           {p.weekLabel.toUpperCase()}
         </Text>
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: PINK }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: PINK }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -82,20 +91,28 @@ export function NeonPoster({ ref, ...p }: PosterProps) {
           },
         ]}
       >
-        <Text style={[styles.signText, glow, { fontSize: 12 * u, letterSpacing: 3 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.signText, glow, { fontSize: 12 * u, letterSpacing: 3 * u }]}
+        >
           SALLE : FERMÉE
         </Text>
       </View>
 
       <Animated.View style={[{ marginTop: 6 * u }, flickerStyle]}>
-        <Text style={[styles.big, glow, big]}>SK</Text>
-        <Text style={[styles.big, glow, big]}>IP</Text>
+        <Text allowFontScaling={false} style={[styles.big, glow, big]}>
+          SK
+        </Text>
+        <Text allowFontScaling={false} style={[styles.big, glow, big]}>
+          IP
+        </Text>
       </Animated.View>
       <View style={[styles.canap, { right: 14 * u, top: 300 * u }]}>
         <Canap mood="laughing" size={128 * u} accessible={false} />
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, glow, { fontSize: 21 * u, lineHeight: 25 * u, marginTop: 12 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -103,16 +120,25 @@ export function NeonPoster({ ref, ...p }: PosterProps) {
         {`CE SOIR, ${p.pseudo.toUpperCase()} RESTE AU CANAP'.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 6 * u }]}
         numberOfLines={3}
       >
         {p.line}
       </Text>
       <View style={{ flex: 1 }} />
-      <Text style={[styles.score, glow, { fontSize: 16 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.score, glow, { fontSize: 16 * u }]}
+        numberOfLines={1}
+      >
         {`${formatKg(p.teamKg)} KG  ·  CANAP' ${p.skips}`}
       </Text>
-      <Text style={[styles.small, { fontSize: 10 * u, marginTop: 8 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.small, { fontSize: 10 * u, marginTop: 8 * u }]}
+        numberOfLines={1}
+      >
         {`${p.teamName} · ${p.inviteLabel}`}
       </Text>
     </View>

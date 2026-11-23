@@ -49,11 +49,20 @@ export function WarriorPoster({ ref, ...p }: PosterProps) {
       </Svg>
 
       <View style={styles.row}>
-        <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}
+        >
           {`ARÈNE · ${p.weekLabel.toUpperCase()}`}
         </Text>
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: EMBER }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: EMBER }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -89,7 +98,10 @@ export function WarriorPoster({ ref, ...p }: PosterProps) {
             },
           ]}
         >
-          <Text style={[styles.stampText, { fontSize: 40 * u, letterSpacing: 1 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.stampText, { fontSize: 40 * u, letterSpacing: 1 * u }]}
+          >
             FORFAIT
           </Text>
         </Animated.View>
@@ -108,6 +120,7 @@ export function WarriorPoster({ ref, ...p }: PosterProps) {
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, { fontSize: 23 * u, lineHeight: 26 * u, marginTop: 6 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -115,6 +128,7 @@ export function WarriorPoster({ ref, ...p }: PosterProps) {
         {`${p.pseudo.toUpperCase()} DÉCLARE FORFAIT.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 6 * u }]}
         numberOfLines={3}
       >
@@ -123,13 +137,29 @@ export function WarriorPoster({ ref, ...p }: PosterProps) {
 
       <View style={{ flex: 1 }} />
       <View style={[styles.score, { borderRadius: 6 * u, paddingVertical: 9 * u, gap: 6 * u }]}>
-        <Text style={[styles.scoreSide, { fontSize: 13 * u }]} numberOfLines={1}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.scoreSide, { fontSize: 13 * u }]}
+          numberOfLines={1}
+        >
           {`${formatKg(p.teamKg)} KG`}
         </Text>
-        <Text style={[styles.vs, { fontSize: 10 * u, letterSpacing: 2 * u }]}>VS</Text>
-        <Text style={[styles.scoreSide, { fontSize: 13 * u }]}>{`CANAP' ${p.skips}`}</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.vs, { fontSize: 10 * u, letterSpacing: 2 * u }]}
+        >
+          VS
+        </Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.scoreSide, { fontSize: 13 * u }]}
+        >{`CANAP' ${p.skips}`}</Text>
       </View>
-      <Text style={[styles.small, { fontSize: 10 * u, marginTop: 10 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.small, { fontSize: 10 * u, marginTop: 10 * u }]}
+        numberOfLines={1}
+      >
         {`${p.teamName} · ${p.inviteLabel}`}
       </Text>
     </View>

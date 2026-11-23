@@ -44,11 +44,20 @@ export function GoldPoster({ ref, ...p }: PosterProps) {
 
       <View style={{ flex: 1, padding: 30 * u }}>
         <View style={styles.row}>
-          <Text style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.small, { fontSize: 9 * u, letterSpacing: 2 * u }]}
+          >
             {p.weekLabel.toUpperCase()}
           </Text>
-          <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-            NOXCUSE<Text style={{ color: GOLD }}>.</Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+          >
+            NOXCUSE
+            <Text allowFontScaling={false} style={{ color: GOLD }}>
+              .
+            </Text>
           </Text>
         </View>
 
@@ -90,10 +99,14 @@ export function GoldPoster({ ref, ...p }: PosterProps) {
         </View>
 
         <View style={{ flex: 1 }} />
-        <Text style={[styles.edition, { fontSize: 9 * u, letterSpacing: 3 * u }]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.edition, { fontSize: 9 * u, letterSpacing: 3 * u }]}
+        >
           ÉDITION OR · TIRAGE UNIQUE
         </Text>
         <Text
+          allowFontScaling={false}
           style={[styles.headline, { fontSize: 23 * u, lineHeight: 26 * u, marginTop: 6 * u }]}
           numberOfLines={2}
           adjustsFontSizeToFit
@@ -101,19 +114,36 @@ export function GoldPoster({ ref, ...p }: PosterProps) {
           {`${p.pseudo.toUpperCase()} A CHOISI LE CANAP'.`}
         </Text>
         <Text
+          allowFontScaling={false}
           style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 8 * u }]}
           numberOfLines={3}
         >
           {p.line}
         </Text>
         <View style={[styles.score, { marginTop: 16 * u, paddingTop: 12 * u }]}>
-          <Text style={[styles.scoreText, { fontSize: 20 * u }]} numberOfLines={1}>
+          <Text
+            allowFontScaling={false}
+            style={[styles.scoreText, { fontSize: 20 * u }]}
+            numberOfLines={1}
+          >
             {`${formatKg(p.teamKg)} KG`}
           </Text>
-          <Text style={[styles.vs, { fontSize: 10 * u, letterSpacing: 2 * u }]}>CONTRE</Text>
-          <Text style={[styles.scoreText, { fontSize: 20 * u }]}>{`${p.skips} SKIP`}</Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.vs, { fontSize: 10 * u, letterSpacing: 2 * u }]}
+          >
+            CONTRE
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={[styles.scoreText, { fontSize: 20 * u }]}
+          >{`${p.skips} SKIP`}</Text>
         </View>
-        <Text style={[styles.small, { fontSize: 10 * u, marginTop: 12 * u }]} numberOfLines={1}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.small, { fontSize: 10 * u, marginTop: 12 * u }]}
+          numberOfLines={1}
+        >
           {p.inviteLabel}
         </Text>
       </View>

@@ -9,7 +9,13 @@ import { Text } from '@/components/ui/Text';
  */
 export function FitLine({ style, children }: { style: StyleProp<TextStyle>; children: ReactNode }) {
   return (
-    <Text style={style} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
+    <Text
+      allowFontScaling={false}
+      style={style}
+      numberOfLines={1}
+      adjustsFontSizeToFit
+      minimumFontScale={0.5}
+    >
       {children}
     </Text>
   );

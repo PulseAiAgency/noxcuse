@@ -69,17 +69,27 @@ export function GameOverPoster({ ref, ...p }: PosterProps) {
 
       <View style={styles.row}>
         <Text
+          allowFontScaling={false}
           style={[styles.hud, { fontSize: 11 * u, color: CYAN }]}
         >{`1UP  ${p.pseudo.toUpperCase()}`}</Text>
-        <Text style={[styles.hud, { fontSize: 11 * u }]}>{`HI  ${formatKg(p.teamKg)}`}</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.hud, { fontSize: 11 * u }]}
+        >{`HI  ${formatKg(p.teamKg)}`}</Text>
       </View>
       <View style={[styles.hearts, { marginTop: 8 * u, gap: 6 * u }]}>
         {[true, true, false].map((full, i) => (
           <Heart key={i} size={14 * u} full={full} />
         ))}
         <View style={{ flex: 1 }} />
-        <Text style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}>
-          NOXCUSE<Text style={{ color: ORANGE }}>.</Text>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brand, { fontSize: 13 * u, letterSpacing: -0.6 * u }]}
+        >
+          NOXCUSE
+          <Text allowFontScaling={false} style={{ color: ORANGE }}>
+            .
+          </Text>
         </Text>
       </View>
 
@@ -97,8 +107,11 @@ export function GameOverPoster({ ref, ...p }: PosterProps) {
 
       <View style={[styles.canapRow, { marginTop: 8 * u }]}>
         <View style={{ flex: 1, gap: 6 * u }}>
-          <Text style={[styles.hud, { fontSize: 12 * u, color: GREEN }]}>{"BOSS : LE CANAP'"}</Text>
+          <Text allowFontScaling={false} style={[styles.hud, { fontSize: 12 * u, color: GREEN }]}>
+            {"BOSS : LE CANAP'"}
+          </Text>
           <Text
+            allowFontScaling={false}
             style={[styles.hud, { fontSize: 12 * u }]}
           >{`PV RESTANTS : ${'█'.repeat(10)}`}</Text>
         </View>
@@ -106,6 +119,7 @@ export function GameOverPoster({ ref, ...p }: PosterProps) {
       </View>
 
       <Text
+        allowFontScaling={false}
         style={[styles.headline, { fontSize: 21 * u, lineHeight: 25 * u, marginTop: 10 * u }]}
         numberOfLines={2}
         adjustsFontSizeToFit
@@ -113,6 +127,7 @@ export function GameOverPoster({ ref, ...p }: PosterProps) {
         {`${p.pseudo.toUpperCase()} A PERDU CONTRE LE CANAP'.`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[styles.line, { fontSize: 14 * u, lineHeight: 19 * u, marginTop: 6 * u }]}
         numberOfLines={3}
       >
@@ -120,13 +135,21 @@ export function GameOverPoster({ ref, ...p }: PosterProps) {
       </Text>
 
       <View style={{ flex: 1 }} />
-      <Animated.Text style={[styles.continue, { fontSize: 18 * u }, blinkStyle]}>
+      <Animated.Text
+        allowFontScaling={false}
+        style={[styles.continue, { fontSize: 18 * u }, blinkStyle]}
+      >
         CONTINUE ? 9…
       </Animated.Text>
-      <Text style={[styles.hud, { fontSize: 11 * u, marginTop: 10 * u }]} numberOfLines={1}>
+      <Text
+        allowFontScaling={false}
+        style={[styles.hud, { fontSize: 11 * u, marginTop: 10 * u }]}
+        numberOfLines={1}
+      >
         {`${p.teamName.toUpperCase()} ${formatKg(p.teamKg)} KG · CANAP' ${p.skips}`}
       </Text>
       <Text
+        allowFontScaling={false}
         style={[
           styles.hud,
           { fontSize: 10 * u, marginTop: 6 * u, color: '#8A8B92', letterSpacing: 0 },
