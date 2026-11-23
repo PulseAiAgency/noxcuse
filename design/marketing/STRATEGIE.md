@@ -70,6 +70,20 @@ Légende proposée :
 
 Sources : `video-concept/index.html`, sons `python3 scripts/mix_concept.py audio` (depuis `scripts/`).
 
+## Vidéo 7 — « Quand ton canap' t'écrit comme ton ex 😭 » (`noxcuse-canap-ex.mp4`, 27,5 s, format TikTok)
+La mascotte qui parle comme une personne (format qui marche très bien sur TikTok). Bruitages seulement.
+1. Accroche : « Quand ton canap' t'écrit comme ton ex 😭 ».
+2. Conversation avec « Le Canap' 🛋️ » (en ligne) : « t'es où ? 🥺 », « on était bien hier soir… toi, moi, une série », toi : « je vais à la salle », « la salle elle te connaît même pas », « j'ai gardé ta place chaude 🔥 », notif « Sam te spot : bouge à la salle ! », toi : « désolé, ma team m'attend », « c'est qui cette « team » ?? 😤 ».
+3. « Pendant ce temps, à la salle : » la barre se charge, « Séance validée · +20 kg pour la team 💪 ».
+4. « t'as changé… 💔 », le Canap' écrasé, « Le Canap' ne s'en remet pas. »
+5. « Quitte ton canap'. Pas ta team. », NO / XCUSE., « Dispo sur l'App Store ».
+
+Description (4 hashtags) :
+> Il a pas supporté la rupture 💔😭 Tag le pote qui est encore en couple avec son canap'. NOXCUSE, dispo sur l'App Store (lien en bio).
+> #muscu #gymtok #salledesport #noxcuse
+
+Sources : `video-ex/index.html`, sons `python3 scripts/mix_ex.py audio` (depuis `scripts/`).
+
 ## Vidéo 6 — « Les 4 potes qu'on a TOUS dans sa team » (`noxcuse-les-4-potes.mp4`, 28 s, format TikTok)
 Format liste à commenter (« Et toi, t'es lequel ? »), textes façon TikTok (bulles blanches), zones de l'interface TikTok laissées libres (bas et droite), bruitages seulement.
 1. Le motivé 🔥 : notif « Sam vient de charger 20 kg » à 6 h 12, la barre se charge, « 3/3 dès mercredi ».
