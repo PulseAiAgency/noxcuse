@@ -36,5 +36,5 @@ export const SITE_PAGES = {
 
 /** The app on the App Store (live once the first version is published). */
 export const APP_STORE_URL = 'https://apps.apple.com/app/id6833982038';
-/** Public TestFlight beta, used while the App Store listing is not yet open in the EU. */
+/** Public TestFlight beta (testers of upcoming versions). */
 export const TESTFLIGHT_URL = 'https://testflight.apple.com/join/g2VDHu8S';
