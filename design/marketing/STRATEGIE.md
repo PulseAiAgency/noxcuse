@@ -70,6 +70,20 @@ Légende proposée :
 
 Sources : `video-concept/index.html`, sons `python3 scripts/mix_concept.py audio` (depuis `scripts/`).
 
+## Vidéo 6 — « Les 4 potes qu'on a TOUS dans sa team » (`noxcuse-les-4-potes.mp4`, 28 s, format TikTok)
+Format liste à commenter (« Et toi, t'es lequel ? »), textes façon TikTok (bulles blanches), zones de l'interface TikTok laissées libres (bas et droite), bruitages seulement.
+1. Le motivé 🔥 : notif « Sam vient de charger 20 kg » à 6 h 12, la barre se charge, « 3/3 dès mercredi ».
+2. Le « demain promis » : 3 messages « demain promis » dans le chat, un doigt le spotte, notif « Sam te spot ».
+3. Le roi de l'excuse : « Il pleut », « Mal au dos », « C'est la Toussaint » barrés, la carte SKIP tombe, le Canap' croque.
+4. Celui qui paie pour toute la team 👑 : « Offert par Toi » pour les 3 potes, « 1 abonnement = toute la team (jusqu'à 4) ».
+5. « Et toi, t'es lequel ? 👇 », NO / XCUSE., « Dispo sur l'App Store ».
+
+Description (4 hashtags) :
+> T'es lequel ? 👇 Tag ta team 😂 NOXCUSE, l'app pour aller à la salle entre potes. Dispo sur l'App Store, lien en bio.
+> #muscu #gymtok #salledesport #noxcuse
+
+Sources : `video-tiktok/index.html`, sons `python3 scripts/mix_tiktok.py audio` (depuis `scripts/`).
+
 ## Vidéo 3 — avec de vraies personnes (kit à monter dans CapCut, dossier `kit/`)
 Je ne peux ni filmer ni fabriquer de vraies personnes : tu tournes 4 plans avec tes potes (téléphone en vertical, 2 à 4 s chacun), et le kit fournit tout le reste, avec les sons.
 - `0-maquette-du-montage.mp4` : le montage complet avec des cases « ta vidéo filmée ici » pour voir le rythme (21 s).
