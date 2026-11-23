@@ -129,7 +129,8 @@ export function useReactions(teamId: string | undefined) {
       const { data, error } = await db()
         .from('message_reactions')
         .select('message_id, user_id, emoji')
-        .eq('team_id', teamId as string);
+        .eq('team_id', teamId as string)
+        .eq('active', true);
       if (error) throw error;
       return data ?? [];
     },
@@ -143,17 +144,11 @@ export function useReactions(teamId: string | undefined) {
       .on(
         'postgres_changes',
         {
-          event: 'INSERT',
+          event: '*',
           schema: 'public',
           table: 'message_reactions',
           filter: `team_id=eq.${teamId}`,
         },
-        refresh,
-      )
-      // Deletions cannot be filtered by team: any of them triggers a cheap refetch.
-      .on(
-        'postgres_changes',
-        { event: 'DELETE', schema: 'public', table: 'message_reactions' },
         refresh,
       )
       .subscribe();

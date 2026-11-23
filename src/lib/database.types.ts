@@ -225,6 +225,7 @@ export type Database = {
           team_id: string;
           user_id: string;
           emoji: string;
+          active: boolean;
           created_at: string;
         };
         Insert: {
@@ -232,6 +233,7 @@ export type Database = {
           team_id: string;
           user_id: string;
           emoji: string;
+          active?: boolean;
           created_at?: string;
         };
         Update: {
@@ -239,6 +241,7 @@ export type Database = {
           team_id?: string;
           user_id?: string;
           emoji?: string;
+          active?: boolean;
           created_at?: string;
         };
         Relationships: [

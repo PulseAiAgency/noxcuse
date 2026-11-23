@@ -1,10 +1,13 @@
 -- Emoji reactions on team chat messages (🔥 💪 😂 👏), one of each per player and message.
+-- A reaction is switched on and off (`active`) instead of being deleted: the push only goes out
+-- the first time, so toggling an emoji never spams the author.
 
 create table public.message_reactions (
   message_id uuid not null references public.team_messages (id) on delete cascade,
   team_id uuid not null references public.teams (id) on delete cascade,
   user_id uuid not null references public.profiles (id) on delete cascade,
   emoji text not null check (emoji in ('🔥', '💪', '😂', '👏')),
+  active boolean not null default true,
   created_at timestamptz not null default now(),
   primary key (message_id, user_id, emoji)
 );
@@ -23,6 +26,7 @@ as $$
 declare
   uid uuid := app_private.require_uid();
   m public.team_messages;
+  on_now boolean;
 begin
   select * into m from public.team_messages where id = p_message;
   if m.id is null or not app_private.is_team_member(m.team_id) then
@@ -31,18 +35,16 @@ begin
   if m.deleted_at is not null or p_emoji not in ('🔥', '💪', '😂', '👏') then
     raise exception 'invalid_reaction' using errcode = '22023';
   end if;
-  delete from public.message_reactions
-   where message_id = p_message and user_id = uid and emoji = p_emoji;
-  if found then
-    return false;
-  end if;
-  insert into public.message_reactions (message_id, team_id, user_id, emoji)
-  values (p_message, m.team_id, uid, p_emoji);
-  return true;
+  insert into public.message_reactions as r (message_id, team_id, user_id, emoji)
+  values (p_message, m.team_id, uid, p_emoji)
+  on conflict (message_id, user_id, emoji) do update set active = not r.active
+  returning r.active into on_now;
+  return on_now;
 end $$;
 
--- Push to the person concerned (author, or the player a Canap' line is about): only for the
--- reactor's first reaction on that message, so toggling emojis never spams.
+-- Push to the person concerned (author, or the player a Canap' line is about): only on the very
+-- first reaction of that player on that message (re-activating an emoji is an update, not an
+-- insert, so it never pushes again).
 create function app_private.notify_reaction() returns trigger
 language plpgsql security definer set search_path = ''
 as $$
@@ -79,7 +81,7 @@ as $$
     join public.profiles p on p.id = p_reactor
    where m.id = p_message and m.deleted_at is null
      and exists (select 1 from public.message_reactions r
-                  where r.message_id = p_message and r.user_id = p_reactor)
+                  where r.message_id = p_message and r.user_id = p_reactor and r.active)
 $$;
 
 do $$

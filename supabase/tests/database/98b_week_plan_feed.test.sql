@@ -60,8 +60,10 @@ select tests.throws(format('select public.report_team_message(%L, %L)', :'canap'
 -- Reactions: toggle, one per emoji, members only.
 select tests.eq(public.toggle_reaction(:'canap', '🔥'), true, 'reaction added');
 select tests.eq(public.toggle_reaction(:'canap', '💪'), true, 'second emoji added');
-select tests.eq((select count(*) from public.message_reactions)::int, 2, 'teammates read reactions');
-select tests.eq(public.toggle_reaction(:'canap', '🔥'), false, 'same emoji again removes it');
+select tests.eq((select count(*) from public.message_reactions where active)::int, 2, 'teammates read reactions');
+select tests.eq(public.toggle_reaction(:'canap', '🔥'), false, 'same emoji again switches it off');
+select tests.eq((select count(*) from public.message_reactions where active)::int, 1, 'switched-off reaction no longer counted');
+select tests.eq(public.toggle_reaction(:'canap', '🔥'), true, 'and on again');
 select tests.throws(format('select public.toggle_reaction(%L, %L)', :'canap', '🍕'), 'invalid_reaction', 'unknown emoji refused');
 select tests.throws(format('insert into public.message_reactions (message_id, team_id, user_id, emoji) values (%L, %L, auth.uid(), %L)',
                            :'canap', :'team', '👏'), '42501', 'no direct insert');
