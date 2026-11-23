@@ -14,10 +14,12 @@ type Props = {
   spot: { state: 'available' | 'sent' | 'hidden'; onPress: () => void; busy: boolean };
   /** Opens the player's lifter card. */
   onOpen?: () => void;
+  /** Today is one of the days this player announced in their weekly plan. */
+  plannedToday?: boolean;
 };
 
 /** One teammate: plate colour, avatar, 2/3, today's coarse status. Never a place or a time. */
-export function PlayerRow({ player, avatarUrl, spot, onOpen }: Props) {
+export function PlayerRow({ player, avatarUrl, spot, onOpen, plannedToday }: Props) {
   const tint = player.isMe ? colors.accent : player.color;
   const status = player.joker ? 'Joker blessure' : statusLabel(player.status);
   // At risk, the warning replaces the status so the line never wraps next to the Spot button.
@@ -26,7 +28,9 @@ export function PlayerRow({ player, avatarUrl, spot, onOpen }: Props) {
       ? 'Risque le skip'
       : player.risk === 'lost'
         ? 'Objectif hors de portée'
-        : status;
+        : plannedToday && player.status === 'not_yet' && !player.joker
+          ? 'Prévu aujourd’hui'
+          : status;
   const alert = player.risk === 'shaky' || player.risk === 'lost';
   const summary = `${player.pseudo}${player.isMe ? ' (toi)' : ''}, ${player.done} sur ${player.goal}, ${status}${alert ? `, ${line.toLowerCase()}` : ''}`;
   const identity = (

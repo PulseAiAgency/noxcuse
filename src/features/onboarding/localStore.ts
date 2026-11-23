@@ -13,6 +13,8 @@ export type LocalOnboarding = {
   shopSeenVersion: number;
   /** When the player last closed an offer card on Ma team (ISO), to space them out. */
   promoDismissedAt: string | null;
+  /** Hour of the "C'est ton jour" plan reminder (stays on this phone). */
+  planReminderHour: number;
   hook: HookAnswers | null;
   locationAsked: boolean;
   notificationsAsked: boolean;
@@ -27,6 +29,7 @@ const EMPTY: LocalOnboarding = {
   tutorialSeen: false,
   shopSeenVersion: 0,
   promoDismissedAt: null,
+  planReminderHour: 18,
   hook: null,
   locationAsked: false,
   notificationsAsked: false,

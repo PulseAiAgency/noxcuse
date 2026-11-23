@@ -219,6 +219,52 @@ export type Database = {
           },
         ];
       };
+      message_reactions: {
+        Row: {
+          message_id: string;
+          team_id: string;
+          user_id: string;
+          emoji: string;
+          created_at: string;
+        };
+        Insert: {
+          message_id: string;
+          team_id: string;
+          user_id: string;
+          emoji: string;
+          created_at?: string;
+        };
+        Update: {
+          message_id?: string;
+          team_id?: string;
+          user_id?: string;
+          emoji?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'message_reactions_message_id_fkey';
+            columns: ['message_id'];
+            isOneToOne: false;
+            referencedRelation: 'team_messages';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'message_reactions_team_id_fkey';
+            columns: ['team_id'];
+            isOneToOne: false;
+            referencedRelation: 'teams';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'message_reactions_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           id: string;
@@ -676,6 +722,7 @@ export type Database = {
           body: string;
           created_at: string;
           deleted_at: string | null;
+          system: boolean;
         };
         Insert: {
           id?: string;
@@ -684,6 +731,7 @@ export type Database = {
           body: string;
           created_at?: string;
           deleted_at?: string | null;
+          system?: boolean;
         };
         Update: {
           id?: string;
@@ -692,6 +740,7 @@ export type Database = {
           body?: string;
           created_at?: string;
           deleted_at?: string | null;
+          system?: boolean;
         };
         Relationships: [
           {
@@ -827,6 +876,35 @@ export type Database = {
             foreignKeyName: 'user_gyms_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: true;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      week_plans: {
+        Row: {
+          user_id: string;
+          week_start: string;
+          days: number[];
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          week_start: string;
+          days: number[];
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          week_start?: string;
+          days?: number[];
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'week_plans_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
             referencedRelation: 'profiles';
             referencedColumns: ['id'];
           },
@@ -1136,6 +1214,12 @@ export type Database = {
         };
         Returns: string;
       };
+      set_week_plan: {
+        Args: {
+          p_days: number[];
+        };
+        Returns: number[];
+      };
       set_weekly_goal: {
         Args: {
           p_goal: number;
@@ -1200,6 +1284,22 @@ export type Database = {
           machine_pseudo: string;
           skipper_pseudo: string;
         }[];
+      };
+      team_week_plans: {
+        Args: {
+          p_team: string;
+        };
+        Returns: {
+          user_id: string;
+          days: number[];
+        }[];
+      };
+      toggle_reaction: {
+        Args: {
+          p_message: string;
+          p_emoji: string;
+        };
+        Returns: boolean;
       };
       week_recap: {
         Args: {

@@ -66,6 +66,8 @@ describe('preferences', () => {
       params: { id: 't1' },
     });
     expect(routeForNotification({ type: 'chat' }, null)).toEqual({ pathname: '/team' });
+    expect(routeForNotification({ type: 'plan_prompt' }, null)).toEqual({ pathname: '/plan' });
+    expect(routeForNotification({ type: 'plan_day' }, null)).toEqual({ pathname: '/team' });
   });
 
   it('toggles one key and keeps the others', () => {

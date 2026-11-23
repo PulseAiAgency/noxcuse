@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import type { ChatInfo, ChatStore } from './handler.ts';
+import type { ChatInfo, ChatStore, ReactionInfo } from './handler.ts';
 
 async function call<T>(db: SupabaseClient, fn: string, args: Record<string, unknown> = {}) {
   const { data, error } = await db.rpc(fn, args);
@@ -11,6 +11,13 @@ async function call<T>(db: SupabaseClient, fn: string, args: Record<string, unkn
 export function supabaseChatStore(db: SupabaseClient): ChatStore {
   return {
     info: async (id) => (await call<ChatInfo[]>(db, 'svc_chat_push', { p_message: id }))[0] ?? null,
+    reaction: async (messageId, reactorId) =>
+      (
+        await call<ReactionInfo[]>(db, 'svc_reaction_push', {
+          p_message: messageId,
+          p_reactor: reactorId,
+        })
+      )[0] ?? null,
     targets: (teamId) =>
       call<{ user_id: string; token: string }[]>(db, 'svc_team_push_targets', {
         p_team: teamId,

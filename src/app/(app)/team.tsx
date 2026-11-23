@@ -44,6 +44,8 @@ import { CoachMarks, CoachMarksProvider, useCoachTarget } from '@/features/tutor
 import { teamTutorial } from '@/domain/tutorial';
 import { useLocalOnboarding, useUpdateLocalOnboarding } from '@/features/onboarding/localStore';
 import { useLatestClosedWeek } from '@/features/weeks/api';
+import { useMyPlan, useTeamPlans } from '@/features/plan/api';
+import { isPlannedToday, planSummary } from '@/domain/plan';
 import { weekRangeLabel } from '@/domain/weekClose';
 import { toUserMessage } from '@/lib/errors';
 import { colors, radii, spacing } from '@/theme/tokens';
@@ -75,6 +77,8 @@ function TeamScreen() {
   const [teamIndex, setTeamIndex] = useState(0);
   const team = teams.data?.[Math.min(teamIndex, (teams.data?.length ?? 1) - 1)];
   const board = useTeamBoard(team?.id);
+  const myPlan = useMyPlan();
+  const teamPlans = useTeamPlans(team?.id);
   const duo = useDuoStreak(team?.id);
   const lastWeek = useLatestClosedWeek(team?.id);
   const spotsToday = useMySpotsToday();
@@ -339,6 +343,32 @@ function TeamScreen() {
                 </GlassPanel>
               </Animated.View>
 
+              {myPlan.data ? (
+                <PressableScale
+                  onPress={() => router.push('/plan')}
+                  accessibilityRole="button"
+                  accessibilityLabel={
+                    myPlan.data.length
+                      ? `Mon plan de la semaine : ${planSummary(myPlan.data)}. Modifier`
+                      : 'Annonce tes jours de salle de la semaine'
+                  }
+                >
+                  <GlassPanel radius={radii.glass} style={styles.recap}>
+                    <View style={styles.flex}>
+                      <Text variant="label" color={colors.accent}>
+                        {myPlan.data.length ? 'Mon plan de la semaine' : 'Annonce tes jours'}
+                      </Text>
+                      <Text variant="bodyStrong" numberOfLines={1}>
+                        {myPlan.data.length
+                          ? planSummary(myPlan.data)
+                          : 'Ta team saura quand t’attendre.'}
+                      </Text>
+                    </View>
+                    <ArrowUpRight color={colors.accent} size={20} />
+                  </GlassPanel>
+                </PressableScale>
+              ) : null}
+
               {isDuo ? (
                 <Animated.View entering={enter(2)}>
                   <GlassPanel radius={radii.glass} style={styles.duo}>
@@ -375,6 +405,7 @@ function TeamScreen() {
                         key={p.id}
                         player={p}
                         avatarUrl={row?.avatar_url ?? null}
+                        plannedToday={isPlannedToday(teamPlans.data?.[p.id] ?? [], now)}
                         spot={{
                           state: spotState,
                           busy: sendSpot.isPending,

@@ -81,6 +81,7 @@ export type NotificationRoute =
   | { pathname: '/lifter' }
   | { pathname: '/team' }
   | { pathname: '/boutique' }
+  | { pathname: '/plan' }
   | { pathname: '/team-chat/[id]'; params: { id: string } };
 
 const str = (v: unknown): string | null => (typeof v === 'string' && v.length > 0 ? v : null);
@@ -121,6 +122,10 @@ export function routeForNotification(
       return { pathname: '/team' };
     case 'offer':
       return { pathname: '/boutique' };
+    case 'plan_prompt':
+      return { pathname: '/plan' };
+    case 'plan_day':
+      return { pathname: '/team' };
     case 'chat': {
       const team = str(d.team_id);
       return team ? { pathname: '/team-chat/[id]', params: { id: team } } : { pathname: '/team' };

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
+import type { Reaction, ReactionRow } from '@/domain/chat';
 import { db } from '@/lib/supabase';
 
 export type ChatMessage = {
@@ -10,6 +11,8 @@ export type ChatMessage = {
   body: string;
   created_at: string;
   deleted_at: string | null;
+  /** A line posted by the Canap' (a validated session), about `user_id`. */
+  system: boolean;
 };
 
 export const chatKey = (teamId: string) => ['team-chat', teamId] as const;
@@ -23,7 +26,7 @@ export function useTeamMessages(teamId: string | undefined) {
     queryFn: async (): Promise<ChatMessage[]> => {
       const { data, error } = await db()
         .from('team_messages')
-        .select('id, user_id, body, created_at, deleted_at')
+        .select('id, user_id, body, created_at, deleted_at, system')
         .eq('team_id', teamId as string)
         .order('created_at', { ascending: false })
         .limit(100);
@@ -111,5 +114,64 @@ export function useToggleHidden() {
       return next;
     },
     onSuccess: (next) => qc.setQueryData(['chat-hidden'], next),
+  });
+}
+
+export const reactionsKey = (teamId: string) => ['team-reactions', teamId] as const;
+
+/** Reactions of a team's messages (members only), kept live with Supabase Realtime. */
+export function useReactions(teamId: string | undefined) {
+  const qc = useQueryClient();
+  const query = useQuery({
+    queryKey: reactionsKey(teamId ?? 'none'),
+    enabled: Boolean(teamId),
+    queryFn: async (): Promise<ReactionRow[]> => {
+      const { data, error } = await db()
+        .from('message_reactions')
+        .select('message_id, user_id, emoji')
+        .eq('team_id', teamId as string);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  useEffect(() => {
+    if (!teamId) return;
+    const refresh = () => qc.invalidateQueries({ queryKey: reactionsKey(teamId) });
+    const channel = db()
+      .channel(`team-reactions:${teamId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'message_reactions',
+          filter: `team_id=eq.${teamId}`,
+        },
+        refresh,
+      )
+      // Deletions cannot be filtered by team: any of them triggers a cheap refetch.
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'message_reactions' },
+        refresh,
+      )
+      .subscribe();
+    return () => {
+      db().removeChannel(channel);
+    };
+  }, [teamId, qc]);
+
+  return query;
+}
+
+export function useToggleReaction(teamId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ messageId, emoji }: { messageId: string; emoji: Reaction }) => {
+      const { error } = await db().rpc('toggle_reaction', { p_message: messageId, p_emoji: emoji });
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: reactionsKey(teamId) }),
   });
 }

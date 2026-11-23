@@ -103,6 +103,7 @@ function RootStack() {
         <Stack.Screen name="team-new" options={{ presentation: 'modal' }} />
         <Stack.Screen name="team-manage/[id]" />
         <Stack.Screen name="team-chat/[id]" />
+        <Stack.Screen name="plan" />
         <Stack.Screen name="my-data" />
         <Stack.Screen name="account-delete" />
         <Stack.Screen name="dev" />

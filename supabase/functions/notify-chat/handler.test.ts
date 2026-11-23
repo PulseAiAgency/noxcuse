@@ -24,6 +24,18 @@ function setup(gone = false) {
                 body: 'On y va ?',
               },
         ),
+      reaction: () =>
+        Promise.resolve(
+          gone
+            ? null
+            : {
+                team_id: 't1',
+                team_name: 'Les Guerriers',
+                target_id: 'a',
+                reactor_pseudo: 'Alex',
+                system: true,
+              },
+        ),
       targets: () =>
         Promise.resolve([
           { user_id: 'a', token: 'tok-author' },
@@ -71,4 +83,17 @@ Deno.test('a deleted message is not announced; long ones are cut', async () => {
   });
   assert.equal(pushed.length, 0);
   assert.equal(chatPreview('Sam', 'a'.repeat(300)).length, 140);
+});
+
+Deno.test('a reaction pushes only the person concerned', async () => {
+  const { handler, pushed } = setup();
+  const body = { reaction: { message_id: MSG, reactor_id: MSG, emoji: '🔥' } };
+  assert.deepEqual(await (await handler(post(body))).json(), { sent: 1 });
+  assert.equal(pushed[0].length, 1);
+  assert.equal(pushed[0][0].to, 'tok-author');
+  assert.equal(pushed[0][0].body, 'Alex a réagi 🔥 à ta séance');
+  assert.equal(
+    (await handler(post({ reaction: { message_id: MSG, reactor_id: MSG, emoji: '🍕' } }))).status,
+    400,
+  );
 });

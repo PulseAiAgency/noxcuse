@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router/js-tabs';
 import { TabBar } from '@/components/TabBar';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { useCheckinLifecycle } from '@/features/checkin/useCheckin';
+import { usePlanReminderSync } from '@/features/plan/api';
 import {
   useNotificationRouting,
   usePushRegistration,
@@ -21,6 +22,7 @@ function SignedInTabs() {
   useCheckinLifecycle();
   usePushRegistration();
   useNotificationRouting();
+  usePlanReminderSync();
   return (
     <Tabs
       tabBar={(props) => <TabBar {...props} />}

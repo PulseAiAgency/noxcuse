@@ -19,6 +19,8 @@ import {
 import { functionErrorCode } from '@/lib/errors';
 import { db } from '@/lib/supabase';
 
+import { cancelTodayEveningReminder } from '@/features/plan/reminders';
+
 import { clearVisit, readVisit, writeLastResult, writeVisit } from './storage';
 
 export type Validated = {
@@ -139,6 +141,7 @@ export async function apply(
   try {
     const session = await validateOnServer(decision, opts.demo ?? false);
     await clearVisit();
+    await cancelTodayEveningReminder(decision.endedAt);
     await writeLastResult({
       kind: 'validated',
       at: decision.endedAt,

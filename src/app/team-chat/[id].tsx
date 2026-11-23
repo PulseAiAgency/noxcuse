@@ -17,15 +17,26 @@ import { ErrorNote } from '@/components/ui/ErrorNote';
 import { PressableScale } from '@/components/ui/PressableScale';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Text } from '@/components/ui/Text';
-import { cleanMessage, continuesPrevious, MESSAGE_MAX, messageTime } from '@/domain/chat';
+import {
+  cleanMessage,
+  continuesPrevious,
+  groupReactions,
+  MESSAGE_MAX,
+  messageTime,
+  type Reaction,
+  type ReactionCount,
+  REACTIONS,
+} from '@/domain/chat';
 import {
   type ChatMessage,
   useDeleteMessage,
   useHiddenAuthors,
+  useReactions,
   useReportMessage,
   useSendMessage,
   useTeamMessages,
   useToggleHidden,
+  useToggleReaction,
 } from '@/features/chat/api';
 import { useMyTeams, useTeamBoard } from '@/features/teams/api';
 import { toUserMessage } from '@/lib/errors';
@@ -43,6 +54,8 @@ export default function TeamChatScreen() {
   const report = useReportMessage();
   const hidden = useHiddenAuthors();
   const toggleHidden = useToggleHidden();
+  const reactionRows = useReactions(id);
+  const toggleReaction = useToggleReaction(id);
   const [text, setText] = useState('');
   const [notice, setNotice] = useState<string | null>(null);
 
@@ -51,6 +64,40 @@ export default function TeamChatScreen() {
   const isOwner = team?.role === 'owner';
   const list = messages.data ?? [];
   const toSend = cleanMessage(text);
+  const reactions = groupReactions(reactionRows.data ?? [], me);
+
+  function react(messageId: string, emoji: Reaction) {
+    toggleReaction.mutate({ messageId, emoji }, { onError: (e) => setNotice(toUserMessage(e)) });
+  }
+
+  /** Tappable reaction chips; on a Canap' line, all four are always offered. */
+  function reactionBar(message: ChatMessage, all: boolean) {
+    const counts = reactions[message.id] ?? [];
+    const shown: ReactionCount[] = all
+      ? REACTIONS.map(
+          (e) => counts.find((c) => c.emoji === e) ?? { emoji: e, count: 0, mine: false },
+        )
+      : counts;
+    if (shown.length === 0) return null;
+    return (
+      <View style={[styles.reactions, all && styles.reactionsCenter]}>
+        {shown.map((c) => (
+          <PressableScale
+            key={c.emoji}
+            onPress={() => react(message.id, c.emoji)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: c.mine }}
+            accessibilityLabel={`${c.emoji} ${c.count}${c.mine ? ', ta réaction' : ''}`}
+            style={[styles.reaction, c.mine && styles.reactionMine]}
+          >
+            <Text variant="caption" color={colors.offWhite}>
+              {c.count ? `${c.emoji} ${c.count}` : c.emoji}
+            </Text>
+          </PressableScale>
+        ))}
+      </View>
+    );
+  }
 
   async function onSend() {
     if (!toSend) return;
@@ -64,7 +111,7 @@ export default function TeamChatScreen() {
   }
 
   function onLongPress(m: ChatMessage) {
-    if (m.deleted_at) return;
+    if (m.deleted_at || m.system) return;
     const mine = m.user_id === me;
     const pseudo = members.get(m.user_id)?.pseudo ?? 'ce joueur';
     const isHidden = hidden.data?.includes(m.user_id) ?? false;
@@ -77,6 +124,14 @@ export default function TeamChatScreen() {
       });
     }
     if (!mine) {
+      actions.push({
+        text: 'Réagir',
+        onPress: () =>
+          Alert.alert('Réagir', undefined, [
+            ...REACTIONS.map((e) => ({ text: e, onPress: () => react(m.id, e) })),
+            { text: 'Annuler', style: 'cancel' as const },
+          ]),
+      });
       actions.push({
         text: 'Signaler',
         onPress: () =>
@@ -163,11 +218,31 @@ export default function TeamChatScreen() {
               const mine = item.user_id === me;
               const member = members.get(item.user_id);
               const masked = !mine && (hidden.data?.includes(item.user_id) ?? false);
+              if (item.system) {
+                return (
+                  <View
+                    style={styles.canapLine}
+                    accessible
+                    accessibilityLabel={`Le Canap' : ${item.body}`}
+                  >
+                    <View style={styles.canapRow}>
+                      <Canap mood="sad" size={34} accessible={false} />
+                      <Text variant="body" color={colors.offWhite} style={styles.flex}>
+                        {item.body}
+                      </Text>
+                    </View>
+                    <Text variant="caption" color={colors.muted} style={styles.time}>
+                      {messageTime(item.created_at)}
+                    </Text>
+                    {reactionBar(item, true)}
+                  </View>
+                );
+              }
               return (
                 <PressableScale
                   onLongPress={() => onLongPress(item)}
                   accessibilityRole="text"
-                  accessibilityHint="Appui long : signaler, masquer ou supprimer"
+                  accessibilityHint="Appui long : réagir, signaler, masquer ou supprimer"
                   style={[
                     styles.row,
                     mine ? styles.rowMine : null,
@@ -192,6 +267,7 @@ export default function TeamChatScreen() {
                       {item.deleted_at ? 'Message supprimé' : masked ? 'Message masqué' : item.body}
                     </Text>
                   </View>
+                  {!item.deleted_at && !masked ? reactionBar(item, false) : null}
                   {!grouped ? (
                     <Text variant="caption" color={colors.muted} style={styles.time}>
                       {messageTime(item.created_at)}
@@ -318,4 +394,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendOff: { opacity: 0.4 },
+  canapLine: {
+    alignSelf: 'stretch',
+    marginTop: spacing.md,
+    padding: spacing.md,
+    borderRadius: radii.card,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    gap: 4,
+  },
+  canapRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  reactions: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 6 },
+  reactionsCenter: { justifyContent: 'flex-start' },
+  reaction: {
+    minHeight: 32,
+    minWidth: 44,
+    paddingHorizontal: 10,
+    borderRadius: 16,
+    backgroundColor: colors.card,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  reactionMine: { borderWidth: 1.5, borderColor: colors.accent },
 });
