@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Top 5 des excuses »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; background: #111214; visibility: hidden; overflow: hidden; }
+  .o { color: #FF6A3D; }
+  .tt { left: 0; right: 0; text-align: center; }
+  .tt span { display: inline-block; background: #F5F5F0; color: #0E0E0F; font-family: Black; border-radius: 18px; padding: 10px 26px; line-height: 1.15; }
+  /* Kept clear of TikTok's bottom 350 px and right 150 px. */
+  .num { left: 70px; top: 170px; font-family: Wide; font-size: 300px; letter-spacing: -10px; color: #FF6A3D; line-height: 1; transform-origin: left center; }
+  .lab { left: 80px; top: 500px; font-family: Black; font-size: 40px; letter-spacing: 4px; color: #A3A4A9; }
+  .msg { max-width: 760px; padding: 26px 36px; font-family: Semi; font-size: 54px; line-height: 1.18; border-radius: 44px; }
+  .me { right: 150px; top: 640px; background: #FF6A3D; color: #0E0E0F; border-bottom-right-radius: 12px; transform-origin: right bottom; }
+  .them { left: 70px; top: 900px; background: #2E2F35; border-bottom-left-radius: 12px; transform-origin: left bottom; }
+  .them b { display: block; font-family: Black; font-size: 34px; margin-bottom: 6px; }
+  .stampR { left: 150px; top: 1180px; font-family: Black; font-size: 150px; letter-spacing: -4px; color: #FF6A3D; border: 12px solid #FF6A3D; border-radius: 26px; padding: 0 34px; line-height: 1.12; transform-origin: center; }
+  .count { left: 80px; top: 1460px; font-family: Semi; font-size: 34px; color: #A3A4A9; }
+  .count i { display: inline-block; width: 46px; height: 46px; border-radius: 23px; background: #2E2F35; margin-right: 12px; vertical-align: middle; }
+  .count i.on { background: #FF6A3D; }
+  #paper { inset: 0; background: #ECECE8; color: #0E0E0F; opacity: 0; }
+  .sk { left: 70px; font-family: Black; font-size: 400px; line-height: .82; letter-spacing: -22px; color: #0E0E0F; transform-origin: left center; }
+  .word { left: 70px; font-family: Black; font-size: 250px; line-height: .86; letter-spacing: -14px; transform-origin: left center; }
+  .notif { left: 70px; right: 150px; top: 170px; height: 160px; border-radius: 40px; background: rgba(58,59,66,.97); display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; z-index: 5; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .notif img { width: 92px; height: 92px; border-radius: 22px; }
+  .notif .t { font-family: Semi; font-size: 30px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 36px; color: #F5F5F0; margin-top: 4px; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam">
+  <div class="scene" id="s0">
+    <div class="abs tt" id="h1" style="top:420px"><span style="font-size:88px">Top 5 des excuses</span></div>
+    <div class="abs tt" id="h2" style="top:560px"><span style="font-size:88px">pour skip la salle</span></div>
+    <div class="abs tt" id="h3" style="top:700px"><span style="font-size:88px">de sport 🙄</span></div>
+    <div class="abs tt" id="h4" style="top:900px"><span style="font-size:60px;background:#FF6A3D">(ta team les connaît toutes)</span></div>
+    <img class="abs" id="canap0" src="canap-smug.svg" style="left:310px;top:1100px;width:460px">
+  </div>
+  <div id="ex"></div>
+  <div class="scene" id="s6">
+    <div class="abs" id="paper"></div>
+    <div class="abs num" id="n1">#1</div>
+    <div class="abs lab" id="l1">L'EXCUSE ULTIME</div>
+    <div class="abs msg me" id="e1">Le Canap' me retient 🛋️</div>
+    <div class="abs sk" id="sk1" style="top:400px">SK</div>
+    <div class="abs sk" id="sk2" style="top:730px">IP</div>
+    <img class="abs" id="canap1" src="canap-smug.svg" style="left:300px;top:1060px;width:480px">
+    <div class="abs notif" id="skipN"><img src="icon.png"><div><div class="t">NOXCUSE · dimanche 20:00</div><div class="b">SKIP. Toi, tu as choisi le canap'.</div></div></div>
+    <div class="abs tt" id="c6" style="top:1450px"><span style="font-size:52px">Et toute ta team reçoit la carte.</span></div>
+  </div>
+  <div class="scene" id="s7">
+    <div class="abs tt" id="q1" style="top:240px"><span style="font-size:68px">Ta team refuse tes excuses.</span></div>
+    <div class="abs tt" id="q2" style="top:360px"><span style="font-size:68px;background:#FF6A3D">Le Canap' les adore.</span></div>
+    <div class="abs word" id="z1" style="top:620px">NO</div>
+    <div class="abs word" id="z2" style="top:850px">XCUSE<span class="o">.</span></div>
+    <div class="abs tt" id="store" style="top:1240px"><span style="font-size:50px;background:#FF6A3D">Dispo sur l'App Store</span></div>
+  </div>
+  <div class="abs" id="flash"></div>
+</div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a, d = 0.22) => { const p = seg(t, a, a + d); return { o: clamp(p * 4), s: 1 + (1 - easeOut(p)) * 1.6 }; };
+  const shake = (t, a, d = 0.3, amp = 16) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 46) * amp * (1 - p) : 0; };
+  const pop = (el, t, a) => { const p = seg(t, a, a + 0.26); el.style.opacity = clamp(p * 3); el.style.transform = `scale(${Math.max(0.001, back(p))})`; };
+  const slamIn = (el, t, a, rot = 0) => { const s = stamp(t, a); el.style.opacity = s.o; el.style.transform = `rotate(${rot}deg) scale(${s.s})`; };
+
+  // [number, excuse, who answers, plate colour, answer]. Gender-neutral, never about the body.
+  const EX = [
+    [5, 'Il pleut.', 'Sam', '#B9BBC0', 'La salle a un toit.'],
+    [4, 'Je commence lundi.', 'Alex', '#F5F5F0', 'T’as dit ça lundi dernier.'],
+    [3, 'J’ai pas mes affaires.', 'Lou', '#7C7E84', 'Ton sac est dans ta voiture depuis mars.'],
+    [2, 'J’ai trop de taf.', 'Sam', '#B9BBC0', '40 min. Ton boss survivra.'],
+  ];
+  const T0 = 2.8, LEN = 3.3;
+  $('ex').innerHTML = EX.map(([n, e, who, c, a], i) => `<div class="scene" id="x${i}">
+    <div class="abs num" id="xn${i}">#${n}</div>
+    <div class="abs lab" id="xl${i}">EXCUSE ${i + 1} / 5</div>
+    <div class="abs msg me" id="xe${i}">${e}</div>
+    <div class="abs msg them" id="xa${i}"><b style="color:${c}">${who}</b>${a}</div>
+    <div class="abs stampR" id="xs${i}">REFUSÉ</div>
+    <div class="abs count" id="xc${i}">${[0, 1, 2, 3, 4].map((k) => `<i${k <= i ? ' class="on"' : ''}></i>`).join('')}</div>
+  </div>`).join('');
+
+  const S6 = T0 + LEN * 4, S7 = S6 + 5.6;
+  const SCENES = [['s0', 0, T0], ...EX.map((_, i) => ['x' + i, T0 + i * LEN, T0 + (i + 1) * LEN]), ['s6', S6, S7], ['s7', S7, S7 + 5]];
+  window.DURATION = S7 + 5;
+  window.TIMES = { T0, LEN, S6, S7 };
+  const BEATS = [0.05, 0.5, 0.95, ...EX.flatMap((_, i) => [T0 + i * LEN + 0.1, T0 + i * LEN + 2.25]), S6 + 0.1, S6 + 1.6, S6 + 1.9, S7 + 0.75, S7 + 1.05];
+
+  window.render = (t) => {
+    let flash = 0;
+    SCENES.forEach(([id, a, b], i) => {
+      const el = $(id);
+      el.style.visibility = t >= a && t < b + 0.2 ? 'visible' : 'hidden';
+      el.style.zIndex = String(i + 1);
+      if (i > 0) { const p = seg(t, a, a + 0.2); el.style.transform = `translateX(${(1 - easeOut(p)) * 1100}px) skewX(${(1 - p) * -10}deg)`; }
+    });
+    let punch = 0;
+    for (const b of BEATS) { const p = seg(t, b, b + 0.18); if (p > 0 && p < 1) punch += 0.04 * (1 - p); }
+    const sh = BEATS.reduce((s, b) => s + shake(t, b, 0.2, 8), 0);
+    $('cam').style.transform = `scale(${1 + punch}) translate(${sh}px, ${sh * 0.4}px)`;
+
+    if (t < T0 + 0.2) {
+      pop($('h1'), t, 0.05); pop($('h2'), t, 0.5); pop($('h3'), t, 0.95); pop($('h4'), t, 1.5);
+      const c = seg(t, 1.8, 2.1), b = Math.abs(Math.sin((t - 1.8) * 8)) * 14;
+      $('canap0').style.opacity = c; $('canap0').style.transform = `translateY(${(1 - easeOut(c)) * 400 - b}px)`;
+    }
+    EX.forEach((_, i) => {
+      const a = T0 + i * LEN;
+      if (t < a - 0.1 || t > a + LEN + 0.3) return;
+      slamIn($('xn' + i), t, a + 0.1); pop($('xl' + i), t, a + 0.3);
+      pop($('xe' + i), t, a + 0.55); pop($('xa' + i), t, a + 1.35);
+      slamIn($('xs' + i), t, a + 2.25, -8);
+      pop($('xc' + i), t, a + 0.3);
+      if (t >= a + 2.25 && t < a + 2.31) flash = 0.12;
+    });
+    if (t >= S6 && t < S7 + 0.2) {
+      slamIn($('n1'), t, S6 + 0.1); pop($('l1'), t, S6 + 0.3); pop($('e1'), t, S6 + 0.55);
+      // The paper poster takes over: SK / IP stamped, the Canap' sneers.
+      const pp = seg(t, S6 + 1.4, S6 + 1.6);
+      $('paper').style.opacity = pp;
+      for (const id of ['n1', 'l1', 'e1']) $(id).style.visibility = pp >= 1 ? 'hidden' : 'visible';
+      slamIn($('sk1'), t, S6 + 1.6); slamIn($('sk2'), t, S6 + 1.9);
+      const c = seg(t, 2.3 + S6, 2.55 + S6), b = t > S6 + 2.55 ? Math.abs(Math.sin((t - S6) * 9)) * 16 : 0;
+      $('canap1').style.opacity = c; $('canap1').style.transform = `translateY(${(1 - easeOut(c)) * 400 - b}px) rotate(${Math.sin((t - S6) * 9) * 3 * c}deg)`;
+      const n = seg(t, S6 + 3.0, S6 + 3.32); $('skipN').style.opacity = n; $('skipN').style.transform = `translateY(${(1 - back(n)) * -360}px)`;
+      pop($('c6'), t, S6 + 3.9);
+      if (t >= S6 + 1.6 && t < S6 + 1.66) flash = 0.1;
+    }
+    if (t >= S7) {
+      pop($('q1'), t, S7 + 0.1); pop($('q2'), t, S7 + 0.4);
+      slamIn($('z1'), t, S7 + 0.75); slamIn($('z2'), t, S7 + 1.05);
+      pop($('store'), t, S7 + 1.7);
+      if (t > S7 + 2.1) $('store').style.transform += ` scale(${1 + 0.035 * Math.sin((t - S7 - 2.1) * 7)})`;
+    }
+    $('flash').style.opacity = flash;
+  };
+  window.render(0);
+</script>
+</body>
+</html>

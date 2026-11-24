@@ -146,3 +146,17 @@ Sources : 9to5mac.com (iOS 17, Rebound), digitaltrends.com (iOS 17.2), engadget.
 - Faire tourner les potes : une vidéo par semaine où un vrai pote reçoit sa carte SKIP (réaction filmée).
 
 Sources : superscale.ai (UGC TikTok 2026), viral.app (accroches TikTok vs Instagram), stormy.ai (playbook Coconote), miracamp.com (contenu fitness viral).
+
+## Vidéo 8 — « Top 5 des excuses pour skip la salle de sport » (`noxcuse-top-excuses.mp4`, 26,6 s, format TikTok)
+
+1. Accroche : « Top 5 des excuses pour skip la salle de sport 🙄 (ta team les connaît toutes) ».
+2. #5 « Il pleut. » → Sam : « La salle a un toit. » → tampon REFUSÉ.
+3. #4 « Je commence lundi. » → Alex : « T'as dit ça lundi dernier. » → REFUSÉ.
+4. #3 « J'ai pas mes affaires. » → Lou : « Ton sac est dans ta voiture depuis mars. » → REFUSÉ.
+5. #2 « J'ai trop de taf. » → Sam : « 40 min. Ton boss survivra. » → REFUSÉ.
+6. #1 « Le Canap' me retient 🛋️ » → l'affiche SK / IP tombe, notif « SKIP. Toi, tu as choisi le canap'. », « Et toute ta team reçoit la carte. »
+7. Fin : « Ta team refuse tes excuses. Le Canap' les adore. » NO XCUSE. Dispo sur l'App Store.
+
+Légende : « Laquelle t'as déjà sortie ? 👇 Avec NOXCUSE, ta team les refuse toutes. » Hashtags : #salledesport #motivation #gymtok #muscu
+Format pensé pour les commentaires (« laquelle t'as déjà sortie ») : épingle la meilleure réponse.
+Sources : `video-excuses/index.html`, sons `python3 scripts/mix_excuses.py audio` (depuis `scripts/`).
