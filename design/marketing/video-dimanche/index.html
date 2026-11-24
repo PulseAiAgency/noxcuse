@@ -148,9 +148,13 @@
     if (t >= 12.6 && t < 18.8) {
       // 40 minutes in 3 seconds.
       const p = seg(t, 13.0, 16.2);
-      const min = easeOut(p) * 40;
+      const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const min = ease * 40;
       $('chrono').textContent = `${String(Math.floor(min)).padStart(2, '0')}:${String(Math.floor((min % 1) * 60)).padStart(2, '0')}`;
-      $('ring').setAttribute('stroke-dashoffset', String(1634 * (1 - min / 45)));
+      // The ring is full exactly at 40:00 (the validation threshold), then pulses.
+      $('ring').setAttribute('stroke-dashoffset', String(1634 * (1 - min / 40)));
+      $('ring').setAttribute('stroke-width', String(34 + 10 * Math.sin(seg(t, 16.2, 16.5) * Math.PI)));
+      $('ring').style.opacity = min > 0.05 ? 1 : 0;
       drop($('valid'), t, 16.3); pop($('dots3'), t, 16.6);
       $('miss3').className = t > 17.0 ? 'on' : '';
       if (t >= 17.0 && t < 17.06) flash = 0.14;
