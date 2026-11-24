@@ -184,3 +184,11 @@ Sources : `video-dimanche/index.html`, sons `python3 scripts/mix_dimanche.py aud
 
 Légende : « T'es quelle colonne ? 👈👉 Tague le pote qui te fait aller à la salle. » Hashtags : #salledesport #motivation #gymtok #muscu
 Sources : `video-seul/index.html`, sons `python3 scripts/mix_seul.py audio` (depuis `scripts/`).
+
+## Vidéo 11 — « Rush » (`noxcuse-rush.mp4`, 17 s, format TikTok, très rythmée)
+
+Montage nerveux : un plan par temps (0,42 s, ~143 bpm), zoom + secousse + flash à chaque coupe, fonds noir / orange / papier qui alternent. Le rythme est fait uniquement de bruitages (tic, coups, clap, clang de disque, notifs), sans musique.
+T'AS / SKIP / LA SALLE DE SPORT ? → le Canap' « te remercie » → TA / TEAM / VOIT / TOUT. → notif SKIP → STOP. → 2, 3, 4 POTES → 1 BARRE → 20, 40, 60, 80 KG (un clang par disque) → « Sam te spot » → GO. → 40:00 séance validée → +20 KG. → PR DE LA TEAM 🏆 → Canap' écrasé → ZÉRO / EXCUSE. → NO XCUSE. Dispo sur l'App Store.
+
+Légende : « 17 secondes pour plus jamais skip. Envoie-la à ton binôme 👀 » Hashtags : #salledesport #motivation #gymtok #muscu
+Sources : `video-rush/index.html`, sons : `audio/rush-shots.json` (temps des plans, à régénérer si on change le montage) puis `python3 scripts/mix_rush.py audio` (depuis `scripts/`).
