@@ -160,3 +160,16 @@ Sources : superscale.ai (UGC TikTok 2026), viral.app (accroches TikTok vs Instag
 Légende : « Laquelle t'as déjà sortie ? 👇 Avec NOXCUSE, ta team les refuse toutes. » Hashtags : #salledesport #motivation #gymtok #muscu
 Format pensé pour les commentaires (« laquelle t'as déjà sortie ») : épingle la meilleure réponse.
 Sources : `video-excuses/index.html`, sons `python3 scripts/mix_excuses.py audio` (depuis `scripts/`).
+
+## Vidéo 9 — « Dimanche 17 h. Il te manque 1 séance 😰 » (`noxcuse-dimanche-17h.mp4`, 28,4 s, format TikTok)
+
+Format suspense, contre la montre :
+1. « DIMANCHE 17:00 », « Il te manque 1 séance 😰 », 2 disques sur 3, « Deadline : 20 h. Sinon, carte SKIP. »
+2. L'horloge file, les notifs tombent : rappel du Canap', « Sam te spot », « Lou te spot ». « Ta team te lâche pas. »
+3. Le Canap' : « juste un épisode… » → Rester (tampon NON) / Y aller. « Sac. Clés. Salle. »
+4. À la salle : le chrono file jusqu'à 40:00, séance validée, le 3e disque s'allume.
+5. « DIMANCHE 20:00 » : « SKIP. Alex a choisi le canap'. » « Cette fois, c'est pas toi 😮‍💨 »
+6. Fin : « Chaque dimanche à 20 h, quelqu'un prend la carte. » NO XCUSE. Dispo sur l'App Store.
+
+Légende : « Dimanche 17 h, il te manque une séance. Tu fais quoi ? 👇 » Hashtags : #salledesport #motivation #gymtok #muscu
+Sources : `video-dimanche/index.html`, sons `python3 scripts/mix_dimanche.py audio` (depuis `scripts/`).

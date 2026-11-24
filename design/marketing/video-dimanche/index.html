@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Dimanche 17 h »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; background: #111214; visibility: hidden; overflow: hidden; }
+  .o { color: #FF6A3D; }
+  .tt { left: 0; right: 0; text-align: center; }
+  .tt span { display: inline-block; background: #F5F5F0; color: #0E0E0F; font-family: Black; border-radius: 18px; padding: 10px 26px; line-height: 1.15; }
+  /* Kept clear of TikTok's bottom 350 px and right 150 px. */
+  .day { left: 70px; font-family: Black; font-size: 64px; letter-spacing: 6px; color: #A3A4A9; }
+  .clock { left: 60px; font-family: Wide; font-size: 270px; letter-spacing: -10px; line-height: 1; transform-origin: left center; }
+  .dots { left: 80px; display: flex; gap: 18px; }
+  .dots i { width: 120px; height: 120px; border-radius: 60px; background: #2E2F35; display: block; }
+  .dots i.on { background: #FF6A3D; }
+  .notif { left: 70px; right: 150px; height: 170px; border-radius: 40px; background: rgba(58,59,66,.97); display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .notif img { width: 92px; height: 92px; border-radius: 22px; flex: none; }
+  .notif .t { font-family: Semi; font-size: 28px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 34px; color: #F5F5F0; margin-top: 4px; line-height: 1.2; }
+  .choice { width: 380px; height: 420px; border-radius: 40px; background: #1D1E22; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; font-family: Black; font-size: 54px; transform-origin: center; }
+  .choice .e { font-size: 150px; line-height: 1; }
+  .stampR { font-family: Black; font-size: 130px; letter-spacing: -4px; color: #FF6A3D; border: 12px solid #FF6A3D; border-radius: 26px; padding: 0 34px; line-height: 1.12; transform-origin: center; }
+  #chrono { left: 0; right: 0; text-align: center; top: 700px; font-family: Wide; font-size: 130px; letter-spacing: -6px; }
+  .word { left: 70px; font-family: Black; font-size: 250px; line-height: .86; letter-spacing: -14px; transform-origin: left center; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam">
+  <!-- S0: hook -->
+  <div class="scene" id="s0">
+    <div class="abs day" id="d0" style="top:300px">DIMANCHE</div>
+    <div class="abs clock" id="c0" style="top:380px">17:00</div>
+    <div class="abs tt" id="h1" style="top:740px"><span style="font-size:76px">Il te manque 1 séance 😰</span></div>
+    <div class="abs dots" id="dots0" style="top:920px"><i class="on"></i><i class="on"></i><i id="miss"></i></div>
+    <div class="abs tt" id="h2" style="top:1120px"><span style="font-size:54px;background:#FF6A3D">Deadline : 20 h. Sinon, carte SKIP.</span></div>
+  </div>
+  <!-- S1: the pressure -->
+  <div class="scene" id="s1">
+    <div class="abs day" style="top:170px">DIMANCHE</div>
+    <div class="abs clock" id="c1" style="top:240px;font-size:200px">17:00</div>
+    <div class="abs notif" id="n1" style="top:560px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Il te reste 3 h pour charger 1 disque. Le Canap' te chauffe déjà la place.</div></div></div>
+    <div class="abs notif" id="n2" style="top:760px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Sam te spot : bouge à la salle !</div></div></div>
+    <div class="abs notif" id="n3" style="top:960px"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Lou te spot : bouge à la salle !</div></div></div>
+    <div class="abs tt" id="cap1" style="top:1200px"><span style="font-size:58px">Ta team te lâche pas.</span></div>
+  </div>
+  <!-- S2: the choice -->
+  <div class="scene" id="s2">
+    <div class="abs tt" id="cap2" style="top:220px"><span style="font-size:60px">Le Canap' :</span><br><span style="font-size:60px;margin-top:14px">« juste un épisode… »</span></div>
+    <div class="abs choice" id="ch1" style="left:90px;top:560px;width:360px"><div class="e">🛋️</div>Rester</div>
+    <div class="abs choice" id="ch2" style="left:480px;top:560px;width:360px"><div class="e">🏋️</div>Y aller</div>
+    <div class="abs stampR" id="no" style="left:70px;top:690px">NON</div>
+    <div class="abs tt" id="cap2b" style="top:1120px"><span style="font-size:60px;background:#FF6A3D">Sac. Clés. Salle.</span></div>
+  </div>
+  <!-- S3: the session -->
+  <div class="scene" id="s3">
+    <div class="abs tt" style="top:200px"><span style="font-size:56px">À la salle · 18:10</span></div>
+    <svg class="abs" viewBox="0 0 600 600" style="left:240px;top:470px;width:600px;height:600px">
+      <circle cx="300" cy="300" r="260" stroke="#2E2F35" stroke-width="34" fill="none"/>
+      <circle id="ring" cx="300" cy="300" r="260" stroke="#FF6A3D" stroke-width="34" fill="none" stroke-linecap="round" transform="rotate(-90 300 300)" stroke-dasharray="1634" stroke-dashoffset="1634"/>
+    </svg>
+    <div class="abs" id="chrono">00:00</div>
+    <div class="abs notif" id="valid" style="top:1200px"><img src="icon.png"><div><div class="t">NOXCUSE · 18:52</div><div class="b">Séance validée · +20 kg pour la team 💪</div></div></div>
+    <div class="abs dots" id="dots3" style="top:1420px;left:300px"><i class="on"></i><i class="on"></i><i id="miss3"></i></div>
+  </div>
+  <!-- S4: Sunday 20:00 -->
+  <div class="scene" id="s4">
+    <div class="abs day" style="top:200px">DIMANCHE</div>
+    <div class="abs clock" id="c4" style="top:280px">20:00</div>
+    <div class="abs notif" id="skipN" style="top:660px"><img src="icon.png"><div><div class="t">NOXCUSE · 20:00</div><div class="b">SKIP. Alex a choisi le canap'.</div></div></div>
+    <img class="abs" id="canap4" src="canap-smug.svg" style="left:300px;top:900px;width:480px">
+    <div class="abs tt" id="cap4" style="top:1300px"><span style="font-size:60px">Cette fois, c'est pas toi 😮‍💨</span></div>
+  </div>
+  <!-- S5: outro -->
+  <div class="scene" id="s5">
+    <div class="abs tt" id="q1" style="top:240px"><span style="font-size:64px">Chaque dimanche à 20 h,</span></div>
+    <div class="abs tt" id="q2" style="top:360px"><span style="font-size:64px;background:#FF6A3D">quelqu'un prend la carte.</span></div>
+    <div class="abs word" id="z1" style="top:620px">NO</div>
+    <div class="abs word" id="z2" style="top:850px">XCUSE<span class="o">.</span></div>
+    <div class="abs tt" id="store" style="top:1240px"><span style="font-size:50px;background:#FF6A3D">Dispo sur l'App Store</span></div>
+  </div>
+  <div class="abs" id="flash"></div>
+</div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a, d = 0.22) => { const p = seg(t, a, a + d); return { o: clamp(p * 4), s: 1 + (1 - easeOut(p)) * 1.6 }; };
+  const shake = (t, a, d = 0.3, amp = 16) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 46) * amp * (1 - p) : 0; };
+  const pop = (el, t, a) => { const p = seg(t, a, a + 0.26); el.style.opacity = clamp(p * 3); el.style.transform = `scale(${Math.max(0.001, back(p))})`; };
+  const slamIn = (el, t, a, rot = 0) => { const s = stamp(t, a); el.style.opacity = s.o; el.style.transform = `rotate(${rot}deg) scale(${s.s})`; };
+  const drop = (el, t, a) => { const p = seg(t, a, a + 0.32); el.style.opacity = p; el.style.transform = `translateY(${(1 - back(p)) * -300}px)`; };
+  const hm = (min) => `${String(Math.floor(min / 60)).padStart(2, '0')}:${String(Math.floor(min % 60)).padStart(2, '0')}`;
+
+  const SCENES = [['s0', 0, 3.2], ['s1', 3.2, 8.4], ['s2', 8.4, 12.6], ['s3', 12.6, 18.6], ['s4', 18.6, 23.4], ['s5', 23.4, 28.4]];
+  window.DURATION = 28.4;
+  const BEATS = [0.1, 0.4, 1.0, 10.6, 13.3, 16.3, 18.75, 23.4 + 0.75, 23.4 + 1.05];
+
+  window.render = (t) => {
+    let flash = 0;
+    SCENES.forEach(([id, a, b], i) => {
+      const el = $(id);
+      el.style.visibility = t >= a && t < b + 0.2 ? 'visible' : 'hidden';
+      el.style.zIndex = String(i + 1);
+      if (i > 0) { const p = seg(t, a, a + 0.2); el.style.transform = `translateX(${(1 - easeOut(p)) * 1100}px) skewX(${(1 - p) * -10}deg)`; }
+    });
+    let punch = 0;
+    for (const b of BEATS) { const p = seg(t, b, b + 0.18); if (p > 0 && p < 1) punch += 0.04 * (1 - p); }
+    const sh = BEATS.reduce((s, b) => s + shake(t, b, 0.2, 8), 0);
+    $('cam').style.transform = `scale(${1 + punch}) translate(${sh}px, ${sh * 0.4}px)`;
+
+    if (t < 3.4) {
+      pop($('d0'), t, 0.1); slamIn($('c0'), t, 0.4); pop($('h1'), t, 1.0); pop($('dots0'), t, 1.5);
+      // The missing plate blinks.
+      $('miss').style.background = t > 1.8 && Math.floor(t * 4) % 2 ? '#FF6A3D55' : '#2E2F35';
+      pop($('h2'), t, 2.2);
+    }
+    if (t >= 3.2 && t < 8.6) {
+      // Time slips away while the reminders pile up.
+      $('c1').textContent = hm(17 * 60 + seg(t, 3.4, 8.2) * 38);
+      drop($('n1'), t, 3.7); drop($('n2'), t, 5.0); drop($('n3'), t, 5.9);
+      const shakeN = shake(t, 5.9, 0.4, 14); $('n3').style.transform += ` translateX(${shakeN}px)`;
+      pop($('cap1'), t, 6.9);
+    }
+    if (t >= 8.4 && t < 12.8) {
+      pop($('cap2'), t, 8.6);
+      pop($('ch1'), t, 9.2); pop($('ch2'), t, 9.4);
+      slamIn($('no'), t, 10.6, -12);
+      const go = seg(t, 11.0, 11.3);
+      $('ch1').style.opacity = 1 - 0.6 * go;
+      $('ch2').style.background = go > 0.5 ? '#FF6A3D' : '#1D1E22';
+      $('ch2').style.color = go > 0.5 ? '#0E0E0F' : '#F5F5F0';
+      $('ch2').style.transform = `scale(${1 + 0.12 * Math.sin(go * Math.PI)})`;
+      pop($('cap2b'), t, 11.5);
+      if (t >= 11.0 && t < 11.06) flash = 0.14;
+    }
+    if (t >= 12.6 && t < 18.8) {
+      // 40 minutes in 3 seconds.
+      const p = seg(t, 13.0, 16.2);
+      const min = easeOut(p) * 40;
+      $('chrono').textContent = `${String(Math.floor(min)).padStart(2, '0')}:${String(Math.floor((min % 1) * 60)).padStart(2, '0')}`;
+      $('ring').setAttribute('stroke-dashoffset', String(1634 * (1 - min / 45)));
+      drop($('valid'), t, 16.3); pop($('dots3'), t, 16.6);
+      $('miss3').className = t > 17.0 ? 'on' : '';
+      if (t >= 17.0 && t < 17.06) flash = 0.14;
+      if (t > 17.0) $('miss3').style.transform = `scale(${back(seg(t, 17.0, 17.3))})`;
+    }
+    if (t >= 18.6 && t < 23.6) {
+      slamIn($('c4'), t, 18.75);
+      drop($('skipN'), t, 19.5);
+      const c = seg(t, 20.2, 20.45), b = t > 20.45 ? Math.abs(Math.sin((t - 20.45) * 9)) * 16 : 0;
+      $('canap4').style.opacity = c; $('canap4').style.transform = `translateY(${(1 - easeOut(c)) * 400 - b}px) rotate(${Math.sin(t * 9) * 3 * c}deg)`;
+      pop($('cap4'), t, 21.2);
+    }
+    if (t >= 23.4) {
+      const a = 23.4;
+      pop($('q1'), t, a + 0.1); pop($('q2'), t, a + 0.4);
+      slamIn($('z1'), t, a + 0.75); slamIn($('z2'), t, a + 1.05);
+      pop($('store'), t, a + 1.7);
+      if (t > a + 2.1) $('store').style.transform += ` scale(${1 + 0.035 * Math.sin((t - a - 2.1) * 7)})`;
+    }
+    $('flash').style.opacity = flash;
+  };
+  window.render(0);
+</script>
+</body>
+</html>
