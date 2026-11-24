@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Seul vs en team »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; font-family: Med, sans-serif; color: #F5F5F0; }
+  #cam { position: absolute; inset: 0; transform-origin: 50% 45%; }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; background: #111214; visibility: hidden; overflow: hidden; }
+  .o { color: #FF6A3D; }
+  .tt { left: 0; right: 0; text-align: center; }
+  .tt span { display: inline-block; background: #F5F5F0; color: #0E0E0F; font-family: Black; border-radius: 18px; padding: 10px 26px; line-height: 1.15; }
+  /* Two columns, kept clear of TikTok's bottom 350 px and right 150 px. */
+  .col { top: 180px; width: 425px; height: 1370px; border-radius: 40px; background: #1A1B1F; overflow: hidden; }
+  #left { left: 50px; }
+  #right { left: 495px; border: 4px solid #FF6A3D; box-sizing: border-box; }
+  .colHead { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-family: Wide; font-size: 58px; }
+  .colSub { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-family: Semi; font-size: 28px; color: #A3A4A9; }
+  .row { position: absolute; left: 24px; right: 24px; height: 120px; border-radius: 24px; display: flex; align-items: center; gap: 16px; padding: 0 20px; box-sizing: border-box; background: #24252A; transform-origin: left center; }
+  .row .d { font-family: Black; font-size: 26px; letter-spacing: 2px; color: #A3A4A9; width: 64px; flex: none; }
+  .row .x { font-family: Semi; font-size: 34px; line-height: 1.1; }
+  .row.ok { background: #FF6A3D; color: #0E0E0F; }
+  .row.ok .d { color: #0E0E0F; }
+  .row.meh .x { color: #A3A4A9; }
+  .tot { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-family: Wide; font-size: 84px; letter-spacing: -3px; transform-origin: center; }
+  .tot small { display: block; font-family: Semi; font-size: 30px; letter-spacing: 0; color: #A3A4A9; margin-top: 4px; }
+  #todayBar { left: 50px; right: 150px; height: 6px; top: 160px; }
+  .word { left: 70px; font-family: Black; font-size: 250px; line-height: .86; letter-spacing: -14px; transform-origin: left center; }
+  #flash { inset: 0; background: #FF6A3D; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam">
+  <div class="scene" id="s0">
+    <div class="abs tt" id="h1" style="top:440px"><span style="font-size:84px">La même semaine.</span></div>
+    <div class="abs tt" id="h2" style="top:580px"><span style="font-size:84px">La même salle.</span></div>
+    <div class="abs tt" id="h3" style="top:780px"><span style="font-size:96px;background:#FF6A3D">Seul vs en team</span></div>
+    <img class="abs" id="canap0" src="canap-smug.svg" style="left:310px;top:1020px;width:460px">
+  </div>
+  <div class="scene" id="s1">
+    <div class="abs col" id="left"><div class="colHead">SEUL</div><div class="colSub">objectif 3 / sem.</div><div id="rowsL"></div><div class="tot" id="totL">1/3<small>carte SKIP 🛋️</small></div></div>
+    <div class="abs col" id="right"><div class="colHead o">EN TEAM</div><div class="colSub">objectif 3 / sem.</div><div id="rowsR"></div><div class="tot o" id="totR">4/3<small>+80 kg · PR 🏆</small></div></div>
+  </div>
+  <div class="scene" id="s2">
+    <div class="abs tt" id="v1" style="top:300px"><span style="font-size:70px">La motivation, ça lâche.</span></div>
+    <div class="abs tt" id="v2" style="top:430px"><span style="font-size:70px;background:#FF6A3D">Tes potes, non.</span></div>
+    <img class="abs" id="crushed" src="canap-crushed.svg" style="left:250px;top:700px;width:580px">
+    <div class="abs tt" id="v3" style="top:1330px"><span style="font-size:54px">Le Canap' préfère quand t'es seul.</span></div>
+  </div>
+  <div class="scene" id="s3">
+    <div class="abs tt" id="q1" style="top:260px"><span style="font-size:66px">Monte ta team.</span></div>
+    <div class="abs tt" id="q2" style="top:380px"><span style="font-size:66px;background:#FF6A3D">Charge la barre.</span></div>
+    <div class="abs word" id="z1" style="top:640px">NO</div>
+    <div class="abs word" id="z2" style="top:870px">XCUSE<span class="o">.</span></div>
+    <div class="abs tt" id="store" style="top:1260px"><span style="font-size:50px;background:#FF6A3D">Dispo sur l'App Store</span></div>
+  </div>
+  <div class="abs" id="flash"></div>
+</div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a, d = 0.22) => { const p = seg(t, a, a + d); return { o: clamp(p * 4), s: 1 + (1 - easeOut(p)) * 1.6 }; };
+  const shake = (t, a, d = 0.3, amp = 16) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 46) * amp * (1 - p) : 0; };
+  const pop = (el, t, a) => { const p = seg(t, a, a + 0.26); el.style.opacity = clamp(p * 3); el.style.transform = `scale(${Math.max(0.001, back(p))})`; };
+  const slamIn = (el, t, a) => { const s = stamp(t, a); el.style.opacity = s.o; el.style.transform = `scale(${s.s})`; };
+  const slide = (el, t, a) => { const p = seg(t, a, a + 0.24); el.style.opacity = clamp(p * 3); el.style.transform = `translateX(${(1 - back(p)) * -80}px)`; };
+
+  // [day, alone (ok?), with the team (ok?)]
+  const DAYS = [
+    ['LUN', ['Séance ✅', 1], ['Séance ✅', 1]],
+    ['MAR', ['Flemme.', 0], ['Sam te spot 👀', 0]],
+    ['MER', ['« Demain. »', 0], ['Séance ✅', 1]],
+    ['JEU', ['Il pleut.', 0], ['Repos', 0]],
+    ['VEN', ['Afterwork 🍻', 0], ['Séance ✅', 1]],
+    ['SAM', ['Le canap\'.', 0], ['Avec Alex ✅', 1]],
+    ['DIM', ['« Lundi je reprends »', 0], ['Bilan : PR 🏆', 0]],
+  ];
+  window.DAYS = DAYS;
+  const rowHtml = (side) => DAYS.map(([d, l, r], i) => {
+    const [x, ok] = side === 'L' ? l : r;
+    return `<div class="row ${ok ? 'ok' : side === 'L' ? 'meh' : ''}" id="r${side}${i}" style="top:${170 + i * 136}px"><div class="d">${d}</div><div class="x">${x}</div></div>`;
+  }).join('');
+  $('rowsL').innerHTML = rowHtml('L'); $('rowsR').innerHTML = rowHtml('R');
+
+  const D0 = 3.6, STEP = 1.55;
+  const S2 = D0 + STEP * 7 + 2.6, S3 = S2 + 4.6;
+  const SCENES = [['s0', 0, 2.8], ['s1', 2.8, S2], ['s2', S2, S3], ['s3', S3, S3 + 5]];
+  window.DURATION = S3 + 5;
+  window.TIMES = { D0, STEP, S2, S3 };
+  const RES = D0 + STEP * 7 + 0.2;
+  const BEATS = [0.05, 0.5, 1.0, RES, RES + 0.4, S2 + 1.3, S3 + 0.75, S3 + 1.05];
+
+  window.render = (t) => {
+    let flash = 0;
+    SCENES.forEach(([id, a, b], i) => {
+      const el = $(id);
+      el.style.visibility = t >= a && t < b + 0.2 ? 'visible' : 'hidden';
+      el.style.zIndex = String(i + 1);
+      if (i > 0) { const p = seg(t, a, a + 0.2); el.style.transform = `translateX(${(1 - easeOut(p)) * 1100}px) skewX(${(1 - p) * -10}deg)`; }
+    });
+    let punch = 0;
+    for (const b of BEATS) { const p = seg(t, b, b + 0.18); if (p > 0 && p < 1) punch += 0.04 * (1 - p); }
+    const sh = BEATS.reduce((s, b) => s + shake(t, b, 0.2, 8), 0);
+    $('cam').style.transform = `scale(${1 + punch}) translate(${sh}px, ${sh * 0.4}px)`;
+
+    if (t < 3.0) {
+      pop($('h1'), t, 0.05); pop($('h2'), t, 0.5); slamIn($('h3'), t, 1.0);
+      const c = seg(t, 1.5, 1.8), b = Math.abs(Math.sin((t - 1.5) * 8)) * 14;
+      $('canap0').style.opacity = c; $('canap0').style.transform = `translateY(${(1 - easeOut(c)) * 400 - b}px)`;
+    }
+    if (t >= 2.8 && t < S2 + 0.2) {
+      DAYS.forEach(([, l, r], i) => {
+        const a = D0 + i * STEP;
+        slide($('rL' + i), t, a); slide($('rR' + i), t, a + 0.45);
+        if (r[1] && t >= a + 0.45 && t < a + 0.51) flash = 0.08;
+      });
+      slamIn($('totL'), t, RES); slamIn($('totR'), t, RES + 0.4);
+      // The lonely column fades, the team column glows.
+      const f = seg(t, RES + 0.8, RES + 1.3);
+      $('left').style.opacity = 1 - 0.35 * f;
+      $('right').style.transform = `scale(${1 + 0.03 * f})`;
+    }
+    if (t >= S2 && t < S3 + 0.2) {
+      pop($('v1'), t, S2 + 0.15); pop($('v2'), t, S2 + 0.6);
+      const c = seg(t, S2 + 1.1, S2 + 1.3);
+      $('crushed').style.opacity = c;
+      $('crushed').style.transform = `translateY(${(1 - easeOut(c)) * -500}px) scaleY(${1 - 0.25 * Math.sin(seg(t, S2 + 1.3, S2 + 1.65) * Math.PI)})`;
+      pop($('v3'), t, S2 + 2.2);
+    }
+    if (t >= S3) {
+      pop($('q1'), t, S3 + 0.1); pop($('q2'), t, S3 + 0.4);
+      slamIn($('z1'), t, S3 + 0.75); slamIn($('z2'), t, S3 + 1.05);
+      pop($('store'), t, S3 + 1.7);
+      if (t > S3 + 2.1) $('store').style.transform += ` scale(${1 + 0.035 * Math.sin((t - S3 - 2.1) * 7)})`;
+    }
+    $('flash').style.opacity = flash;
+  };
+  window.render(0);
+</script>
+</body>
+</html>

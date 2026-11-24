@@ -173,3 +173,14 @@ Format suspense, contre la montre :
 
 Légende : « Dimanche 17 h, il te manque une séance. Tu fais quoi ? 👇 » Hashtags : #salledesport #motivation #gymtok #muscu
 Sources : `video-dimanche/index.html`, sons `python3 scripts/mix_dimanche.py audio` (depuis `scripts/`).
+
+## Vidéo 10 — « Seul vs en team » (`noxcuse-seul-vs-team.mp4`, 27 s, format TikTok)
+
+Écran partagé, jour par jour :
+1. « La même semaine. La même salle. Seul vs en team ».
+2. Deux colonnes. SEUL : LUN séance, puis « Flemme. », « Demain. », « Il pleut. », « Afterwork », « Le canap'. », « Lundi je reprends » → 1/3, carte SKIP. EN TEAM : séance, « Sam te spot », séance, repos, séance, « Avec Alex », « Bilan : PR » → 4/3, +80 kg.
+3. « La motivation, ça lâche. Tes potes, non. » Le Canap' écrasé par la barre. « Le Canap' préfère quand t'es seul. »
+4. Fin : « Monte ta team. Charge la barre. » NO XCUSE. Dispo sur l'App Store.
+
+Légende : « T'es quelle colonne ? 👈👉 Tague le pote qui te fait aller à la salle. » Hashtags : #salledesport #motivation #gymtok #muscu
+Sources : `video-seul/index.html`, sons `python3 scripts/mix_seul.py audio` (depuis `scripts/`).
