@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « Lien dans la bio »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111214; color: #F5F5F0; }
+  #shot { position: absolute; inset: 0; }
+  /* Safe area: clear of TikTok's bottom 350 px and right 150 px. */
+  #safe { position: absolute; left: 70px; right: 150px; top: 150px; bottom: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; text-align: center; }
+  #big { font-family: Black; line-height: .9; letter-spacing: -8px; }
+  #sub { font-family: Semi; font-size: 52px; line-height: 1.15; }
+  #art { display: flex; align-items: center; justify-content: center; }
+  .notif { width: 860px; height: 170px; border-radius: 40px; background: rgba(58,59,66,.97); display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; text-align: left; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .notif img { width: 92px; height: 92px; border-radius: 22px; }
+  .notif .t { font-family: Semi; font-size: 28px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 36px; color: #F5F5F0; margin-top: 4px; }
+  .av { width: 150px; height: 150px; border-radius: 75px; display: inline-flex; align-items: center; justify-content: center; font-family: Black; font-size: 64px; color: #0E0E0F; margin: 0 8px; }
+  .o { color: #FF6A3D; }
+  #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="shot"><div id="safe"><div id="art"></div><div id="big"></div><div id="sub"></div></div></div><div id="flash"></div></div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+
+  const BEAT = 0.55; // ~109 bpm: punchy but every line can be read
+  const K = '#111214', O = '#FF6A3D', P = '#ECECE8', W = '#F5F5F0';
+  const notif = (when, body) => `<div class="notif"><img src="icon.png"><div><div class="t">NOXCUSE · ${when}</div><div class="b">${body}</div></div></div>`;
+  const bar = (n) => `<svg viewBox="0 0 900 360" width="860" height="344"><rect x="0" y="168" width="900" height="24" rx="12" fill="#8A9099"/><rect x="380" y="160" width="140" height="40" rx="10" fill="#5E6066"/>` +
+    Array.from({ length: n }, (_, i) => { const c = i === n - 1 ? O : ['#F5F5F0', '#B9BBC0', '#7C7E84', '#D9DADD'][i % 4]; return `<rect x="${320 - i * 58}" y="40" width="48" height="280" rx="10" fill="${c}"/><rect x="${532 + i * 58}" y="40" width="48" height="280" rx="10" fill="${c}"/>`; }).join('') + '</svg>';
+  const avatars = (n) => ['Toi', 'Sam', 'Alex', 'Lou'].slice(0, n).map((x, i) => `<span class="av" style="background:${i ? ['#F5F5F0', '#B9BBC0', '#7C7E84'][i - 1] : O}">${x[0]}</span>`).join('');
+  const ring = `<svg viewBox="0 0 600 600" width="520" height="520"><circle cx="300" cy="300" r="250" stroke="${O}" stroke-width="40" fill="none"/><text x="300" y="345" text-anchor="middle" font-family="Wide" font-size="130" fill="${W}">40:00</text></svg>`;
+
+  const players = `<div style="display:flex;flex-direction:column;gap:18px;width:820px">` + [['Toi', O, 'Fait ✅', 1], ['Sam', '#F5F5F0', 'À la salle 📍', 0], ['Alex', '#B9BBC0', 'Fait ✅', 0], ['Lou', '#7C7E84', 'Pas encore…', 0]].map(([n, c, st, me]) =>
+    `<div style="display:flex;align-items:center;gap:24px;background:#1D1E22;border-radius:30px;padding:22px 28px;${me ? 'border:4px solid #FF6A3D' : ''}"><span class="av" style="width:96px;height:96px;font-size:44px;margin:0;background:${c}">${n[0]}</span><span style="font-family:Black;font-size:50px;flex:1;text-align:left">${n}</span><span style="font-family:Semi;font-size:40px;color:${st.startsWith('Fait') ? O : '#A3A4A9'}">${st}</span></div>`).join('') + '</div>';
+  const search = `<div style="width:840px;display:flex;flex-direction:column;gap:30px">
+    <div style="height:120px;border-radius:30px;background:#2E2F35;display:flex;align-items:center;gap:22px;padding:0 34px;font-family:Semi;font-size:52px;text-align:left"><span style="color:#A3A4A9">🔍</span><span id="typed"></span><span id="caret" style="width:4px;height:60px;background:${O}"></span></div>
+    <div id="result" style="display:flex;align-items:center;gap:28px;background:#1D1E22;border-radius:34px;padding:28px;text-align:left"><img src="icon.png" style="width:150px;height:150px;border-radius:34px"><div style="flex:1"><div style="font-family:Black;font-size:46px">NOXCUSE</div><div style="font-family:Semi;font-size:32px;color:#A3A4A9;margin-top:6px">Muscu entre potes</div></div><span style="background:${O};color:#0E0E0F;font-family:Black;font-size:34px;border-radius:40px;padding:16px 30px">OBTENIR</span></div></div>`;
+  const outro = `<svg id="arrow" viewBox="0 0 200 220" width="200" height="220"><path d="M100 10 L180 110 L130 110 L130 210 L70 210 L70 110 L20 110 Z" fill="${O}"/></svg>`;
+
+  // [beats, background, big text, size, colour, sub text, art html, sound tag]
+  const SHOTS = [
+    [3, K, 'TES POTES<br>DISENT QU’ILS<br>VONT À LA SALLE<br>DE SPORT.', 112, W, '', '', 'thud'],
+    [1, O, 'VRAIMENT ?', 190, K, '', '', 'clap'],
+    [3, K, '', 0, W, 'Maintenant, tu vérifies 👀', players, 'pop'],
+    [2, K, '', 0, W, '', notif('maintenant', 'Lou risque le skip. Spotte ton pote !'), 'notif'],
+    [1, P, 'SKIP.', 330, K, '', '', 'thud'],
+    [2, P, '', 0, K, 'Lou a choisi le canap’.<br>Toute la team reçoit la carte.', '<img src="canap-smug.svg" width="560">', 'pop'],
+    [1, O, '1 ABO.', 280, K, '', '', 'thud'],
+    [1, K, '4 POTES.', 230, W, '', avatars(4), 'thud'],
+    [3, K, 'TES POTES<br>JOUENT<br>GRATOS.', 170, O, 'Ton abonnement inclut ta team<br>(jusqu’à 4 joueurs)', '', 'clap'],
+    [4, K, '', 0, W, 'Tape « NOXCUSE » dans l’App Store', search, 'typing'],
+    [9, K, 'LIEN<br>DANS<br>LA BIO', 210, W, '<span style="font-family:Black;font-size:90px;letter-spacing:-4px">NOXCUSE<span class="o">.</span></span>', outro, 'end'],
+  ];
+  let acc = 0.2;
+  const TIMED = SHOTS.map((s) => { const a = acc; acc += s[0] * BEAT; return [a, acc, ...s]; });
+  window.SHOTS = TIMED.map(([a, , , , , , , , , snd]) => [Number(a.toFixed(3)), snd]);
+  window.BEAT = BEAT;
+  window.DURATION = acc;
+  let current = -1;
+
+  window.render = (t) => {
+    let i = TIMED.findIndex(([a, b]) => t >= a && t < b);
+    if (i < 0) i = t < TIMED[0][0] ? 0 : TIMED.length - 1;
+    const [a, b, , bg, big, size, col, sub, art] = TIMED[i];
+    if (i !== current) {
+      current = i;
+      $('stage').style.background = bg;
+      $('big').innerHTML = big; $('big').style.fontSize = `${size}px`; $('big').style.color = col;
+      $('big').style.display = big ? 'block' : 'none';
+      $('sub').innerHTML = sub; $('sub').style.color = bg === K ? W : K;
+      $('sub').style.display = sub ? 'block' : 'none';
+      $('art').innerHTML = art; $('art').style.display = art ? 'flex' : 'none';
+    }
+    const p = seg(t, a, a + 0.16), local = t - a;
+    // Every cut: zoom punch + small tilt alternating sides + screen shake.
+    const dir = i % 2 ? 1 : -1;
+    let scale = 1 + (1 - easeOut(p)) * 0.35 + local * 0.05;
+    let rot = (1 - easeOut(p)) * 6 * dir;
+    const sh = p < 1 ? Math.sin(p * 40) * 18 * (1 - p) : 0;
+    if (i === TIMED.length - 1) { scale = 1 + (1 - easeOut(seg(t, a, a + 0.25))) * 0.5; rot = 0; }
+    $('shot').style.transform = `translate(${sh}px, ${sh * 0.5}px) rotate(${rot}deg) scale(${scale})`;
+    // Art pops in with a bounce, notifications drop from the top.
+    const ap = seg(t, a, a + 0.28);
+    $('art').style.transform = TIMED[i][9] === 'notif' ? `translateY(${(1 - back(ap)) * -500}px)` : `scale(${Math.max(0.01, back(ap))})`;
+    if (TIMED[i][9] === 'crush') $('art').style.transform = `translateY(${(1 - easeOut(ap)) * -600}px) scaleY(${1 - 0.25 * Math.sin(seg(t, a + 0.28, a + 0.6) * Math.PI)})`;
+    if (TIMED[i][9] === 'typing') {
+      const word = 'NOXCUSE', n = Math.floor(seg(t, a + 0.3, a + 1.3) * word.length + 0.001);
+      $('typed').textContent = word.slice(0, n);
+      $('caret').style.opacity = Math.floor(t * 3) % 2 ? 1 : 0.2;
+      const rp = seg(t, a + 1.45, a + 1.75); $('result').style.opacity = rp; $('result').style.transform = `translateY(${(1 - back(rp)) * 80}px)`;
+    }
+    if (TIMED[i][9] === 'end') {
+      $('art').style.transform = `translateY(${-Math.abs(Math.sin((t - a) * 5)) * 40}px)`;
+      const sp = seg(t, a + 0.6, a + 0.86);
+      $('sub').style.opacity = sp; $('sub').style.transform = `scale(${Math.max(0.01, back(sp)) * (1 + (t > a + 1.2 ? 0.035 * Math.sin((t - a) * 7) : 0))})`;
+    } else { $('sub').style.opacity = 1; $('sub').style.transform = ''; }
+    $('flash').style.opacity = String(Math.max(0, 0.22 * (1 - seg(t, a, a + 0.08))) * (t >= TIMED[0][0] ? 1 : 0));
+  };
+  window.render(0);
+</script>
+</body>
+</html>

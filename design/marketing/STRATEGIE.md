@@ -192,3 +192,12 @@ T'AS / SKIP / LA SALLE DE SPORT ? → le Canap' « te remercie » → TA / TEAM 
 
 Légende : « 17 secondes pour plus jamais skip. Envoie-la à ton binôme 👀 » Hashtags : #salledesport #motivation #gymtok #muscu
 Sources : `video-rush/index.html`, sons : `audio/rush-shots.json` (temps des plans, à régénérer si on change le montage) puis `python3 scripts/mix_rush.py audio` (depuis `scripts/`).
+
+## Vidéo 12 — « Lien dans la bio » (`noxcuse-lien-bio.mp4`, 16,8 s, format TikTok, appel à l'action)
+
+Faite pour transformer les vues en téléchargements (23/11 : 19 impressions, 4 vues de page, 1 téléchargement).
+TES POTES DISENT QU'ILS VONT À LA SALLE DE SPORT. → VRAIMENT ? → la liste de la team (Fait / À la salle / Pas encore) « Maintenant, tu vérifies 👀 » → notif « Lou risque le skip » → SKIP. → le Canap' « Toute la team reçoit la carte » → 1 ABO. / 4 POTES. / TES POTES JOUENT GRATOS. → recherche « NOXCUSE » dans l'App Store → LIEN DANS LA BIO ↑ NOXCUSE.
+
+Légende : « Lien dans la bio 🔗 Un abo, ta team joue avec toi. » Hashtags : #salledesport #motivation #gymtok #muscu
+Avant de publier : compte TikTok passé en « Compte professionnel » et lien App Store dans la bio ; commentaire épinglé « NOXCUSE sur l'App Store, lien en bio 🔗 ».
+Sources : `video-bio/index.html`, sons : `audio/bio-shots.json` puis `python3 scripts/mix_bio.py audio` (depuis `scripts/`).
