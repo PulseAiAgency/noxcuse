@@ -31,7 +31,7 @@
   #pBrand { right: 80px; top: 90px; font-family: Black; font-size: 48px; letter-spacing: -2px; }
   #plus { left: 0; right: 150px; top: 1020px; text-align: center; }
   #plus .box { font-size: 160px; color: #FF6A3D; padding: 18px 48px; }
-  .word { left: 70px; font-family: Black; font-size: 250px; line-height: .86; letter-spacing: -14px; }
+  .word { left: 70px; white-space: nowrap; transform-origin: left center; font-family: Black; font-size: 250px; line-height: .86; letter-spacing: -14px; }
   #tag { left: 70px; right: 150px; top: 1010px; font-family: Wide; font-size: 62px; line-height: 1.12; text-transform: uppercase; }
   #gift { left: 70px; right: 150px; top: 1240px; font-family: Semi; font-size: 42px; color: #C9CACE; }
   #cta { left: 70px; right: 150px; top: 1340px; height: 150px; border-radius: 34px; background: #FF6A3D; color: #0E0E0F; display: flex; align-items: center; justify-content: center; gap: 18px; font-family: Wide; font-size: 50px; }
@@ -69,8 +69,7 @@
     <div class="abs" id="plus"><span class="box">+20 KG.</span></div>
   </div>
   <div class="seg" id="fin">
-    <div class="abs word" id="w1" style="top:400px">NO</div>
-    <div class="abs word" id="w2" style="top:630px">XCUSE<span class="o">.</span></div>
+    <div class="abs word" id="w1" style="top:730px;font-size:150px;letter-spacing:-7px">NOXCUSE<span class="o">.</span></div>
     <div class="abs" id="tag">La muscu entre potes.<br><span class="o">Sans excuse.</span></div>
     <div class="abs" id="gift">Ton abo inclut ta team.</div>
     <div class="abs" id="cta">Lien dans la bio <svg width="40" height="44" viewBox="0 0 200 220"><path d="M100 10 L180 110 L130 110 L130 210 L70 210 L70 110 L20 110 Z" fill="#0E0E0F"/></svg></div>
@@ -119,9 +118,8 @@
       const s = stamp(t, 1.1); $('plus').style.opacity = s.o; $('plus').style.transform = `scale(${s.s}) rotate(-3deg)`;
     } },
     fin: { d: 4, solid: true, r: (t) => {
-      const a = stamp(t, 0.1), b = stamp(t, 0.45);
+      const a = stamp(t, 0.15);
       $('w1').style.opacity = a.o; $('w1').style.transform = `scale(${a.s})`;
-      $('w2').style.opacity = b.o; $('w2').style.transform = `scale(${b.s})`;
       for (const [id, s] of [['tag', 0.9], ['gift', 1.3], ['cta', 1.7]]) { const p = seg(t, s, s + 0.35); $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - easeOut(p)) * 50}px)`; }
       if (t > 2.1) $('cta').style.transform += ` scale(${1 + 0.035 * Math.sin((t - 2.1) * 6)})`;
     } },
