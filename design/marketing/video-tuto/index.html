@@ -12,7 +12,7 @@
   #shot { position: absolute; inset: 0; }
   /* Safe area: clear of TikTok's bottom 350 px and right 150 px. */
   #safe { position: absolute; left: 70px; right: 150px; top: 150px; bottom: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; text-align: center; }
-  #big { font-family: Black; line-height: .9; letter-spacing: -8px; }
+  #big { font-family: Black; line-height: .92; letter-spacing: -0.025em; word-spacing: 0.08em; }
   #sub { font-family: Semi; font-size: 52px; line-height: 1.15; }
   #art { display: flex; align-items: center; justify-content: center; }
   .notif { width: 860px; height: 170px; border-radius: 40px; background: rgba(58,59,66,.97); display: flex; align-items: center; gap: 26px; padding: 0 30px; box-sizing: border-box; text-align: left; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
@@ -61,7 +61,7 @@
 
   // [beats, background, big text, size, colour, sub text, art html, sound tag]
   const SHOTS = [
-    [4, K, 'COMMENT ON<br>VA À LA SALLE<br>DE SPORT À 4<br>SANS JAMAIS<br>SKIP', 96, W, '', '', 'thud'],
+    [4, K, '<span style="font-size:88px">COMMENT ON VA</span><br>À LA SALLE<br>DE SPORT<br><span class="o" style="font-size:300px;line-height:1">À 4</span><br>SANS JAMAIS<br>SKIP.', 124, W, '', '', 'thud'],
     step(1),
     [3, K, '', 0, W, 'Choisis ta salle', gym, 'pop'],
     step(2),
