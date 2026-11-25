@@ -201,3 +201,10 @@ TES POTES DISENT QU'ILS VONT À LA SALLE DE SPORT. → VRAIMENT ? → la liste d
 Légende : « Lien dans la bio 🔗 Un abo, ta team joue avec toi. » Hashtags : #salledesport #motivation #gymtok #muscu
 Avant de publier : compte TikTok passé en « Compte professionnel » et lien App Store dans la bio ; commentaire épinglé « NOXCUSE sur l'App Store, lien en bio 🔗 ».
 Sources : `video-bio/index.html`, sons : `audio/bio-shots.json` puis `python3 scripts/mix_bio.py audio` (depuis `scripts/`).
+
+## Vidéo 13 — « Tuto en 5 étapes » (`noxcuse-tuto-5-etapes.mp4`, 20,5 s, format TikTok, appel à l'action)
+
+COMMENT ON VA À LA SALLE DE SPORT À 4 SANS JAMAIS SKIP → 1 Choisis ta salle → 2 Ton objectif (3 / sem.) → 3 Invite tes potes (code + partage, « ton abo les couvre, jusqu'à 4 ») → 4 Va à la salle, l'app valide toute seule (carte + notif) → 5 Dimanche 20 h, qui a skip prend la carte → C'EST TOUT. → LIEN DANS LA BIO ↑ NOXCUSE.
+
+Légende : « 5 étapes et ta team ne skip plus jamais. Lien dans la bio 🔗 » Hashtags : #salledesport #motivation #gymtok #muscu
+Sources : `video-tuto/index.html`, sons : `audio/tuto-shots.json` puis `python3 scripts/mix_tuto.py audio` (depuis `scripts/`).
