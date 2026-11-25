@@ -81,13 +81,22 @@
       $('sub').innerHTML = sub; $('sub').style.color = bg === K ? W : K;
       $('sub').style.display = sub ? 'block' : 'none';
       $('art').innerHTML = art; $('art').style.display = art ? 'flex' : 'none';
+      // Widest text line, so the zoom punch never pushes it off screen (1040 px max with the tilt).
+      $('shot').style.transform = 'none';
+      const r = document.createRange(); r.selectNodeContents($('big'));
+      const w = big ? Math.max(...[...r.getClientRects()].map((x) => x.width)) : 0;
+      $('shot').dataset.fit = w ? String(Math.max(1, 1000 / w)) : '9';
     }
     const p = seg(t, a, a + 0.16), local = t - a;
     // Every cut: zoom punch + small tilt alternating sides + screen shake.
     const dir = i % 2 ? 1 : -1;
     let scale = 1 + (1 - easeOut(p)) * 0.35 + local * 0.05;
     let rot = (1 - easeOut(p)) * 6 * dir;
-    const sh = p < 1 ? Math.sin(p * 40) * 18 * (1 - p) : 0;
+    const sh = p < 1 && t >= TIMED[0][0] ? Math.sin(p * 40) * 18 * (1 - p) : 0;
+    // The very first frame (also the cover) is still and straight.
+    if (t < TIMED[0][0] + 0.02) { scale = 1; rot = 0; }
+    const fit = Number($('shot').dataset.fit);
+    if (scale > fit) { scale = fit; rot *= 0.3; }
     if (i === TIMED.length - 1) { scale = 1 + (1 - easeOut(seg(t, a, a + 0.25))) * 0.5; rot = 0; }
     $('shot').style.transform = `translate(${sh}px, ${sh * 0.5}px) rotate(${rot}deg) scale(${scale})`;
     // Art pops in with a bounce, notifications drop from the top.
