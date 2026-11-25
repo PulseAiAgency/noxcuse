@@ -16,9 +16,9 @@
           <ellipse cx="142" cy="78" rx="14" ry="12" fill="#F4F4EF"></ellipse><circle cx="147" cy="81" r="5" fill="#111214"></circle><rect x="128" y="66" width="28" height="12" fill="#2B2B2B"></rect><line x1="128" y1="78" x2="156" y2="78" stroke="#F5F5F0" stroke-width="2.5"></line>
           <path d="M100 98 Q120 118 144 96 Q122 108 100 98 Z" fill="#F5F5F0"></path>
           <rect x="20" y="80" width="14" height="32" rx="5" fill="#26282D"></rect>
-          <circle cx="27" cy="88" r="3" fill="#FF7A1F"></circle>
-          <rect x="196" y="54" width="28" height="36" rx="5" fill="#FF7A1F" transform="rotate(12 210 72)"></rect>
+          <circle cx="27" cy="88" r="3" fill="#FF6A3D"></circle>
+          <rect x="196" y="54" width="28" height="36" rx="5" fill="#FF6A3D" transform="rotate(12 210 72)"></rect>
           <rect x="198" y="64" width="24" height="7" fill="#0E0F11" transform="rotate(12 210 72)"></rect>
-          <g class="canap-crumbs"><circle cx="204" cy="96" r="2.5" fill="#FF7A1F"></circle><circle cx="212" cy="98" r="2" fill="#FF7A1F"></circle><circle cx="220" cy="95" r="2.5" fill="#FF7A1F"></circle></g>
+          <g class="canap-crumbs"><circle cx="204" cy="96" r="2.5" fill="#FF6A3D"></circle><circle cx="212" cy="98" r="2" fill="#FF6A3D"></circle><circle cx="220" cy="95" r="2.5" fill="#FF6A3D"></circle></g>
         </g>
       </svg>
