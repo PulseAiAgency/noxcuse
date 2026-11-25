@@ -111,7 +111,7 @@ Je ne peux ni filmer ni fabriquer de vraies personnes : tu tournes 4 plans avec 
 | 3 | Tes potes (chez eux ou ensemble) qui éclatent de rire en regardant leur téléphone. | Les messages « la carte est sortie 😭 », « t'étais où ??? », « le Canap' te remercie 🛋️ ». |
 | 4 | — | La carte SKIP plein écran (tampons + chips croquées). |
 | 5 | Le lendemain : toi qui pousses la porte de la salle, puis qui charges une barre, déterminé. | « LUNDI, 7 H. », la barre qui se charge, « +20 KG. ». |
-| 6 | — | La fin : « NO / XCUSE. », « Un pote paie, toute la team joue. », « Télécharge · App Store ». |
+| 6 | — | La fin : « NO / XCUSE. », « Ton abo inclut ta team. », « Lien dans la bio ↑ ». |
 
 Conseils de tournage : visages et réactions exagérés, pas de musique de fond pendant le tournage (les bruitages du kit suffisent), chacun d'accord pour être filmé et publié. Le prénom sur la notif et la carte est « Alex » : donne-moi un autre pseudo et je régénère le kit.
 
@@ -208,3 +208,7 @@ COMMENT ON VA À LA SALLE DE SPORT À 4 SANS JAMAIS SKIP → 1 Choisis ta salle 
 
 Légende : « 5 étapes et ta team ne skip plus jamais. Lien dans la bio 🔗 » Hashtags : #salledesport #motivation #gymtok #muscu
 Sources : `video-tuto/index.html`, sons : `audio/tuto-shots.json` puis `python3 scripts/mix_tuto.py audio` (depuis `scripts/`).
+
+## Vidéo 14 — version IA réaliste (`video-ia/`)
+
+Le kit « vraies personnes » avec des plans générés par IA (Kling ou Gemini / Veo) à la place des plans filmés : `video-ia/GUIDE-VIDEO-IA.md` (prompts des personnages et des 5 plans, montage CapCut, étiquette IA, descriptions TikTok / Insta) et `video-ia/noxcuse-kit-video-ia.zip` (guide + 6 clips + son). La fin du kit (`kit/6-fin.mp4`) dit maintenant « Ton abo inclut ta team. » et « Lien dans la bio ↑ », hors de la zone couverte par TikTok.
