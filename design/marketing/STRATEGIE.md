@@ -212,3 +212,4 @@ Sources : `video-tuto/index.html`, sons : `audio/tuto-shots.json` puis `python3 
 ## Vidéo 14 — version IA réaliste (`video-ia/`)
 
 Le kit « vraies personnes » avec des plans générés par IA (Kling ou Gemini / Veo) à la place des plans filmés : `video-ia/GUIDE-VIDEO-IA.md` (prompts des personnages et des 5 plans, montage CapCut, étiquette IA, descriptions TikTok / Insta) et `video-ia/noxcuse-kit-video-ia.zip` (guide + 6 clips + son). La fin du kit (`kit/6-fin.mp4`) dit maintenant « Ton abo inclut ta team. » et « Lien dans la bio ↑ », hors de la zone couverte par TikTok.
+Montage fait (`video-ia/noxcuse-skip-ia.mp4`, 22,5 s) avec 4 plans Kling : le plan « canapé + notif » (ralenti ×1,2, accroche puis notif SKIP), les potes (messages), la carte SKIP, la porte de la salle (« LUNDI, 7 H. »), la barre (+20 KG.), la fin « Lien dans la bio ».
