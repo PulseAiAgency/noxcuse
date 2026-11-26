@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · carrousel « Les 7 potes de la salle »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  @font-face { font-family: Med; src: url(Archivo-Medium.ttf); }
+  html, body { margin: 0; background: #000; }
+  /* Meme-poster look (paper + black type, a single orange accent), not an ad.
+     TikTok 1080x1920: text kept clear of the bottom 380 px and right 150 px.
+     Instagram 1080x1350: everything inside the centred 1080x1080 grid crop when it matters. */
+  #s { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #ECECE8; color: #0E0E0F; font-family: Med, sans-serif; }
+  #s.insta { height: 1350px; }
+  #s.dark { background: #111214; color: #F5F5F0; }
+  .abs { position: absolute; }
+  .o { color: #FF6A3D; }
+  .num { font-family: Wide; font-size: 230px; line-height: 1; letter-spacing: -10px; color: #FF6A3D; }
+  .title { font-family: Black; font-size: 104px; line-height: .95; letter-spacing: -3px; }
+  .emoji { font-size: 200px; line-height: 1; }
+  .txt { font-family: Semi; font-size: 50px; line-height: 1.25; }
+  .tag { display: inline-block; background: #0E0E0F; color: #F5F5F0; font-family: Wide; font-size: 30px; letter-spacing: 2px; border-radius: 14px; padding: 12px 20px; }
+  .count { font-family: Wide; font-size: 30px; letter-spacing: 3px; color: #7C7E84; }
+</style>
+</head>
+<body>
+<div id="s"></div>
+<script>
+  const P = new URLSearchParams(location.hash.slice(1)); // the dev server drops query strings
+  const i = Number(P.get('slide') || 0);
+  const insta = P.get('fmt') === 'insta';
+  const s = document.getElementById('s');
+  if (insta) s.classList.add('insta');
+
+  // Gender-neutral lines, mocking habits and excuses, never bodies.
+  const POTES = [
+    ['🌅', 'Le pote du<br>6&nbsp;h du mat\'', 'Envoie une photo de la salle vide à 6&nbsp;h&nbsp;02.<br>Personne n\'a rien demandé.'],
+    ['🙃', 'Le pote<br>«&nbsp;demain promis&nbsp;»', 'Commence lundi.<br>Depuis mars 2023.'],
+    ['🛋️', 'Le pote aux<br>mille excuses', 'Il pleut. Mal au dos. C\'est la Toussaint.<br>Le chat a l\'air triste.'],
+    ['🤳', 'Le pote<br>de la photo', '25 min de selfie miroir.<br>4 min de séries.'],
+    ['🦵', 'Le pote qui<br>saute les jambes', 'Haut du corps : 5 fois par semaine.<br>Jambes : «&nbsp;la semaine pro&nbsp;».'],
+    ['🎓', 'Le pote qui<br>corrige ta technique', 'T\'as rien demandé.<br>Une vidéo de 30 s a suffi.'],
+    ['🎆', 'Le pote<br>de janvier', 'Inscription le 2 janvier.<br>Dernière apparition : le 18.'],
+  ];
+  window.SLIDES = POTES.length + 2;
+
+  // One centred column inside the safe area (TikTok: below the top bar, above the caption).
+  const box = insta ? 'left:80px;right:80px;top:90px;bottom:90px' : 'left:80px;right:150px;top:300px;bottom:400px';
+  const col = (inner) => `<div class="abs" style="${box};display:flex;flex-direction:column;justify-content:center;gap:34px">${inner}</div>`;
+  let html = '';
+  if (i === 0) {
+    s.classList.add('dark');
+    html = col(`
+      <div class="count">À GARDER POUR TA TEAM ↗</div>
+      <div class="title" style="font-size:${insta ? 120 : 136}px">Les <span class="o">7</span> potes qu'on a TOUS à la salle</div>
+      <div class="txt" style="color:#A3A4A9">(le 3, c'est toi. Avoue.)</div>
+      <div style="font-size:${insta ? 140 : 180}px;line-height:1;margin-top:10px">🏋️ 🛋️ 🙃</div>
+      <div class="count" style="margin-top:20px">FAIS DÉFILER →</div>`);
+  } else if (i <= POTES.length) {
+    const [e, t, x] = POTES[i - 1];
+    html = col(`
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div><div class="count">${i} / 7</div><div class="num" style="font-size:${insta ? 220 : 260}px">${i}.</div></div>
+        <div class="emoji" style="font-size:${insta ? 200 : 240}px">${e}</div>
+      </div>
+      <div class="title" style="font-size:${insta ? 108 : 118}px">${t}</div>
+      <div class="txt" style="font-size:${insta ? 50 : 56}px">${x}</div>`);
+  } else {
+    s.classList.add('dark');
+    html = col(`
+      <div class="title" style="font-size:${insta ? 130 : 150}px">Et toi, t'es <span class="o">lequel</span>&nbsp;?</div>
+      <div class="txt" style="color:#A3A4A9">Tague ta team en commentaire 👇</div>
+      <img src="canap-smug.svg" style="width:${insta ? 320 : 400}px;margin:10px 0">
+      <div class="txt" style="font-size:38px;color:#A3A4A9">Pour que ta team arrête les excuses :<br><span style="color:#F5F5F0;font-family:Black">NOXCUSE<span class="o">.</span></span> (lien en bio)</div>`);
+  }
+  s.innerHTML = html;
+</script>
+</body>
+</html>
