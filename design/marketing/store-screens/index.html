@@ -17,13 +17,23 @@
   #phone { position: absolute; left: 175px; top: 760px; width: 940px; height: 2037px; border-radius: 110px; border: 14px solid #2A2B30; overflow: hidden; background: #000; box-shadow: 0 40px 120px rgba(0,0,0,.55); }
   #shot.paper #phone { border-color: #0E0E0F; }
   #phone img { width: 100%; display: block; }
+  #sub { position: absolute; left: 100px; right: 100px; top: 0; font-family: Semi; font-size: 50px; line-height: 1.25; color: #C9CACE; }
+  /* Floating notification over the phone: shows the moment, not just the screen. */
+  #notif { position: absolute; left: 70px; right: 70px; height: 210px; border-radius: 52px; background: rgba(46,47,53,.97); display: none; align-items: center; gap: 32px; padding: 0 40px; box-sizing: border-box; box-shadow: 0 30px 90px rgba(0,0,0,.6); transform: rotate(-2deg); z-index: 5; }
+  #notif img { width: 120px; height: 120px; border-radius: 28px; }
+  #notif .t { font-family: Semi; font-size: 36px; color: #A3A4A9; }
+  #notif .b { font-family: Semi; font-size: 48px; color: #F5F5F0; margin-top: 6px; }
   #island { position: absolute; left: 50%; top: 26px; width: 250px; height: 72px; margin-left: -125px; border-radius: 40px; background: #000; }
 </style>
 </head>
 <body>
-<div id="shot"><div id="glow"></div><div id="kicker"></div><div id="title"></div><div id="phone"><img id="img"><div id="island"></div></div></div>
+<div id="shot"><div id="glow"></div><div id="kicker"></div><div id="title"></div><div id="sub"></div><div id="notif"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b" id="nb"></div></div></div><div id="phone"><img id="img"><div id="island"></div></div></div>
 <script>
+  // [kicker, title, raw capture, sub line, floating notification]
   const SHOTS = {
+    skipfirst: ['DIMANCHE, 20 H', 'Tu skip la salle ? <span class="o">Toute ta team le sait.</span>', 'dev_poster.png', 'Objectif raté = ta carte SKIP envoyée à tes potes.', 'SKIP. Lou a choisi le canap’.'],
+    teamfirst: ['VA À LA SALLE EN TEAM', 'Chaque séance <span class="o">charge la barre.</span>', 'dev_store_screen_team.png', 'Toi et tes potes, une barre commune. Personne ne lâche.', 'Sam vient de charger 20 kg 💪'],
+    sessionfirst: ['ZÉRO BOUTON', 'T’es à la salle ? <span class="o">L’app le voit.</span>', 'dev_store_screen_session.png', '40 min sur place = séance validée. Ta position reste privée.', 'Séance validée · +20 kg pour la team'],
     team: ['TA TEAM', 'Charge la barre <span class="o">avec tes potes.</span>', 'dev_store_screen_team.png'],
     session: ['POINTAGE AUTO', 'Va à la salle. <span class="o">L’app valide.</span>', 'dev_store_screen_session.png'],
     skip: ['DIMANCHE, 20 H', 'Tu skip ? <span class="o">Ta team reçoit ta carte.</span>', 'dev_poster.png'],
@@ -32,10 +42,21 @@
     shop: ['LA BOUTIQUE', 'Des cartes SKIP <span class="o">qui piquent.</span>', 'dev_shop.png'],
     brand: ['ZÉRO EXCUSE', 'Tes potes comptent <span class="o">sur toi.</span>', 'dev_welcome.png'],
   };
-  const [k, t, img] = SHOTS[location.hash.slice(1)] || SHOTS.team;
-  document.getElementById('kicker').textContent = k;
-  document.getElementById('title').innerHTML = t;
-  document.getElementById('img').src = 'raw/' + img;
+  const [k, t, img, sub, notif] = SHOTS[location.hash.slice(1)] || SHOTS.team;
+  const $ = (id) => document.getElementById(id);
+  $('kicker').textContent = k;
+  $('title').innerHTML = t;
+  $('img').src = 'raw/' + img;
+  if (sub) document.fonts.ready.then(() => {
+    // Bigger headline, a one-line explanation, then the phone pushed down to make room.
+    $('title').style.fontSize = '110px';
+    const tb = $('title').getBoundingClientRect();
+    $('sub').textContent = sub; $('sub').style.top = `${tb.bottom + 40}px`;
+    const sb = $('sub').getBoundingClientRect();
+    $('phone').style.top = `${sb.bottom + 170}px`;
+    $('notif').style.display = 'flex'; $('nb').textContent = notif;
+    $('notif').style.top = `${sb.bottom + 60}px`;
+  });
 </script>
 </body>
 </html>
