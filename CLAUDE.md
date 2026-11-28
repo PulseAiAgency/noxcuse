@@ -540,6 +540,22 @@ Commence maintenant par la phase 1. Avant d'écrire du code, résume-moi en 10 l
 - ✅ **Acceptée par Apple le 19/11/2026 et publiée** (publication automatique restée cochée) : https://apps.apple.com/app/id6833982038 (en ligne le 20/11 aux États-Unis ; ✅ **disponible en France le 24/11/2026**, après validation du statut de commerçant DSA (justificatif d'immatriculation envoyé à Apple) ; lien TestFlight public `https://testflight.apple.com/join/g2VDHu8S` pour les versions à venir). Version 1.0.1 préparée dans le code : langue de l'app déclarée en français (la fiche affichait « EN ») ; cartes SKIP qui ne grossissent plus avec la taille de texte de l'iPhone (le bas de l'affiche, avec le code d'invitation, était coupé) et lettres « SK / IP » un peu réduites pour garder de la marge ; build à faire.
 - À faire maintenant : répondre aux 2 nouvelles questions de classification par âge (partage de position : non, rencontres : non ; avant le 15/01/2027), puis activer la promotion des achats intégrés (images `design/qa/promo-images/`), image d'en-tête et aperçus vidéo facultatifs.
 
+### Plan de la semaine, fil du Canap' et réactions (23-28/11/2026, déployé ; arrive avec la 1.0.1)
+- **Plan de la semaine** (`/plan`, carte sur Ma team) : le joueur annonce ses jours (vus par la team : « Prévu aujourd'hui »), rappels locaux à l'heure choisie (7, 12, 18 ou 20 h), dernier rappel le soir si la séance n'est pas faite, rappel du lundi 9 h pour refaire son plan. Migration `…002200_week_plan_and_feed.sql` (`week_plans`, `set_week_plan`, `team_week_plans`).
+- **Fil du Canap'** dans le chat : chaque séance validée ajoute une ligne du Canap' dans les teams du joueur (5 variantes, ou « a tenu son objectif (n/g) 🏆 »), sans push (le « disque chargé » en envoie déjà un), non signalable. Migration `…002201_team_feed.sql`.
+- **Réactions** 🔥 💪 😂 👏 sur les messages et les lignes du Canap' (appui long → Réagir) : activées / désactivées sans suppression (`active`), push « X a réagi 🔥 à ta séance / ton message » seulement à la première réaction. Migration `…002202_message_reactions.sql`, appliquée en 5 morceaux (`message_reactions_1_table` … `_5_realtime`), `notify-chat` v2 déployée.
+- Tests SQL `98b_week_plan_feed.test.sql` (24), tests du domaine (plan, chat), tests Deno de `notify-chat`.
+
+### Version 1.0.1 (à construire de ton côté)
+- Contient : langue de l'app en français (la fiche affichait « EN »), cartes SKIP qui ne grossissent plus avec la taille de texte, chrono qui s'arrête quand le serveur refuse la séance, plan de la semaine, fil du Canap', réactions.
+- Commandes (dans `C:\Users\marbo\AppNoskip\noskip`) : `git pull` puis `eas build --platform ios --profile production --auto-submit`, puis nouvelle version 1.0.1 dans App Store Connect avec les captures v2 (`design/marketing/store-screens/v2/`).
+
+### Marketing (24-28/11/2026)
+- Chiffres du 25/11 : 48 impressions, 14 vues de la page produit, 1 téléchargement, 0 compte créé (toujours 1 seul compte sur le serveur). Les vidéos animées (≈ 0,5 % de j'aime) font « pub » ; virage vers des carrousels et mèmes sans visage (`design/marketing/carrousel-potes/`).
+- Captures App Store v2 : les 3 premières expliquent le concept (« Tu skip la salle ? Toute ta team le sait. », « Chaque séance charge la barre. », « T'es à la salle ? L'app le voit. ») avec une notif par-dessus.
+- Vidéo IA (`design/marketing/video-ia/`) : plans Kling en HDR (HLG) → convertis en SDR BT.709 par `scripts/edit_ia.sh`, sinon l'iPhone affiche l'orange en rouge. Textes placés sous la barre de recherche TikTok (zone du haut à éviter, comme le bas et la droite).
+- Toutes les vidéos et légendes : `design/marketing/STRATEGIE.md`.
+
 ### Reste à faire de ton côté
 1. **Expo / EAS** : ✅ projet `@noskip-app/noskip` créé (id dans `app.config.ts`) ; recopier les variables de `.env` dans les environnements EAS ; premier `eas build --profile development`.
 2. **Apple** : ✅ compte Developer actif, Team ID `6PFWK3G845`, identifiant d'app `com.noskipapp.app`, clé APNs créée par EAS (13/11/2026), premier build envoyé sur TestFlight.
