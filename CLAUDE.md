@@ -546,8 +546,15 @@ Commence maintenant par la phase 1. Avant d'écrire du code, résume-moi en 10 l
 - **Réactions** 🔥 💪 😂 👏 sur les messages et les lignes du Canap' (appui long → Réagir) : activées / désactivées sans suppression (`active`), push « X a réagi 🔥 à ta séance / ton message » seulement à la première réaction. Migration `…002202_message_reactions.sql`, appliquée en 5 morceaux (`message_reactions_1_table` … `_5_realtime`), `notify-chat` v2 déployée.
 - Tests SQL `98b_week_plan_feed.test.sql` (24), tests du domaine (plan, chat), tests Deno de `notify-chat`.
 
+### Mode solo « Toi contre le Canap' » (28/11/2026, app uniquement, arrive avec la 1.0.1)
+- Onboarding, étape team : 3e choix « Seul pour l'instant » → crée une team d'une personne nommée « Moi vs le Canap’ » (`SOLO_TEAM_NAME`) et passe directement à la suite (pas d'écran d'invitation).
+- Ma team quand on est seul : panneau « Toi vs le Canap' » (score = semaines tenues contre semaines SKIP, lu dans `team_history` ; Canap' qui boude si tu mènes, qui ricane s'il mène), ligne du round de la semaine (« Encore 2 séances pour battre le Canap' »…), carte « Envie de renfort ? Invite un pote », « Ta barre », « Round gagné », pas de bouton chat. Paiement : « Le Canap' t'attend au tournant. »
+- Rien à changer côté serveur : une team d'une personne clôt déjà sa semaine normalement (carte SKIP, PR = objectif tenu). Domaine `src/domain/solo.ts` + tests.
+- Fiche App Store : nom « NOXCUSE : Défi musculation », sous-titre « Motivation salle de sport » (pour ne pas exclure les joueurs seuls).
+- Pas encore vu sur téléphone : à vérifier dans la 1.0.1. Étape suivante possible : « Trouve ton binôme » (association avec un inconnu, demande modération et blocage).
+
 ### Version 1.0.1 (à construire de ton côté)
-- Contient : langue de l'app en français (la fiche affichait « EN »), cartes SKIP qui ne grossissent plus avec la taille de texte, chrono qui s'arrête quand le serveur refuse la séance, plan de la semaine, fil du Canap', réactions.
+- Contient : langue de l'app en français (la fiche affichait « EN »), cartes SKIP qui ne grossissent plus avec la taille de texte, chrono qui s'arrête quand le serveur refuse la séance, plan de la semaine, fil du Canap', réactions, mode solo.
 - Commandes (dans `C:\Users\marbo\AppNoskip\noskip`) : `git pull` puis `eas build --platform ios --profile production --auto-submit`, puis nouvelle version 1.0.1 dans App Store Connect avec les captures v2 (`design/marketing/store-screens/v2/`).
 
 ### Marketing (24-28/11/2026)

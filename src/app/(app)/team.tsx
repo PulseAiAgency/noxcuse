@@ -43,7 +43,8 @@ import { useMyShop, useTeamSkins } from '@/features/shop/api';
 import { CoachMarks, CoachMarksProvider, useCoachTarget } from '@/features/tutorial/CoachMarks';
 import { teamTutorial } from '@/domain/tutorial';
 import { useLocalOnboarding, useUpdateLocalOnboarding } from '@/features/onboarding/localStore';
-import { useLatestClosedWeek } from '@/features/weeks/api';
+import { useLatestClosedWeek, useTeamHistory } from '@/features/weeks/api';
+import { soloHeadline, soloMood, soloScore, soloWeekLine } from '@/domain/solo';
 import { useMyPlan, useTeamPlans } from '@/features/plan/api';
 import { isPlannedToday, planSummary } from '@/domain/plan';
 import { weekRangeLabel } from '@/domain/weekClose';
@@ -128,6 +129,11 @@ function TeamScreen() {
   const center = primary ?? (gyms[0] ? { lat: gyms[0].lat, lng: gyms[0].lng } : null);
   const shakyPlayers = state?.players.filter((p) => p.risk === 'shaky') ?? [];
   const isDuo = (state?.players.length ?? 0) === 2;
+  // Alone in the team: the opponent is the Canap' (one point per week held, one per SKIP).
+  const solo = state?.players.length === 1;
+  const history = useTeamHistory(solo ? team?.id : undefined);
+  const score = soloScore(history.data ?? []);
+  const me = solo ? state?.players[0] : undefined;
   // The Sunday recap stays on top of "Ma team" until Tuesday night.
   const recentRecap =
     lastWeek.data && now - Date.parse(lastWeek.data.closedAt) < 50 * 3600_000
@@ -195,14 +201,16 @@ function TeamScreen() {
               </GlassPanel>
             </PressableScale>
             <View style={styles.headButtons}>
-              <RoundGlassButton
-                onPress={() =>
-                  team && router.push({ pathname: '/team-chat/[id]', params: { id: team.id } })
-                }
-                accessibilityLabel="Chat de la team"
-              >
-                <ChatIcon color={colors.offWhite} />
-              </RoundGlassButton>
+              {solo ? null : (
+                <RoundGlassButton
+                  onPress={() =>
+                    team && router.push({ pathname: '/team-chat/[id]', params: { id: team.id } })
+                  }
+                  accessibilityLabel="Chat de la team"
+                >
+                  <ChatIcon color={colors.offWhite} />
+                </RoundGlassButton>
+              )}
               <RoundGlassButton
                 onPress={() =>
                   team && router.push({ pathname: '/team-manage/[id]', params: { id: team.id } })
@@ -216,22 +224,46 @@ function TeamScreen() {
 
           <GiftBanner />
 
-          {state && state.players.length === 1 && team ? (
+          {solo && me ? (
+            <Animated.View
+              entering={enter(0)}
+              accessible
+              accessibilityLabel={`Toi contre le Canap' : ${score.me} à ${score.canap}. ${soloWeekLine(me.done, me.goal, me.risk, me.joker)}`}
+            >
+              <GlassPanel radius={radii.glass} style={styles.solo}>
+                <Canap mood={soloMood(score)} size={92} />
+                <View style={styles.flex}>
+                  <Text variant="label" color={colors.accent}>
+                    Toi vs le Canap&apos;
+                  </Text>
+                  <Text variant="number" style={styles.soloScore}>
+                    {`${score.me} – ${score.canap}`}
+                  </Text>
+                  <Text variant="bodyStrong">{soloHeadline(score)}</Text>
+                  <Text variant="caption" color={colors.muted}>
+                    {soloWeekLine(me.done, me.goal, me.risk, me.joker)}
+                  </Text>
+                </View>
+              </GlassPanel>
+            </Animated.View>
+          ) : null}
+
+          {solo && team ? (
             <PressableScale
               onPress={() =>
                 router.push({ pathname: '/team-manage/[id]', params: { id: team.id } })
               }
               accessibilityRole="button"
-              accessibilityLabel="Invite ton binôme. La barre se charge à plusieurs."
+              accessibilityLabel="Invite un pote. Ton abonnement l'inclut."
             >
               <GlassPanel radius={radii.glass} style={styles.recap}>
                 <View style={styles.flex}>
                   <Text variant="label" color={colors.accent}>
-                    Seul, on lâche
+                    Envie de renfort ?
                   </Text>
-                  <Text variant="bodyStrong">Invite ton binôme</Text>
+                  <Text variant="bodyStrong">Invite un pote</Text>
                   <Text variant="caption" color={colors.muted}>
-                    La barre se charge à plusieurs. Partage ton code.
+                    À deux, la barre se charge plus vite. Ton abonnement l&apos;inclut.
                   </Text>
                 </View>
                 <ArrowUpRight color={colors.accent} size={20} />
@@ -276,7 +308,7 @@ function TeamScreen() {
             <>
               <Animated.View entering={enter(0)} style={styles.counter}>
                 <Text variant="label" color={colors.muted}>
-                  Barre de la team · cette semaine
+                  {solo ? 'Ta barre · cette semaine' : 'Barre de la team · cette semaine'}
                 </Text>
                 <View style={styles.kgRow}>
                   <CountUp
@@ -306,10 +338,12 @@ function TeamScreen() {
                       <Canap mood="crushed" size={96} />
                       <View style={styles.flex}>
                         <Text variant="label" color={colors.accent}>
-                          PR de la team
+                          {solo ? 'Round gagné' : 'PR de la team'}
                         </Text>
                         <Text variant="headline">
-                          La team soulève la barre. Le Canap&apos; est écrasé.
+                          {solo
+                            ? 'Objectif tenu. Le Canap’ est écrasé.'
+                            : 'La team soulève la barre. Le Canap’ est écrasé.'}
                         </Text>
                       </View>
                     </View>
@@ -361,7 +395,9 @@ function TeamScreen() {
                       <Text variant="bodyStrong" numberOfLines={1}>
                         {myPlan.data.length
                           ? planSummary(myPlan.data)
-                          : 'Ta team saura quand t’attendre.'}
+                          : solo
+                            ? 'L’app te rappelle tes jours.'
+                            : 'Ta team saura quand t’attendre.'}
                       </Text>
                     </View>
                     <ArrowUpRight color={colors.accent} size={20} />
@@ -521,6 +557,8 @@ const styles = StyleSheet.create({
   prRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, alignSelf: 'stretch' },
   empty: { alignItems: 'center', gap: spacing.xs },
   duo: { flexDirection: 'row', alignItems: 'center', gap: spacing.lg, padding: spacing.lg },
+  solo: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.lg },
+  soloScore: { fontSize: 40, lineHeight: 44 },
   duoNumber: { fontSize: 44, lineHeight: 48 },
   players: { padding: spacing.lg, gap: spacing.sm },
   notice: { textAlign: 'center' },

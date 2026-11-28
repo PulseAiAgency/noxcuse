@@ -115,7 +115,9 @@ export default function PaywallScreen() {
           </Text>
           {goal ? (
             <Text variant="body" color="#C9CACE">
-              {`Ton plan : ${goal} séances par semaine${team ? `, avec « ${team.name} »` : ''}. Ta team compte sur toi.`}
+              {team && team.member_count <= 1
+                ? `Ton plan : ${goal} séances par semaine. Le Canap’ t’attend au tournant.`
+                : `Ton plan : ${goal} séances par semaine${team ? `, avec « ${team.name} »` : ''}. Ta team compte sur toi.`}
             </Text>
           ) : null}
         </Animated.View>

@@ -11,6 +11,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Text } from '@/components/ui/Text';
 import { TextField } from '@/components/ui/TextField';
 import { onboardingStepNumber } from '@/domain/onboarding';
+import { SOLO_TEAM_NAME } from '@/domain/solo';
 import { extractInviteCode, pseudoList, validateTeamName } from '@/domain/teams';
 import { useLocalOnboarding, useUpdateLocalOnboarding } from '@/features/onboarding/localStore';
 import { useCreateTeam, useJoinTeam, useMyTeams, useTeamPreview } from '@/features/teams/api';
@@ -18,7 +19,7 @@ import { toUserMessage } from '@/lib/errors';
 import { colors, spacing } from '@/theme/tokens';
 import { useGoNext } from '@/features/onboarding/useGoNext';
 
-type Mode = 'create' | 'join';
+type Mode = 'create' | 'join' | 'solo';
 
 export default function TeamSetupStep() {
   const goNext = useGoNext();
@@ -57,7 +58,8 @@ export default function TeamSetupStep() {
   const error = create.error ?? join.error ?? (preview.error && code ? preview.error : null);
 
   // After creating: share the invite right away (it is part of onboarding), then continue.
-  if (created) {
+  // Playing solo skips it: the invite stays one tap away on Ma team.
+  if (created && effectiveMode !== 'solo') {
     return (
       <OnboardingScreen
         step={onboardingStepNumber('/team-setup')}
@@ -90,10 +92,17 @@ export default function TeamSetupStep() {
     <OnboardingScreen
       step={onboardingStepNumber('/team-setup')}
       title="Avec qui tu soulèves ?"
-      why="2 à 4 potes par team, la barre se charge avec les séances de tout le monde. Si l'un de vous paie l'abonnement, toute la team joue gratuitement."
-      subtitle="Crée ta team ou rejoins celle de tes potes. À 2 ou 3, c'est là que ça marche le mieux."
+      why="2 à 4 potes par team, la barre se charge avec les séances de tout le monde. Si l'un de vous paie l'abonnement, toute la team joue gratuitement. Seul, ton adversaire, c'est le Canap'."
+      subtitle="Crée ta team, rejoins celle de tes potes, ou commence seul contre le Canap'."
       footer={
-        effectiveMode === 'create' ? (
+        effectiveMode === 'solo' ? (
+          <Button
+            label="Défier le Canap'"
+            disabled={create.isPending}
+            accessibilityHint="Tu pourras inviter un pote quand tu veux"
+            onPress={() => create.mutate(SOLO_TEAM_NAME, { onSuccess: () => goNext() })}
+          />
+        ) : effectiveMode === 'create' ? (
           <Button
             label="Créer la team"
             disabled={Boolean(nameError) || create.isPending}
@@ -129,9 +138,20 @@ export default function TeamSetupStep() {
           title="Rejoindre une team"
           subtitle="Avec le code ou le lien reçu."
         />
+        <OptionCard
+          selected={effectiveMode === 'solo'}
+          onPress={() => setMode('solo')}
+          title="Seul pour l'instant"
+          subtitle="Toi contre le Canap'. Chaque semaine tenue, un point pour toi."
+        />
       </View>
 
-      {effectiveMode === 'create' ? (
+      {effectiveMode === 'solo' ? (
+        <Text variant="caption" color={colors.muted}>
+          Même seul, tu as un adversaire : chaque objectif raté donne un point au Canap&apos; et sa
+          carte SKIP. Tu pourras inviter un pote à tout moment.
+        </Text>
+      ) : effectiveMode === 'create' ? (
         <TextField
           label="Nom de la team"
           value={name}
