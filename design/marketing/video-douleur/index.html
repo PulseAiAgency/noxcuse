@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NOXCUSE · vidéo « 21 h, t'avais prévu la salle »</title>
+<style>
+  @font-face { font-family: Black; src: url(Archivo-Black.ttf); }
+  @font-face { font-family: Wide; src: url(Archivo-ExpandedExtraBold.ttf); }
+  @font-face { font-family: Semi; src: url(Archivo-SemiBold.ttf); }
+  /* Transparent stage: overlay segments are laid over the AI shots, solid ones are full frames. */
+  html, body { margin: 0; background: transparent; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: transparent; color: #F5F5F0; font-family: Semi, sans-serif; }
+  #stage.dark { background: #111214; }
+  #stage.orange { background: #FF6A3D; color: #0E0E0F; }
+  .abs { position: absolute; }
+  .seg { display: none; position: absolute; inset: 0; }
+  .o { color: #FF6A3D; }
+  /* Safe area: below TikTok's top bar (380 px), above the caption (bottom 350 px), left of its buttons. */
+  .box { background: #111214; border-radius: 26px; padding: 20px 32px; font-family: Wide; font-size: 56px; line-height: 1.1; text-transform: uppercase; display: inline-block; white-space: nowrap; box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+  .big { left: 80px; right: 150px; font-family: Black; font-size: 104px; line-height: .98; letter-spacing: -2px; }
+  .notif { left: 50px; right: 50px; top: 400px; height: 176px; border-radius: 42px; background: rgba(40,41,46,.96); display: flex; align-items: center; gap: 26px; padding: 0 32px; box-sizing: border-box; box-shadow: 0 24px 70px rgba(0,0,0,.45); }
+  .notif img { width: 100px; height: 100px; border-radius: 24px; }
+  .notif .t { font-family: Semi; font-size: 30px; color: #A3A4A9; }
+  .notif .b { font-family: Semi; font-size: 40px; color: #F5F5F0; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="seg" id="soir">
+    <div class="abs" id="s1" style="left:60px;top:420px"><span class="box">Il est 21 h.</span></div>
+    <div class="abs" id="s2" style="left:60px;top:550px"><span class="box">T’avais prévu <span class="o">la salle</span>.</span></div>
+  </div>
+  <div class="seg" id="douleur">
+    <div class="abs big" id="d1" style="top:700px">Ta salle, tu la paies tous les mois.</div>
+    <div class="abs big" id="d2" style="top:700px">T’y as mis les pieds <span class="o">2&nbsp;fois</span>.</div>
+    <div class="abs big" id="d3" style="top:640px">Ton sac est dans le coffre depuis <span class="o">3&nbsp;semaines</span>.</div>
+    <div class="abs big" id="d4" style="top:620px;font-size:70px">« Lundi je reprends. »</div>
+    <div class="abs big" id="d5" style="top:770px;font-size:70px;color:#7C7E84">« Lundi je reprends. »</div>
+    <div class="abs big" id="d6" style="top:920px;font-size:70px;color:#4A4B50">« Lundi je reprends. »</div>
+  </div>
+  <div class="seg" id="bascule">
+    <div class="abs big" id="b1" style="top:560px">Le problème, c’est pas toi.</div>
+    <div class="abs big" id="b2" style="top:900px;font-family:Semi;font-size:66px;line-height:1.15">Seul, c’est juste trop facile de lâcher.</div>
+  </div>
+  <div class="seg" id="porte">
+    <div class="abs" id="p1" style="left:60px;top:420px"><span class="box">Avec ta team,</span></div>
+    <div class="abs" id="p2" style="left:60px;top:550px"><span class="box">t’as plus <span class="o">le choix</span>.</span></div>
+  </div>
+  <div class="seg" id="barre">
+    <div class="abs notif" id="n1"><img src="icon.png"><div><div class="t">NOXCUSE · maintenant</div><div class="b">Séance validée · +20 kg pour la team</div></div></div>
+    <div class="abs" id="r1" style="left:0;right:150px;top:1060px;text-align:center"><span class="box" style="font-size:64px">3 semaines <span class="o">d’affilée</span></span></div>
+  </div>
+  <div class="seg" id="fin">
+    <div class="abs big" id="f1" style="top:600px">Seul, tu lâches.</div>
+    <div class="abs big" id="f2" style="top:740px" ><span class="o">Avec ta team,</span> tu tiens.</div>
+    <div class="abs" id="f3" style="left:80px;top:1180px;font-family:Black;font-size:64px;letter-spacing:-2px">NOXCUSE<span class="o">.</span></div>
+  </div>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const seg = (t, a, b) => clamp((t - a) / (b - a));
+  const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+  const back = (x) => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const stamp = (t, a) => { const p = seg(t, a, a + 0.22); return { o: clamp(p * 3), s: 1 + (1 - easeOut(p)) * 0.6 }; };
+  const shake = (t, a, d = 0.35, amp = 14) => { const p = seg(t, a, a + d); return p > 0 && p < 1 ? Math.sin(p * 40) * amp * (1 - p) : 0; };
+  const slide = (id, t, a) => { const p = seg(t, a, a + 0.3); $(id).style.opacity = clamp(p * 3); $(id).style.transform = `translateX(${(1 - back(p)) * -120}px)`; };
+  // A line shown from a to b, stamped in, then gone (the next one takes its place).
+  const line = (id, t, a, b) => {
+    const s = stamp(t, a), on = t >= a && t < b;
+    $(id).style.opacity = on ? s.o : 0;
+    $(id).style.transform = `scale(${s.s}) translateX(${shake(t, a, 0.3, 10)}px)`;
+    $(id).style.transformOrigin = 'left center';
+  };
+  const hold = (id, t, a) => { const s = stamp(t, a); $(id).style.opacity = s.o; $(id).style.transform = `scale(${s.s})`; $(id).style.transformOrigin = 'left center'; };
+
+  // Durations must match the cuts in scripts/edit_douleur.sh and scripts/mix_douleur.py.
+  const SEGS = {
+    soir: { d: 3.2, r: (t) => { slide('s1', t, 0.15); slide('s2', t, 1.0); } },
+    douleur: { d: 6.0, bg: 'dark', r: (t) => {
+      line('d1', t, 0.05, 1.45); line('d2', t, 1.45, 2.85); line('d3', t, 2.85, 4.25);
+      hold('d4', t, 4.3); hold('d5', t, 4.85); hold('d6', t, 5.4);
+    } },
+    bascule: { d: 3.0, bg: 'orange', r: (t) => { hold('b1', t, 0.1); hold('b2', t, 1.2); } },
+    porte: { d: 2.4, r: (t) => { slide('p1', t, 0.1); slide('p2', t, 0.7); } },
+    barre: { d: 2.8, r: (t) => {
+      const p = seg(t, 0.25, 0.6);
+      $('n1').style.opacity = clamp(p * 3);
+      $('n1').style.transform = `translateY(${(1 - back(p)) * -340}px)`;
+      hold('r1', t, 1.2); $('r1').style.transformOrigin = 'center';
+    } },
+    fin: { d: 3.4, bg: 'dark', r: (t) => { hold('f1', t, 0.1); hold('f2', t, 0.7); const p = seg(t, 1.4, 1.75); $('f3').style.opacity = p; $('f3').style.transform = `translateY(${(1 - easeOut(p)) * 40}px)`; } },
+  };
+  const name = location.hash.slice(1) || 'soir';
+  const s = SEGS[name];
+  $(name).style.display = 'block';
+  $('stage').className = s.bg || '';
+  window.DURATION = s.d;
+  window.render = (t) => s.r(t);
+  window.render(0);
+</script>
+</body>
+</html>

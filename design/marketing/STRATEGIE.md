@@ -213,3 +213,16 @@ Sources : `video-tuto/index.html`, sons : `audio/tuto-shots.json` puis `python3 
 
 Le kit « vraies personnes » avec des plans générés par IA (Kling ou Gemini / Veo) à la place des plans filmés : `video-ia/GUIDE-VIDEO-IA.md` (prompts des personnages et des 5 plans, montage CapCut, étiquette IA, descriptions TikTok / Insta) et `video-ia/noxcuse-kit-video-ia.zip` (guide + 6 clips + son). La fin du kit (`kit/6-fin.mp4`) dit maintenant « Ton abo inclut ta team. » et « Lien dans la bio ↑ », hors de la zone couverte par TikTok.
 Montage (`video-ia/noxcuse-skip-ia.mp4`, 20,5 s) avec 4 plans Kling, habillage transparent `video-ia/edit/index.html` (orange de la charte #FF6A3D) assemblé par `scripts/edit_ia.sh` (zoom lent sur chaque plan, zoom sec à la notif, sons `scripts/mix_ia.py`). Les plans Kling sont en HDR (HLG, BT.2020) : sans conversion, l'iPhone lit tout le montage en HDR et l'orange vire au rouge ; le script les relit en SDR et sort une vidéo BT.709 étiquetée. Plan canapé coupé avant le sourire.
+
+## Vidéo 15 — « 21 h, t'avais prévu la salle » (`noxcuse-21h.mp4`, 20,8 s, axe douleur → soulagement)
+
+Nouvel axe (28/11/2026) : la culpabilité de sauter la salle, puis la sortie avec l'app. On appuie sur l'excuse, jamais sur le corps.
+1. Le canapé (plan Kling) : « IL EST 21 H. / T'AVAIS PRÉVU LA SALLE. »
+2. Écrans noirs qui piquent : « Ta salle, tu la paies tous les mois. » → « T'y as mis les pieds 2 fois. » → « Ton sac est dans le coffre depuis 3 semaines. » → « Lundi je reprends. » ×3 qui s'effacent.
+3. Bascule (fond orange) : « Le problème, c'est pas toi. Seul, c'est juste trop facile de lâcher. »
+4. La porte de la salle (plan Kling) : « AVEC TA TEAM, T'AS PLUS LE CHOIX. »
+5. La barre (plan Kling) : notif « Séance validée · +20 kg pour la team », « 3 SEMAINES D'AFFILÉE ».
+6. Fin : « Seul, tu lâches. Avec ta team, tu tiens. » NOXCUSE. (pas de « lien dans la bio » à l'écran).
+
+Légende TikTok : « T'en es à combien de "lundi je reprends" ? 👇 (NOXCUSE, lien en bio) » Hashtags : #salledesport #motivation #gymtok #muscu
+Sources : `video-douleur/index.html`, `scripts/edit_douleur.sh`, sons `python3 scripts/mix_douleur.py audio` (depuis `scripts/`). Étiquette « Contenu généré par l'IA » à activer (plans Kling).
