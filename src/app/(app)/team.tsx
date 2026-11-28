@@ -201,16 +201,14 @@ function TeamScreen() {
               </GlassPanel>
             </PressableScale>
             <View style={styles.headButtons}>
-              {solo ? null : (
-                <RoundGlassButton
-                  onPress={() =>
-                    team && router.push({ pathname: '/team-chat/[id]', params: { id: team.id } })
-                  }
-                  accessibilityLabel="Chat de la team"
-                >
-                  <ChatIcon color={colors.offWhite} />
-                </RoundGlassButton>
-              )}
+              <RoundGlassButton
+                onPress={() =>
+                  team && router.push({ pathname: '/team-chat/[id]', params: { id: team.id } })
+                }
+                accessibilityLabel="Chat de la team"
+              >
+                <ChatIcon color={colors.offWhite} />
+              </RoundGlassButton>
               <RoundGlassButton
                 onPress={() =>
                   team && router.push({ pathname: '/team-manage/[id]', params: { id: team.id } })
